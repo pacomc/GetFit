@@ -11,6 +11,8 @@
     <string name="menu_medidor_tiempo">Cronómetro</string>
     <string name="menu_ejercicios">Ejercicios</string>
     <string name="menu_calendario">Calendario</string>
+    <string name="menu_rutina">Rutina</string>
+    <string name="menu_recetas">Recetas</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 

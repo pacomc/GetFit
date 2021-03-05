@@ -20,5 +20,13 @@
             android:id="@+id/nav_calendario"
             android:icon="@drawable/calendar"
             android:title="@string/menu_calendario" />
+        <item
+            android:id="@+id/nav_rutina"
+            android:icon="@drawable/routine"
+            android:title="@string/menu_rutina" />
+        <item
+            android:id="@+id/nav_receta"
+            android:icon="@drawable/food"
+            android:title="@string/menu_recetas" />
     </group>
 </menu>
