@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="medidor_tiempo">Cronómetro</string>
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_medidor_tiempo">Cronómetro</string>
+    <string name="menu_ejercicios">Ejercicios</string>
 </resources>
