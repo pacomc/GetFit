@@ -43,12 +43,8 @@ public class MedidorTiempoFragment extends Fragment {
 
             }
 
-
-
             @Override
             public void onFinish() {
-
-
                 tiempoContador = 0;
                 Toast.makeText(getContext(), "Se ha producido un error, inicio la marcha de nuevo, si quiere continuar", Toast.LENGTH_LONG).show();
             }
