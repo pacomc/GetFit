@@ -3,23 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_inicio">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.project.getfit.ui.home.HomeFragment"
+        android:id="@+id/nav_inicio"
+        android:name="com.project.getfit.ui.inicio.InicioFragment"
         android:label="@string/menu_inicio"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_inicio" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.project.getfit.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_cronometro"
+        android:name="com.project.getfit.ui.medidor_tiempo.MedidorTiempoFragment"
         android:label="@string/menu_medidor_tiempo"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_medidor_tiempo" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.project.getfit.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_ejercicios"
+        android:name="com.project.getfit.ui.ejercicios.EjerciciosFragment"
+        android:label="@string/menu_ejercicios"
+        tools:layout="@layout/fragment_ejercicios" />
+
+    <fragment
+        android:id="@+id/nav_calendario"
+        android:name="com.project.getfit.ui.calendario.CalendarioFragment"
+        android:label="@string/menu_calendario"
+        tools:layout="@layout/fragment_calendario" />
+
+    <fragment
+        android:id="@+id/nav_rutina"
+        android:name="com.project.getfit.ui.rutina.RutinaFragment"
+        android:label="@string/menu_rutina"
+        tools:layout="@layout/fragment_rutina" />
+
+    <fragment
+        android:id="@+id/nav_recetas"
+        android:name="com.project.getfit.ui.recetas.RecetasFragment"
+        android:label="@string/menu_recetas"
+        tools:layout="@layout/fragment_recetas" />
 </navigation>

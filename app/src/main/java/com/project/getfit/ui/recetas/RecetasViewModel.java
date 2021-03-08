@@ -1,16 +1,16 @@
-package com.project.getfit.ui.home;
+package com.project.getfit.ui.recetas;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class RecetasViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public RecetasViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is recetas fragment");
     }
 
     public LiveData<String> getText() {
