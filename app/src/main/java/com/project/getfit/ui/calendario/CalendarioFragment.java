@@ -28,10 +28,7 @@ public class CalendarioFragment extends Fragment {
 
         final CalendarView calendarView = root.findViewById(R.id.calendarView);
 
-        List<EventDay> events = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.chronometer));
-        calendarView.setEvents(events);
+
 
         return root;
     }
