@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,22 +15,24 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.project.getfit.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class CalendarioFragment extends Fragment {
 
     private CalendarioViewModel calendarioViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        calendarioViewModel =
-                new ViewModelProvider(this).get(CalendarioViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_ejercicios, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        calendarioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        calendarioViewModel = new ViewModelProvider(this).get(CalendarioViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_calendario, container, false);
+
+        final CalendarView calendarView = root.findViewById(R.id.calendarView);
+
+        List<EventDay> events = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        events.add(new EventDay(calendar, R.drawable.chronometer));
+        calendarView.setEvents(events);
+
         return root;
     }
 }

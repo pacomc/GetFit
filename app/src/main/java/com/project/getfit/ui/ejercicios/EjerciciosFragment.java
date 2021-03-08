@@ -18,12 +18,11 @@ public class EjerciciosFragment extends Fragment {
 
     private EjerciciosViewModel ejerciciosViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ejerciciosViewModel =
-                new ViewModelProvider(this).get(EjerciciosViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ejerciciosViewModel = new ViewModelProvider(this).get(EjerciciosViewModel.class);
         View root = inflater.inflate(R.layout.fragment_ejercicios, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
+
         ejerciciosViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

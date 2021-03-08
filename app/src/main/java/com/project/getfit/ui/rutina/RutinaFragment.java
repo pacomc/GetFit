@@ -18,18 +18,19 @@ public class RutinaFragment extends Fragment {
 
     private RutinaViewModel rutinaViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        rutinaViewModel =
-                new ViewModelProvider(this).get(RutinaViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_ejercicios, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rutinaViewModel = new ViewModelProvider(this).get(RutinaViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_rutina, container, false);
+
         final TextView textView = root.findViewById(R.id.text_slideshow);
+
         rutinaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 }

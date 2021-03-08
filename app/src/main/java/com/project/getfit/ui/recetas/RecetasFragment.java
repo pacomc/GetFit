@@ -18,12 +18,11 @@ public class RecetasFragment extends Fragment {
 
     private RecetasViewModel recetasViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        recetasViewModel =
-                new ViewModelProvider(this).get(RecetasViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_ejercicios, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        recetasViewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_recetas, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
+
         recetasViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

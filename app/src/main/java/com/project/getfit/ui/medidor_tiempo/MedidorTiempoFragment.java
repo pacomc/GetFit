@@ -18,12 +18,11 @@ public class MedidorTiempoFragment extends Fragment {
 
     private MedidorTiempoViewModel medidorTiempoViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        medidorTiempoViewModel =
-                new ViewModelProvider(this).get(MedidorTiempoViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        medidorTiempoViewModel = new ViewModelProvider(this).get(MedidorTiempoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_medidor_tiempo, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
+
         medidorTiempoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
