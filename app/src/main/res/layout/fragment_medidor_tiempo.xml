@@ -105,13 +105,9 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:layout_weight="50">
-
                         <EditText
                             android:id="@+id/editTextTime3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:ems="10"
                             android:inputType="time" />
                     </LinearLayout>
                 </LinearLayout>
