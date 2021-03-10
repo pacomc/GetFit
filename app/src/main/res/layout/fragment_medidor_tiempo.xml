@@ -67,7 +67,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textoEjercicio"
+                            android:id="@+id/text_ejercicio"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -93,7 +93,7 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/button4"
+                                android:id="@+id/boton_suma1_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -103,7 +103,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/textView5"
+                                android:id="@+id/text_num1_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -114,7 +114,7 @@
                                 android:textSize="22dp" />
 
                             <Button
-                                android:id="@+id/button5"
+                                android:id="@+id/boton_resta1_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -131,7 +131,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textView8"
+                                android:id="@+id/text_dos_puntos_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
@@ -148,7 +148,7 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/button6"
+                                android:id="@+id/boton_suma2_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -158,7 +158,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/textView7"
+                                android:id="@+id/text_num2_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -169,7 +169,7 @@
                                 android:textSize="22dp" />
 
                             <Button
-                                android:id="@+id/button7"
+                                android:id="@+id/boton_resta2_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -194,7 +194,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textoDescanso"
+                            android:id="@+id/text_descanso"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -220,7 +220,7 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/button8"
+                                android:id="@+id/boton_suma1_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -230,7 +230,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/textView9"
+                                android:id="@+id/text_num1_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -241,7 +241,7 @@
                                 android:textSize="22dp" />
 
                             <Button
-                                android:id="@+id/button10"
+                                android:id="@+id/boton_resta1_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -258,7 +258,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textView6"
+                                android:id="@+id/text_dos_puntos_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
@@ -275,7 +275,7 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/button20"
+                                android:id="@+id/boton_suma2_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -285,7 +285,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/textView11"
+                                android:id="@+id/text_num2_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -296,7 +296,7 @@
                                 android:textSize="22dp" />
 
                             <Button
-                                android:id="@+id/button11"
+                                android:id="@+id/boton_resta2_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -322,7 +322,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textoSerie"
+                            android:id="@+id/text_serie"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -353,7 +353,7 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/button12"
+                                android:id="@+id/boton_suma_series"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -363,7 +363,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/textView13"
+                                android:id="@+id/text_num_series"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -374,7 +374,7 @@
                                 android:textSize="22dp" />
 
                             <Button
-                                android:id="@+id/button14"
+                                android:id="@+id/boton_resta_series"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -402,7 +402,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/boton_comenzar_crono"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="25dp"
