@@ -6,27 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/home"
+            android:icon="@raw/home"
             android:title="@string/menu_inicio" />
         <item
             android:id="@+id/nav_cronometro"
-            android:icon="@drawable/chronometer"
+            android:icon="@raw/chronometer"
             android:title="@string/menu_medidor_tiempo" />
         <item
             android:id="@+id/nav_ejercicios"
-            android:icon="@drawable/fitness"
+            android:icon="@raw/fitness"
             android:title="@string/menu_ejercicios" />
         <item
             android:id="@+id/nav_calendario"
-            android:icon="@drawable/calendar"
+            android:icon="@raw/calendar"
             android:title="@string/menu_calendario" />
         <item
             android:id="@+id/nav_rutina"
-            android:icon="@drawable/routine"
+            android:icon="@raw/routine"
             android:title="@string/menu_rutina" />
         <item
             android:id="@+id/nav_recetas"
-            android:icon="@drawable/food"
+            android:icon="@raw/food"
             android:title="@string/menu_recetas" />
     </group>
 </menu>
