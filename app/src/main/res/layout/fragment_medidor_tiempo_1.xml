@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.medidor_tiempo.MedidorTiempoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="70"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_medidor_tiempo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="00:00:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="80dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="65"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_ejercicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Ejercicio:"
+                            android:textColor="@android:color/black"
+                            android:textSize="25dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="35"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/boton_suma1_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="+"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/text_num1_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp" />
+
+                            <Button
+                                android:id="@+id/boton_resta1_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="-"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="30"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/text_dos_puntos_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text=":"
+                                android:textColor="@android:color/black"
+                                android:textSize="50dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/boton_suma2_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="+"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/text_num2_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp" />
+
+                            <Button
+                                android:id="@+id/boton_resta2_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="-"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="65"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_descanso"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Descanso:"
+                            android:textColor="@android:color/black"
+                            android:textSize="25dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="35"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/boton_suma1_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="+"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/text_num1_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp" />
+
+                            <Button
+                                android:id="@+id/boton_resta1_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="-"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="30"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/text_dos_puntos_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text=":"
+                                android:textColor="@android:color/black"
+                                android:textSize="50dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/boton_suma2_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="+"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/text_num2_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp" />
+
+                            <Button
+                                android:id="@+id/boton_resta2_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="-"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="65"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_serie"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Series:"
+                            android:textColor="@android:color/black"
+                            android:textSize="25dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="35"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="25"
+                            android:orientation="vertical"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/boton_suma_series"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="+"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/text_num_series"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp" />
+
+                            <Button
+                                android:id="@+id/boton_resta_series"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/color_principal"
+                                android:gravity="center"
+                                android:text="-"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="25"
+                            android:orientation="vertical"></LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/boton_comenzar_crono"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginEnd="75dp"
+                    android:text="Comenzar" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
