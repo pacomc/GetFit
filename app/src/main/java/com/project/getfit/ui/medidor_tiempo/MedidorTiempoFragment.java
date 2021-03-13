@@ -35,6 +35,9 @@ public class MedidorTiempoFragment extends Fragment {
 
         Integer definirTiempo = 10000000*10000000;
 
+
+        //  --- INICIO BOTONES DE MEDIDOR DE TIEMPO PARA SUMAR Y RESTAR VALORES ---
+
         Button botonSuma1Descanso = root.findViewById(R.id.boton_suma1_descanso);
         Button botonSuma2Descanso = root.findViewById(R.id.boton_suma2_descanso);
         Button botonResta1Descanso = root.findViewById(R.id.boton_resta1_descanso);
@@ -192,12 +195,9 @@ public class MedidorTiempoFragment extends Fragment {
             }
         });
 
+        //  --- FIN BOTONES DE MEDIDOR DE TIEMPO PARA SUMAR Y RESTAR VALORES ---
 
-
-
-
-
-
+        // Boton de comenzar y parar
 
         Button botonMedidorTiempo = root.findViewById(R.id.boton_comenzar_crono);
 
@@ -207,6 +207,7 @@ public class MedidorTiempoFragment extends Fragment {
                 if (estadoMedidorTiempo) {
                     tiempoContador = 0;
                     countDownTimer.cancel();
+                    estadoMedidorTiempo = false;
 
                 } else {
                     countDownTimer = new CountDownTimer(definirTiempo, 1000) { // antes cada 1 segundos
@@ -229,6 +230,8 @@ public class MedidorTiempoFragment extends Fragment {
                             Toast.makeText(getContext(), "Se ha producido un error, inicie de nuevo", Toast.LENGTH_LONG).show();
                         }
                     }.start();
+
+                    estadoMedidorTiempo = true;
                 }
 
             }
