@@ -7,7 +7,7 @@
     tools:context=".ui.medidor_tiempo.MedidorTiempoFragment">
 
     <TextView
-        android:id="@+id/text_medidor_tiempo"
+        android:id="@+id/text_medidor_tiempo_actual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

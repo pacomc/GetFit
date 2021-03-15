@@ -25,18 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedidorTiempoFragment extends Fragment {
-    private Boolean estadoMedidorTiempo = false; // Para controlar si el cronometro está activo
-
     private MedidorTiempoViewModel medidorTiempoViewModel;
     private View root;
 
     private CountDownTimer countDownTimer;
-    private Integer tiempoContador = 0;
-    private Integer segundo = 0;
-    private Integer minuto = 0;
-    private Integer hora = 0;
 
-    private TextView textViewReloj;
+    private Integer tiempoContadorTotal = 0;
+    private Integer tiempoContadorActual = 0;
+    private Integer segundoTotal = 0;
+    private Integer minutoTotal = 0;
+    private Integer horaTotal = 0;
+    private Integer segundoActual = 0;
+    private Integer minutoActual = 0;
+    private Integer horaActual = 0;
+
+    private TextView textViewRelojTotal;
+    private TextView textViewRelojActual;
     private Button botonSuma1Descanso;
     private Button botonSuma2Descanso;
     private Button botonResta1Descanso;
@@ -47,7 +51,9 @@ public class MedidorTiempoFragment extends Fragment {
     private Button botonResta2Ejercicio;
     private Button botonSumaSeries;
     private Button botonRestaSeries;
-    private Button botonMedidorTiempo;
+    private Button botonComenzar;
+    private Button botonPausar;
+    private Button botonParar;
     private EditText editTextNum1Descanso;
     private EditText editTextNum2Descanso;
     private EditText editTextNum1Ejercicio;
@@ -58,9 +64,11 @@ public class MedidorTiempoFragment extends Fragment {
     private TextView textViewNum1Ejercicio;
     private TextView textViewNum2Ejercicio;
     private TextView textViewNumSeries;
+    private TextView textViewSerieActual;
     private List<EditText> editTextsMedidorTiempo = new ArrayList<>();
 
-    private Integer seriesRestantes;
+    private Integer seriesRestantes; // Numero de series que le quedan
+    private Boolean estaEjercicio = true; // True si esta en tiempo de ejercicio; false si esta en descanso
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +77,8 @@ public class MedidorTiempoFragment extends Fragment {
 
         //  --- INICIO BOTONES DE MEDIDOR DE TIEMPO PARA SUMAR Y RESTAR VALORES ---
         // Inicializacion textView
-        textViewReloj = root.findViewById(R.id.text_medidor_tiempo);
+        textViewRelojActual = root.findViewById(R.id.text_medidor_tiempo_actual);
+        textViewRelojTotal = root.findViewById(R.id.text_medidor_tiempo_total);
         // Inicializacion botones
         botonSuma1Descanso = root.findViewById(R.id.boton_suma1_descanso);
         botonSuma2Descanso = root.findViewById(R.id.boton_suma2_descanso);
@@ -81,7 +90,9 @@ public class MedidorTiempoFragment extends Fragment {
         botonSuma2Ejercicio = root.findViewById(R.id.boton_suma2_ejercicio);
         botonResta1Ejercicio = root.findViewById(R.id.boton_resta1_ejercicio);
         botonResta2Ejercicio = root.findViewById(R.id.boton_resta2_ejercicio);
-        botonMedidorTiempo = root.findViewById(R.id.boton_comenzar_crono);
+        botonComenzar = root.findViewById(R.id.boton_comenzar_crono);
+        botonPausar = root.findViewById(R.id.boton_pausar_crono);
+        botonParar = root.findViewById(R.id.boton_stop_crono);
         // Inicializacion textviewas
         editTextNum1Descanso = root.findViewById(R.id.edittext_num1_descanso);
         editTextNum2Descanso = root.findViewById(R.id.edittext_num2_descanso);
@@ -94,6 +105,7 @@ public class MedidorTiempoFragment extends Fragment {
         textViewNum1Ejercicio = root.findViewById(R.id.text_num1_ejercicio);
         textViewNum2Ejercicio = root.findViewById(R.id.text_num2_ejercicio);
         textViewNumSeries = root.findViewById(R.id.text_num_series);
+        textViewSerieActual = root.findViewById(R.id.text_serie_actual);
         // Inicializacion lista con edittexts (para poder recorrerlos facilmente)
         editTextsMedidorTiempo.add(editTextNum1Descanso);
         editTextsMedidorTiempo.add(editTextNum2Descanso);
@@ -105,10 +117,31 @@ public class MedidorTiempoFragment extends Fragment {
 
         funcionalidadBotones(); // Se inserta funcionalidad a los botones
 
-        botonMedidorTiempo.setOnClickListener(new View.OnClickListener() {
+        botonComenzar.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                accionBotonMedidorTiempo();
+
+                accionComenzar();
+            }
+
+        });
+
+        botonPausar.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                accionPausar();
+            }
+
+        });
+
+
+
+        botonParar.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                accionParar();
             }
 
         });
@@ -116,143 +149,180 @@ public class MedidorTiempoFragment extends Fragment {
         return root;
     }
 
+    private void accionPausar() {
+        countDownTimer.cancel();
 
-    private void accionBotonMedidorTiempo() {
+        botonParar.setVisibility(View.GONE);
+        botonPausar.setVisibility(View.GONE);
+        botonComenzar.setVisibility(View.VISIBLE);
+
+    }
+
+    private void accionParar() {
+        tiempoContadorActual = 0;
+        tiempoContadorTotal = 0;
+        String tiempoActualFormateado = String.format("%02d:%02d:%02d", 0, 0, 0);
+        String tiempoTotalFormateado = String.format("%02d:%02d:%02d", 0, 0, 0);
+        textViewRelojActual.setText(tiempoActualFormateado);
+        textViewRelojTotal.setText(tiempoTotalFormateado);
+        textViewSerieActual.setText("0");
+        estaEjercicio = true;
+
+        countDownTimer.cancel();
+        hacerEditable();
+
+        botonParar.setVisibility(View.GONE);
+        botonPausar.setVisibility(View.GONE);
+        botonComenzar.setVisibility(View.VISIBLE);
+    }
+
+    private void accionComenzar() {
         Integer definirTiempo = 10000000*10000000;
         MediaPlayer sonidoTerminarSerie = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
 
-        if (estadoMedidorTiempo) {
-            estadoMedidorTiempo = false; // Para llevar control de pause y comienzo
-            botonMedidorTiempo.setText("Comenzar");
 
-            tiempoContador = 0;
-            if (countDownTimer != null) { // Porque se puede pausar y el countDownTime no estar inicializado (si las series son 0)
-                countDownTimer.cancel();
-            }
+        if (comprobacionValoresEditText()) { // Si pasa las comprobaciones
 
-        } else {
+            hacerFijo();
+            botonParar.setVisibility(View.VISIBLE);
+            botonPausar.setVisibility(View.VISIBLE);
+            botonComenzar.setVisibility(View.GONE);
 
-            if (comprobacionValoresEditText()) { // Si pasa las comprobaciones
-                estadoMedidorTiempo = true;
+            seriesRestantes = numeroSeriesEstablecidas();
+            seriesRestantes = seriesRestantes - 1;
 
-                cambiarVisibilidad();
+            Integer segundosTotalesDescanso = segundosDescansoEstablecidos();
+            Integer segundosTotalesEjercicio = segundosEjercicioEstablecidos();
 
-                botonMedidorTiempo.setText("Pausar");
+            countDownTimer = new CountDownTimer(definirTiempo, 1000) { // antes cada 1 segundos
+                @Override
+                public void onTick(long l) {
+                    tiempoContadorActual = tiempoContadorActual + 1;
+                    tiempoContadorTotal = tiempoContadorTotal + 1;
+                    textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
 
-                seriesRestantes = numeroSeriesEstablecidas();
-                if (seriesRestantes > 0) { // Si hay series que contar
-                    seriesRestantes = seriesRestantes - 1;
+                    segundoTotal = tiempoContadorTotal % 60;
+                    minutoTotal = (tiempoContadorTotal / 60) % 60;
+                    horaTotal = tiempoContadorTotal / 3600;
 
-                    Integer segundosTotalesDescanso = segundosDescansoEstablecidos();
-                    Integer segundosTotalesEjercicio = segundosEjercicioEstablecidos();
-
-                    countDownTimer = new CountDownTimer(definirTiempo, 1000) { // antes cada 1 segundos
-                        @Override
-                        public void onTick(long l) {
-                            tiempoContador = tiempoContador + 1;
-                            textViewReloj.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-
-                            segundo = tiempoContador % 60;
-                            minuto = (tiempoContador / 60) % 60;
-                            hora = tiempoContador / 3600;
-
-                            Boolean moduloSerie = tiempoContador % (segundosTotalesEjercicio + segundosTotalesDescanso) == 0; // True si el tiempo total es modulo de una serie, es decir, si ha terminado el tiempo de una serie
-                            if (moduloSerie) {
-                                if (seriesRestantes == 0) { // Si se han acabado las series, es decir, ha terminado la duracion total del ejercicio
-                                    countDownTimer.cancel();
-                                    tiempoContador = 0;
-                                    textViewReloj.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_terminar_serie));
-                                    estadoMedidorTiempo = false;
-                                    cambiarVisibilidad();
-                                    botonMedidorTiempo.setText("Comenzar");
+                    segundoActual = tiempoContadorActual % 60;
+                    minutoActual = (tiempoContadorActual / 60) % 60;
+                    horaActual = tiempoContadorActual / 3600;
 
 
-                                } else {
-                                    seriesRestantes = seriesRestantes - 1;
-                                    textViewReloj.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_serie));
-                                }
-                                sonidoTerminarSerie.start();
+                    if (estaEjercicio) { // Si esta en tiempo de ejercicio
+                        if (tiempoContadorActual == segundosTotalesEjercicio) { // Si termina el ejercicio
+                            tiempoContadorActual = 0;
+                            estaEjercicio = false;
+                        }
+
+                    } else { // si esta en tiempo de descanso
+                        if (tiempoContadorActual == segundosTotalesDescanso) { // Si termina el descanso
+                            tiempoContadorActual = 0;
+                            estaEjercicio = true;
+
+                            if (seriesRestantes == 0) { // Si se han acabado las series, es decir, ha terminado la duracion total del ejercicio
+                                textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_terminar_serie));
+                                countDownTimer.cancel();
+                                tiempoContadorActual = 0;
+                                tiempoContadorTotal = 0;
+                                hacerEditable();
+                                botonParar.setVisibility(View.GONE);
+                                botonPausar.setVisibility(View.GONE);
+                                botonComenzar.setVisibility(View.VISIBLE);
+                            } else {
+                                textViewSerieActual.setText(String.valueOf(numeroSeriesEstablecidas() - seriesRestantes));
+                                seriesRestantes--;
+                                textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_serie));
                             }
-
-
-                            String tiempoFormateado = String.format("%02d:%02d:%02d", hora, minuto, segundo);
-                            textViewReloj.setText(tiempoFormateado);
-
                         }
+                    }
 
-                        @Override
-                        public void onFinish() {
-                            tiempoContador = 0;
-                            Toast.makeText(getContext(), "Se ha producido un error, inicie de nuevo", Toast.LENGTH_LONG).show();
-                        }
-                    }.start();
+
+                    String tiempoActualFormateado = String.format("%02d:%02d:%02d", horaActual, minutoActual, segundoActual);
+                    String tiempoTotalFormateado = String.format("%02d:%02d:%02d", horaTotal, minutoTotal, segundoTotal);
+                    textViewRelojActual.setText(tiempoActualFormateado);
+                    textViewRelojTotal.setText(tiempoTotalFormateado);
+
                 }
-            }
+
+                @Override
+                public void onFinish() {
+                    tiempoContadorActual = 0;
+                    tiempoContadorTotal = 0;
+                    Toast.makeText(getContext(), "Se ha producido un error, inicie de nuevo", Toast.LENGTH_LONG).show();
+                }
+            }.start();
+
+
+
+
         }
     }
 
-    private void cambiarVisibilidad() {
+    private void hacerFijo() {
+        // Se cambian los edittext por textview cuando comienza
+        editTextNum1Descanso.setVisibility(View.GONE);
+        editTextNum2Descanso.setVisibility(View.GONE);
+        editTextNum1Ejercicio.setVisibility(View.GONE);
+        editTextNum2Ejercicio.setVisibility(View.GONE);
+        editTextNumSeries.setVisibility(View.GONE);
 
-        if (editTextNum1Descanso.getVisibility() == View.GONE) {
-            // Se cambian los edittext por textview cuando comienza
-            editTextNum1Descanso.setVisibility(View.VISIBLE);
-            editTextNum2Descanso.setVisibility(View.VISIBLE);
-            editTextNum1Ejercicio.setVisibility(View.VISIBLE);
-            editTextNum2Ejercicio.setVisibility(View.VISIBLE);
-            editTextNumSeries.setVisibility(View.VISIBLE);
-
-            textViewNum1Descanso.setVisibility(View.GONE);
-            textViewNum2Descanso.setVisibility(View.GONE);
-            textViewNum1Ejercicio.setVisibility(View.GONE);
-            textViewNum2Ejercicio.setVisibility(View.GONE);
-            textViewNumSeries.setVisibility(View.GONE);
-
-
-
-            // Se quitan los botones
-            botonResta1Descanso.setVisibility(View.VISIBLE);
-            botonResta2Descanso.setVisibility(View.VISIBLE);
-            botonResta1Ejercicio.setVisibility(View.VISIBLE);
-            botonResta2Ejercicio.setVisibility(View.VISIBLE);
-            botonSuma1Descanso.setVisibility(View.VISIBLE);
-            botonSuma2Descanso.setVisibility(View.VISIBLE);
-            botonSuma1Ejercicio.setVisibility(View.VISIBLE);
-            botonSuma2Ejercicio.setVisibility(View.VISIBLE);
-            botonSumaSeries.setVisibility(View.VISIBLE);
-            botonRestaSeries.setVisibility(View.VISIBLE);
-        } else {
-            // Se cambian los edittext por textview cuando comienza
-            editTextNum1Descanso.setVisibility(View.GONE);
-            editTextNum2Descanso.setVisibility(View.GONE);
-            editTextNum1Ejercicio.setVisibility(View.GONE);
-            editTextNum2Ejercicio.setVisibility(View.GONE);
-            editTextNumSeries.setVisibility(View.GONE);
-
-            textViewNum1Descanso.setText(String.valueOf(editTextNum1Descanso.getText()));
-            textViewNum2Descanso.setText(String.valueOf(editTextNum2Descanso.getText()));
-            textViewNum1Ejercicio.setText(String.valueOf(editTextNum1Ejercicio.getText()));
-            textViewNum2Ejercicio.setText(String.valueOf(editTextNum2Ejercicio.getText()));
-            textViewNumSeries.setText(String.valueOf(editTextNumSeries.getText()));
-            textViewNum1Descanso.setVisibility(View.VISIBLE);
-            textViewNum2Descanso.setVisibility(View.VISIBLE);
-            textViewNum1Ejercicio.setVisibility(View.VISIBLE);
-            textViewNum2Ejercicio.setVisibility(View.VISIBLE);
-            textViewNumSeries.setVisibility(View.VISIBLE);
+        textViewNum1Descanso.setText(String.valueOf(editTextNum1Descanso.getText()));
+        textViewNum2Descanso.setText(String.valueOf(editTextNum2Descanso.getText()));
+        textViewNum1Ejercicio.setText(String.valueOf(editTextNum1Ejercicio.getText()));
+        textViewNum2Ejercicio.setText(String.valueOf(editTextNum2Ejercicio.getText()));
+        textViewNumSeries.setText(String.valueOf(editTextNumSeries.getText()));
+        textViewNum1Descanso.setVisibility(View.VISIBLE);
+        textViewNum2Descanso.setVisibility(View.VISIBLE);
+        textViewNum1Ejercicio.setVisibility(View.VISIBLE);
+        textViewNum2Ejercicio.setVisibility(View.VISIBLE);
+        textViewNumSeries.setVisibility(View.VISIBLE);
+        textViewSerieActual.setVisibility(View.VISIBLE);
 
 
 
-            // Se quitan los botones
-            botonResta1Descanso.setVisibility(View.GONE);
-            botonResta2Descanso.setVisibility(View.GONE);
-            botonResta1Ejercicio.setVisibility(View.GONE);
-            botonResta2Ejercicio.setVisibility(View.GONE);
-            botonSuma1Descanso.setVisibility(View.GONE);
-            botonSuma2Descanso.setVisibility(View.GONE);
-            botonSuma1Ejercicio.setVisibility(View.GONE);
-            botonSuma2Ejercicio.setVisibility(View.GONE);
-            botonSumaSeries.setVisibility(View.GONE);
-            botonRestaSeries.setVisibility(View.GONE);
-        }
+        // Se quitan los botones
+        botonResta1Descanso.setVisibility(View.GONE);
+        botonResta2Descanso.setVisibility(View.GONE);
+        botonResta1Ejercicio.setVisibility(View.GONE);
+        botonResta2Ejercicio.setVisibility(View.GONE);
+        botonSuma1Descanso.setVisibility(View.GONE);
+        botonSuma2Descanso.setVisibility(View.GONE);
+        botonSuma1Ejercicio.setVisibility(View.GONE);
+        botonSuma2Ejercicio.setVisibility(View.GONE);
+        botonSumaSeries.setVisibility(View.GONE);
+        botonRestaSeries.setVisibility(View.GONE);
+    }
+
+    private void hacerEditable() {
+         // Se cambian los edittext por textview cuando comienza
+        editTextNum1Descanso.setVisibility(View.VISIBLE);
+        editTextNum2Descanso.setVisibility(View.VISIBLE);
+        editTextNum1Ejercicio.setVisibility(View.VISIBLE);
+        editTextNum2Ejercicio.setVisibility(View.VISIBLE);
+        editTextNumSeries.setVisibility(View.VISIBLE);
+
+        textViewNum1Descanso.setVisibility(View.GONE);
+        textViewNum2Descanso.setVisibility(View.GONE);
+        textViewNum1Ejercicio.setVisibility(View.GONE);
+        textViewNum2Ejercicio.setVisibility(View.GONE);
+        textViewNumSeries.setVisibility(View.GONE);
+        textViewSerieActual.setVisibility(View.GONE);
+
+
+
+        // Se quitan los botones
+        botonResta1Descanso.setVisibility(View.VISIBLE);
+        botonResta2Descanso.setVisibility(View.VISIBLE);
+        botonResta1Ejercicio.setVisibility(View.VISIBLE);
+        botonResta2Ejercicio.setVisibility(View.VISIBLE);
+        botonSuma1Descanso.setVisibility(View.VISIBLE);
+        botonSuma2Descanso.setVisibility(View.VISIBLE);
+        botonSuma1Ejercicio.setVisibility(View.VISIBLE);
+        botonSuma2Ejercicio.setVisibility(View.VISIBLE);
+        botonSumaSeries.setVisibility(View.VISIBLE);
+        botonRestaSeries.setVisibility(View.VISIBLE);
     }
 
     private Boolean comprobacionValoresEditText() {
