@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,30 +26,54 @@ public class RutinaFragment extends Fragment {
     public LinearLayout contenido_ejercicio;
     public LinearLayout contenido_empezar;
 
+    public Button boton_ejercicios;
+    public Button boton_rutina;
+    public Button boton_atras_ejercicios;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rutinaViewModel = new ViewModelProvider(this).get(RutinaViewModel.class);
         View root = inflater.inflate(R.layout.fragment_rutina, container, false);
 
-        final TextView textView = root.findViewById(R.id.text_slideshow);
 
-        rutinaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        definirVariables();
+        definirVariables(root);
         reiniciarLinear();
         contenido_principal.setVisibility(View.VISIBLE);
+
+        boton_ejercicios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarLinear();
+                contenido_ejercicio.setVisibility(View.VISIBLE);
+            }
+        });
+
+        boton_rutina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarLinear();
+                contenido_empezar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        boton_atras_ejercicios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciarLinear();
+                contenido_principal.setVisibility(View.VISIBLE);
+            }
+        });
 
         return root;
     }
 
-    public void definirVariables() {
+    public void definirVariables(View root) {
         contenido_principal = root.findViewById(R.id.linearPrincipalRutina);
         contenido_ejercicio = root.findViewById(R.id.linearEjercicioRutina);
         contenido_empezar = root.findViewById(R.id.linearEmpezarRutina);
+        boton_ejercicios = root.findViewById(R.id.botonIrAEjercicios);
+        boton_rutina = root.findViewById(R.id.botonIrARutina);
+        boton_atras_ejercicios = root.findViewById(R.id.botonAtrasEjercicios);
     }
 
     public void reiniciarLinear() {
@@ -57,13 +82,5 @@ public class RutinaFragment extends Fragment {
         contenido_empezar.setVisibility(View.GONE);
     }
 
-    public void irAEjercicios(View v) {
-        reiniciarLinear();
-        contenido_ejercicio.setVisibility(View.VISIBLE);
-    }
 
-    public void irARutina(View v) {
-        reiniciarLinear();
-        contenido_empezar.setVisibility(View.VISIBLE);
-    }
 }
