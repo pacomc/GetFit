@@ -1,11 +1,8 @@
 package com.project.getfit.ui.medidor_tiempo;
 
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.project.getfit.MainActivity;
 import com.project.getfit.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +53,11 @@ public class MedidorTiempoFragment extends Fragment {
     private EditText editTextNum1Ejercicio;
     private EditText editTextNum2Ejercicio;
     private EditText editTextNumSeries;
+    private TextView textViewNum1Descanso;
+    private TextView textViewNum2Descanso;
+    private TextView textViewNum1Ejercicio;
+    private TextView textViewNum2Ejercicio;
+    private TextView textViewNumSeries;
     private List<EditText> editTextsMedidorTiempo = new ArrayList<>();
 
     private Integer seriesRestantes;
@@ -81,18 +82,25 @@ public class MedidorTiempoFragment extends Fragment {
         botonResta1Ejercicio = root.findViewById(R.id.boton_resta1_ejercicio);
         botonResta2Ejercicio = root.findViewById(R.id.boton_resta2_ejercicio);
         botonMedidorTiempo = root.findViewById(R.id.boton_comenzar_crono);
+        // Inicializacion textviewas
+        editTextNum1Descanso = root.findViewById(R.id.edittext_num1_descanso);
+        editTextNum2Descanso = root.findViewById(R.id.edittext_num2_descanso);
+        editTextNum1Ejercicio = root.findViewById(R.id.edittext_num1_ejercicio);
+        editTextNum2Ejercicio = root.findViewById(R.id.edittext_num2_ejercicio);
+        editTextNumSeries = root.findViewById(R.id.edittext_num_series);
         // Inicializacion edittexts
-        editTextNum1Descanso = root.findViewById(R.id.text_num1_descanso);
-        editTextNum2Descanso = root.findViewById(R.id.text_num2_descanso);
-        editTextNum1Ejercicio = root.findViewById(R.id.text_num1_ejercicio);
-        editTextNum2Ejercicio = root.findViewById(R.id.text_num2_ejercicio);
-        editTextNumSeries = root.findViewById(R.id.text_num_series);
+        textViewNum1Descanso = root.findViewById(R.id.text_num1_descanso);
+        textViewNum2Descanso = root.findViewById(R.id.text_num2_descanso);
+        textViewNum1Ejercicio = root.findViewById(R.id.text_num1_ejercicio);
+        textViewNum2Ejercicio = root.findViewById(R.id.text_num2_ejercicio);
+        textViewNumSeries = root.findViewById(R.id.text_num_series);
         // Inicializacion lista con edittexts (para poder recorrerlos facilmente)
         editTextsMedidorTiempo.add(editTextNum1Descanso);
         editTextsMedidorTiempo.add(editTextNum2Descanso);
         editTextsMedidorTiempo.add(editTextNum1Ejercicio);
         editTextsMedidorTiempo.add(editTextNum2Ejercicio);
         editTextsMedidorTiempo.add(editTextNumSeries);
+
 
 
         funcionalidadBotones(); // Se inserta funcionalidad a los botones
@@ -126,7 +134,11 @@ public class MedidorTiempoFragment extends Fragment {
 
             if (comprobacionValoresEditText()) { // Si pasa las comprobaciones
                 estadoMedidorTiempo = true;
+
+                cambiarVisibilidad();
+
                 botonMedidorTiempo.setText("Pausar");
+
                 seriesRestantes = numeroSeriesEstablecidas();
                 if (seriesRestantes > 0) { // Si hay series que contar
                     seriesRestantes = seriesRestantes - 1;
@@ -151,7 +163,9 @@ public class MedidorTiempoFragment extends Fragment {
                                     tiempoContador = 0;
                                     textViewReloj.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_terminar_serie));
                                     estadoMedidorTiempo = false;
+                                    cambiarVisibilidad();
                                     botonMedidorTiempo.setText("Comenzar");
+
 
                                 } else {
                                     seriesRestantes = seriesRestantes - 1;
@@ -174,6 +188,70 @@ public class MedidorTiempoFragment extends Fragment {
                     }.start();
                 }
             }
+        }
+    }
+
+    private void cambiarVisibilidad() {
+
+        if (editTextNum1Descanso.getVisibility() == View.GONE) {
+            // Se cambian los edittext por textview cuando comienza
+            editTextNum1Descanso.setVisibility(View.VISIBLE);
+            editTextNum2Descanso.setVisibility(View.VISIBLE);
+            editTextNum1Ejercicio.setVisibility(View.VISIBLE);
+            editTextNum2Ejercicio.setVisibility(View.VISIBLE);
+            editTextNumSeries.setVisibility(View.VISIBLE);
+
+            textViewNum1Descanso.setVisibility(View.GONE);
+            textViewNum2Descanso.setVisibility(View.GONE);
+            textViewNum1Ejercicio.setVisibility(View.GONE);
+            textViewNum2Ejercicio.setVisibility(View.GONE);
+            textViewNumSeries.setVisibility(View.GONE);
+
+
+
+            // Se quitan los botones
+            botonResta1Descanso.setVisibility(View.VISIBLE);
+            botonResta2Descanso.setVisibility(View.VISIBLE);
+            botonResta1Ejercicio.setVisibility(View.VISIBLE);
+            botonResta2Ejercicio.setVisibility(View.VISIBLE);
+            botonSuma1Descanso.setVisibility(View.VISIBLE);
+            botonSuma2Descanso.setVisibility(View.VISIBLE);
+            botonSuma1Ejercicio.setVisibility(View.VISIBLE);
+            botonSuma2Ejercicio.setVisibility(View.VISIBLE);
+            botonSumaSeries.setVisibility(View.VISIBLE);
+            botonRestaSeries.setVisibility(View.VISIBLE);
+        } else {
+            // Se cambian los edittext por textview cuando comienza
+            editTextNum1Descanso.setVisibility(View.GONE);
+            editTextNum2Descanso.setVisibility(View.GONE);
+            editTextNum1Ejercicio.setVisibility(View.GONE);
+            editTextNum2Ejercicio.setVisibility(View.GONE);
+            editTextNumSeries.setVisibility(View.GONE);
+
+            textViewNum1Descanso.setText(String.valueOf(editTextNum1Descanso.getText()));
+            textViewNum2Descanso.setText(String.valueOf(editTextNum2Descanso.getText()));
+            textViewNum1Ejercicio.setText(String.valueOf(editTextNum1Ejercicio.getText()));
+            textViewNum2Ejercicio.setText(String.valueOf(editTextNum2Ejercicio.getText()));
+            textViewNumSeries.setText(String.valueOf(editTextNumSeries.getText()));
+            textViewNum1Descanso.setVisibility(View.VISIBLE);
+            textViewNum2Descanso.setVisibility(View.VISIBLE);
+            textViewNum1Ejercicio.setVisibility(View.VISIBLE);
+            textViewNum2Ejercicio.setVisibility(View.VISIBLE);
+            textViewNumSeries.setVisibility(View.VISIBLE);
+
+
+
+            // Se quitan los botones
+            botonResta1Descanso.setVisibility(View.GONE);
+            botonResta2Descanso.setVisibility(View.GONE);
+            botonResta1Ejercicio.setVisibility(View.GONE);
+            botonResta2Ejercicio.setVisibility(View.GONE);
+            botonSuma1Descanso.setVisibility(View.GONE);
+            botonSuma2Descanso.setVisibility(View.GONE);
+            botonSuma1Ejercicio.setVisibility(View.GONE);
+            botonSuma2Ejercicio.setVisibility(View.GONE);
+            botonSumaSeries.setVisibility(View.GONE);
+            botonRestaSeries.setVisibility(View.GONE);
         }
     }
 

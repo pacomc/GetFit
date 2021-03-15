@@ -103,7 +103,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/text_num1_ejercicio"
+                                android:id="@+id/edittext_num1_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -112,6 +112,19 @@
                                 android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp" />
+
+                            <TextView
+                                android:id="@+id/text_num1_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:visibility="gone"
+                                />
 
                             <Button
                                 android:id="@+id/boton_resta1_ejercicio"
@@ -158,7 +171,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/text_num2_ejercicio"
+                                android:id="@+id/edittext_num2_ejercicio"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -167,6 +180,18 @@
                                 android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp" />
+
+                            <TextView
+                                android:id="@+id/text_num2_ejercicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:visibility="gone"/>
 
                             <Button
                                 android:id="@+id/boton_resta2_ejercicio"
@@ -230,7 +255,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/text_num1_descanso"
+                                android:id="@+id/edittext_num1_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -239,6 +264,18 @@
                                 android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp" />
+
+                            <TextView
+                                android:id="@+id/text_num1_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:visibility="gone"/>
 
                             <Button
                                 android:id="@+id/boton_resta1_descanso"
@@ -285,7 +322,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/text_num2_descanso"
+                                android:id="@+id/edittext_num2_descanso"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -294,6 +331,18 @@
                                 android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp" />
+
+                            <TextView
+                                android:id="@+id/text_num2_descanso"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:visibility="gone" />
 
                             <Button
                                 android:id="@+id/boton_resta2_descanso"
@@ -363,7 +412,7 @@
                                 android:textSize="20dp" />
 
                             <EditText
-                                android:id="@+id/text_num_series"
+                                android:id="@+id/edittext_num_series"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -372,6 +421,18 @@
                                 android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp" />
+
+                            <TextView
+                                android:id="@+id/text_num_series"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:text="0"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:visibility="gone"/>
 
                             <Button
                                 android:id="@+id/boton_resta_series"
