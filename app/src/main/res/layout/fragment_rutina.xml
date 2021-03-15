@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.medidor_tiempo.MedidorTiempoFragment">
+    tools:context=".ui.rutina.RutinaFragment">
 
     <LinearLayout
         android:id="@+id/linearPrincipalRutina"
@@ -38,14 +38,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Ejercicios" />
+                android:text="Ejercicios"
+                android:onClick="irAEjercicios"/>
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Rutina" />
+                android:text="Rutina"
+                android:onClick="irARutina"/>
 
             <Button
                 android:id="@+id/button3"
