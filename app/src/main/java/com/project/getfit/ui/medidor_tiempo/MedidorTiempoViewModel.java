@@ -10,7 +10,7 @@ public class MedidorTiempoViewModel extends ViewModel {
 
     public MedidorTiempoViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is medidor tiempo fragment");
+        //mText.setValue("This is medidor tiempo fragment");
     }
 
     public LiveData<String> getText() {
