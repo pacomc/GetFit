@@ -179,9 +179,10 @@ public class MedidorTiempoFragment extends Fragment {
 
     private void accionComenzar() {
         Integer definirTiempo = 10000000*10000000;
-        MediaPlayer sonidoTerminarEjercicio = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
-        MediaPlayer sonidoTerminarDescanso = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
-        MediaPlayer sonidoTerminarEjercicio = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
+        MediaPlayer sonidoInicioEjercicio = MediaPlayer.create(getContext(), R.raw.when_604);
+        MediaPlayer sonidoInicioDescanso = MediaPlayer.create(getContext(), R.raw.done_you_612);
+        MediaPlayer sonidoFinEjercicioCompleto = MediaPlayer.create(getContext(), R.raw.inflicted_601);
+
 
 
         if (comprobacionValoresEditText()) { // Si pasa las comprobaciones
@@ -193,6 +194,7 @@ public class MedidorTiempoFragment extends Fragment {
 
             seriesRestantes = numeroSeriesEstablecidas();
             seriesRestantes = seriesRestantes - 1;
+            sonidoInicioEjercicio.start();
 
             Integer segundosTotalesDescanso = segundosDescansoEstablecidos();
             Integer segundosTotalesEjercicio = segundosEjercicioEstablecidos();
@@ -217,7 +219,9 @@ public class MedidorTiempoFragment extends Fragment {
                         if (tiempoContadorActual == segundosTotalesEjercicio) { // Si termina el ejercicio
                             tiempoContadorActual = 0;
                             estaEjercicio = false;
-                            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_descanso));
+                            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_inicio_descanso));
+                            sonidoInicioDescanso.start();
+
                         }
 
                     } else { // si esta en tiempo de descanso
@@ -226,16 +230,20 @@ public class MedidorTiempoFragment extends Fragment {
                             estaEjercicio = true;
 
                             if (seriesRestantes == 0) { // Si se han acabado las series, es decir, ha terminado la duracion total del ejercicio
-                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_ejercicio));
+                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_ejercicio_completo));
+                                sonidoFinEjercicioCompleto.start();
+
                                 countDownTimer.cancel();
                                 tiempoContadorActual = 0;
                                 tiempoContadorTotal = 0;
                                 hacerEditable();
                                 botonPausar.setVisibility(View.GONE);
+
                             } else {
                                 textViewSerieActual.setText(String.valueOf(numeroSeriesEstablecidas() - seriesRestantes));
                                 seriesRestantes--;
-                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_serie));
+                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_inicio_ejercicio));
+                                sonidoInicioEjercicio.start();
                             }
                         }
                     }

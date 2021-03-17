@@ -8,7 +8,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="color_principal">#2C2C2C</color>
-    <color name="color_reloj_fin_descanso">#7AA2FF</color>
-    <color name="color_reloj_fin_serie">#7BFF7A</color>
-    <color name="color_reloj_fin_ejercicio">#FF867A</color>
+    <color name="color_reloj_inicio_descanso">#7AA2FF</color>
+    <color name="color_reloj_inicio_ejercicio">#7BFF7A</color>
+    <color name="color_reloj_fin_ejercicio_completo">#FF867A</color>
 </resources>
