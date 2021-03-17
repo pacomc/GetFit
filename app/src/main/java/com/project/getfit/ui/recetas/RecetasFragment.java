@@ -69,8 +69,7 @@ public class RecetasFragment extends Fragment {
         to = "3";
         calories = "591-722";
 
-        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query + "&app_id=" + API_ID + "&app_key=" + API_KEY + "&from=0&to=3&calories=");
-
+        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query + "&app_id=" + API_ID + "&app_key=" + API_KEY + "&from=" + from +  "&to=" + to + "&calories=" + calories);
 
         return root;
     }
