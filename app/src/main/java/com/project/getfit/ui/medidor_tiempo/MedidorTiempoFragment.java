@@ -199,7 +199,7 @@ public class MedidorTiempoFragment extends Fragment {
                 public void onTick(long l) {
                     tiempoContadorActual = tiempoContadorActual + 1;
                     tiempoContadorTotal = tiempoContadorTotal + 1;
-                    textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
                     segundoTotal = tiempoContadorTotal % 60;
                     minutoTotal = (tiempoContadorTotal / 60) % 60;
@@ -214,6 +214,7 @@ public class MedidorTiempoFragment extends Fragment {
                         if (tiempoContadorActual == segundosTotalesEjercicio) { // Si termina el ejercicio
                             tiempoContadorActual = 0;
                             estaEjercicio = false;
+                            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_descanso));
                         }
 
                     } else { // si esta en tiempo de descanso
@@ -222,18 +223,16 @@ public class MedidorTiempoFragment extends Fragment {
                             estaEjercicio = true;
 
                             if (seriesRestantes == 0) { // Si se han acabado las series, es decir, ha terminado la duracion total del ejercicio
-                                textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_terminar_serie));
+                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_ejercicio));
                                 countDownTimer.cancel();
                                 tiempoContadorActual = 0;
                                 tiempoContadorTotal = 0;
                                 hacerEditable();
-                                botonParar.setVisibility(View.GONE);
                                 botonPausar.setVisibility(View.GONE);
-                                botonComenzar.setVisibility(View.VISIBLE);
                             } else {
                                 textViewSerieActual.setText(String.valueOf(numeroSeriesEstablecidas() - seriesRestantes));
                                 seriesRestantes--;
-                                textViewRelojTotal.setTextColor(ContextCompat.getColor(getContext(), R.color.color_reloj_serie));
+                                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_serie));
                             }
                         }
                     }
