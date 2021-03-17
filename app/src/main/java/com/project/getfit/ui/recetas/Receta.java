@@ -1,4 +1,4 @@
-package com.project.getfit.ui.models;
+package com.project.getfit.ui.recetas;
 
 import java.util.List;
 import java.util.Objects;
