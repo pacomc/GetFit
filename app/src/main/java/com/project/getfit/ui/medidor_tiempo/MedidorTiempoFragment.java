@@ -167,6 +167,7 @@ public class MedidorTiempoFragment extends Fragment {
         textViewRelojTotal.setText(tiempoTotalFormateado);
         textViewSerieActual.setText("0");
         estaEjercicio = true;
+        root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
         countDownTimer.cancel();
         hacerEditable();
@@ -178,7 +179,9 @@ public class MedidorTiempoFragment extends Fragment {
 
     private void accionComenzar() {
         Integer definirTiempo = 10000000*10000000;
-        MediaPlayer sonidoTerminarSerie = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
+        MediaPlayer sonidoTerminarEjercicio = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
+        MediaPlayer sonidoTerminarDescanso = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
+        MediaPlayer sonidoTerminarEjercicio = MediaPlayer.create(getContext(), R.raw.nokia_sms_tone);
 
 
         if (comprobacionValoresEditText()) { // Si pasa las comprobaciones
