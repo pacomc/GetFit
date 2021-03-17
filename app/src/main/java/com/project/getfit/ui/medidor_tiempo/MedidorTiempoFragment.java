@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedidorTiempoFragment extends Fragment {
-    private MedidorTiempoViewModel medidorTiempoViewModel;
     private View root;
 
     private CountDownTimer countDownTimer;
@@ -72,7 +71,6 @@ public class MedidorTiempoFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        medidorTiempoViewModel = new ViewModelProvider(this).get(MedidorTiempoViewModel.class);
         root = inflater.inflate(R.layout.fragment_medidor_tiempo, container, false);
 
         //  --- INICIO BOTONES DE MEDIDOR DE TIEMPO PARA SUMAR Y RESTAR VALORES ---
