@@ -2,6 +2,7 @@ package com.project.getfit.ui.recetas;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.JsonObject;
 import com.project.getfit.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,8 +28,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-
+import java.util.List;
 
 
 public class RecetasFragment extends Fragment {
@@ -56,10 +61,15 @@ public class RecetasFragment extends Fragment {
         to = "3";
         calories = "591-722";
 
-        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query + "&app_id=" + API_ID + "&app_key=" + API_KEY + "&from=" + from +  "&to=" + to + "&calories=" + calories);
+        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query + "&from=" + from +  "&to=" + to + "&calories=" + calories);
+
+
+
 
         return root;
     }
+
+
 
     class RecetasRequest extends AsyncTask<String, Void, String> {
 
@@ -74,12 +84,10 @@ public class RecetasFragment extends Fragment {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Content-Type",
                         "application/x-www-form-urlencoded");
-                connection.setRequestProperty("q",
-                        "pollo");
                 connection.setRequestProperty("app_id",
-                        "b054b49b");
+                        API_ID);
                 connection.setRequestProperty("app_key",
-                        "cc758b2be822d3e8f2eea92b195e957e&from=0&to=3&calories=591-722");
+                        API_KEY);
 
                 connection.setRequestProperty("Content-Language", "en-US");
 
@@ -116,7 +124,31 @@ public class RecetasFragment extends Fragment {
 
 
         protected void onPostExecute(String feed) {
-            Toast.makeText(getContext(), feed, Toast.LENGTH_LONG).show();
+
+
+            try {
+                // get JSONObject from JSON file
+                JSONObject obj = new JSONObject(feed);
+                JSONArray hitsElements = (JSONArray) obj.get("hits");
+
+                for (int i = 0; i < hitsElements.length(); i++) {
+                    JSONObject jsoni = hitsElements.getJSONObject(i);
+                    JSONObject jsonrecipe = (JSONObject) jsoni.get("recipe");
+                    String titulo = jsonrecipe.getString("label");
+                    String linkImagen = jsonrecipe.getString("image");
+                    String calorias = jsonrecipe.getString("calories");
+                    JSONArray listaIngredientes = (JSONArray) jsonrecipe.get("ingredientLines");
+
+                    Log.e( "Peticion", listaIngredientes.toString());
+
+
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
