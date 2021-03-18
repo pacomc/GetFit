@@ -127,7 +127,7 @@ public class RecetasFragment extends Fragment {
                 JSONObject obj = new JSONObject(feed);
                 JSONArray hitsElements = (JSONArray) obj.get("hits");
 
-                List<Receta> recetas = new ArrayList<>();
+                ArrayList<Receta> recetas = new ArrayList<>();
 
                 for (int i = 0; i < hitsElements.length(); i++) {
                     JSONObject jsoni = hitsElements.getJSONObject(i);

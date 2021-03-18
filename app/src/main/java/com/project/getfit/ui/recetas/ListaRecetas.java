@@ -1,4 +1,4 @@
-package com.project.getfit;
+package com.project.getfit.ui.recetas;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.project.getfit.R;
 import com.project.getfit.ui.recetas.Receta;
 
 import java.util.ArrayList;
