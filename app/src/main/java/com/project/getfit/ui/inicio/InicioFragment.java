@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,18 +19,44 @@ import com.project.getfit.R;
 public class InicioFragment extends Fragment {
 
     private InicioViewModel inicioViewModel;
+    private TextView textoBienvenida;
+    private TextView textoConsejos;
+    private TextView textoNoticias;
+    private TextView textoRedesSociales;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
         View root = inflater.inflate(R.layout.fragment_inicio, container, false);
-        final TextView textView = root.findViewById(R.id.textView9);
+
+        textoBienvenida = root.findViewById(R.id.text_mensaje_inicio);
+        textoConsejos = root.findViewById(R.id.text_consejos_inicio);
+        textoNoticias = root.findViewById(R.id.text_noticias_inicio);
+        textoRedesSociales = root.findViewById(R.id.text_redes_sociales_inicio);
 
         inicioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                textoBienvenida.setText(s);
             }
         });
+
+        animacionArriba(textoBienvenida);
+        animacionIzquierda(textoConsejos);
+        animacionIzquierda(textoNoticias);
+        animacionIzquierda(textoRedesSociales);
+
         return root;
+    }
+
+    // Creación efectos visuales pagina de inicio:
+    private void animacionArriba(View view){
+        Animation efectoAnimacionArriba = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_arriba);
+        view.startAnimation(efectoAnimacionArriba);
+
+    }
+    private void animacionIzquierda(View view){
+        Animation efectoAnimacionIzquierda = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_izquierda);
+        view.startAnimation(efectoAnimacionIzquierda);
     }
 }

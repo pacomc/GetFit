@@ -24,22 +24,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/text_mensaje_inicio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
                     android:gravity="center"
-                    android:text="BIENVENIDE!"
-                    android:textColor="@android:color/black"
+                    android:text="BIENVENIDO!"
+                    android:textColor="@color/color_principal"
                     android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/CONSEJOS"
+                    android:id="@+id/text_consejos_inicio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
-                    android:text="CONSEJOS:"
-                    android:textColor="@android:color/black"
+                    android:text="Consejos:"
+                    android:textColor="@color/color_principal"
                     android:textSize="25dp" />
             </LinearLayout>
 
@@ -57,12 +57,12 @@
                     tools:src="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/text_noticias_inicio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
-                    android:text="NOTICIAS"
-                    android:textColor="@android:color/black"
+                    android:text="Noticias:"
+                    android:textColor="@color/color_principal"
                     android:textSize="25dp" />
 
                 <ImageView
@@ -82,18 +82,32 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/text_redes_sociales_inicio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:text="Redes Sociales:"
-                android:textColor="@android:color/black"
+                android:textColor="@color/color_principal"
                 android:textSize="25dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="10" />
+                android:layout_weight="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical" >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10" />
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>
