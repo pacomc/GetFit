@@ -33,7 +33,6 @@ import java.util.List;
 
 public class RecetasFragment extends Fragment {
     private ListView listViewRecetas;
-    private ArrayList<String> titulosRecetas = new ArrayList<>();
     private ArrayAdapter arrayAdapterRecetas;
 
     private String query;
@@ -50,11 +49,8 @@ public class RecetasFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_recetas, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
 
-        arrayAdapterRecetas = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, titulosRecetas);
-
         listViewRecetas = root.findViewById(R.id.list_recetas);
 
-        listViewRecetas.setAdapter(arrayAdapterRecetas);
 
         query = "pollo";
         from = "0";
@@ -131,19 +127,28 @@ public class RecetasFragment extends Fragment {
                 JSONObject obj = new JSONObject(feed);
                 JSONArray hitsElements = (JSONArray) obj.get("hits");
 
+                List<Receta> recetas = new ArrayList<>();
+
                 for (int i = 0; i < hitsElements.length(); i++) {
                     JSONObject jsoni = hitsElements.getJSONObject(i);
                     JSONObject jsonrecipe = (JSONObject) jsoni.get("recipe");
                     String titulo = jsonrecipe.getString("label");
                     String linkImagen = jsonrecipe.getString("image");
-                    String calorias = jsonrecipe.getString("calories");
-                    JSONArray listaIngredientes = (JSONArray) jsonrecipe.get("ingredientLines");
+                    String kcalorias = jsonrecipe.getString("calories");
+                    JSONArray listaIngredientesJSON = (JSONArray) jsonrecipe.get("ingredientLines");
 
-                    Log.e( "Peticion", listaIngredientes.toString());
+                    List<String> listaIngredientes = new ArrayList<>();
+                    for (int j = 0; j < listaIngredientesJSON.length(); j++) {
+                        listaIngredientes.add(listaIngredientesJSON.getString(j));
+                    }
 
+                    recetas.add(new Receta(titulo, linkImagen, kcalorias, listaIngredientes));
 
                 }
 
+                arrayAdapterRecetas = new ListaRecetas(getContext(), recetas);
+
+                listViewRecetas.setAdapter(arrayAdapterRecetas);
 
 
             } catch (JSONException e) {
