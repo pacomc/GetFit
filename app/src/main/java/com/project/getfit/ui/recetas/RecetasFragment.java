@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.gson.JsonObject;
 import com.project.getfit.R;
 
 import org.json.JSONArray;
@@ -134,7 +133,10 @@ public class RecetasFragment extends Fragment {
                     JSONObject jsonrecipe = (JSONObject) jsoni.get("recipe");
                     String titulo = jsonrecipe.getString("label");
                     String linkImagen = jsonrecipe.getString("image");
-                    String kcalorias = jsonrecipe.getString("calories");
+                    String calorias = jsonrecipe.getString("calories");
+                    Float kcalFloat = Float.valueOf(calorias) / 1000;
+                    Integer kcalorias = Math.round(kcalFloat);
+
                     JSONArray listaIngredientesJSON = (JSONArray) jsonrecipe.get("ingredientLines");
 
                     List<String> listaIngredientes = new ArrayList<>();
@@ -142,7 +144,7 @@ public class RecetasFragment extends Fragment {
                         listaIngredientes.add(listaIngredientesJSON.getString(j));
                     }
 
-                    recetas.add(new Receta(titulo, linkImagen, kcalorias, listaIngredientes));
+                    recetas.add(new Receta(titulo, linkImagen, kcalorias.toString(), listaIngredientes));
 
                 }
 
