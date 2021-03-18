@@ -18,6 +18,7 @@ import com.project.getfit.R;
 
 public class InicioFragment extends Fragment {
 
+<<<<<<< HEAD
     private InicioViewModel inicioViewModel;
     private TextView textoBienvenida;
     private TextView textoConsejos;
@@ -45,6 +46,11 @@ public class InicioFragment extends Fragment {
         animacionIzquierda(textoConsejos);
         animacionIzquierda(textoNoticias);
         animacionIzquierda(textoRedesSociales);
+=======
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_inicio, container, false);
+
+>>>>>>> ad018ab8e9bf55e85b64509005cca6e1726e9078
 
         return root;
     }

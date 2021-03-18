@@ -6,16 +6,14 @@ import java.util.Objects;
 public class Receta {
     private String titulo;
     private String linkImagen;
-    private Integer kcalorias;
-    private Integer numRaciones;
+    private String kcalorias;
     private List<String> ingredientes;
 
 
-    public Receta(String titulo, String linkImagen, Integer kcalorias, Integer numRaciones, List<String> ingredientes) {
+    public Receta(String titulo, String linkImagen, String kcalorias, List<String> ingredientes) {
         this.titulo = titulo;
         this.linkImagen = linkImagen;
         this.kcalorias = kcalorias;
-        this.numRaciones = numRaciones;
         this.ingredientes = ingredientes;
     }
 
@@ -28,13 +26,10 @@ public class Receta {
         return linkImagen;
     }
 
-    public Integer getKcalorias() {
+    public String getKcalorias() {
         return kcalorias;
     }
 
-    public Integer getNumRaciones() {
-        return numRaciones;
-    }
 
     public List<String> getIngredientes() {
         return ingredientes;
@@ -48,13 +43,10 @@ public class Receta {
         this.linkImagen = linkImagen;
     }
 
-    public void setKcalorias(Integer kcalorias) {
+    public void setKcalorias(String kcalorias) {
         this.kcalorias = kcalorias;
     }
 
-    public void setNumRaciones(Integer numRaciones) {
-        this.numRaciones = numRaciones;
-    }
 
     public void setIngredientes(List<String> ingredientes) {
         this.ingredientes = ingredientes;
@@ -68,13 +60,12 @@ public class Receta {
         return Objects.equals(getTitulo(), receta.getTitulo()) &&
                 Objects.equals(getLinkImagen(), receta.getLinkImagen()) &&
                 Objects.equals(getKcalorias(), receta.getKcalorias()) &&
-                Objects.equals(getNumRaciones(), receta.getNumRaciones()) &&
                 Objects.equals(getIngredientes(), receta.getIngredientes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitulo(), getLinkImagen(), getKcalorias(), getNumRaciones(), getIngredientes());
+        return Objects.hash(getTitulo(), getLinkImagen(), getKcalorias(), getIngredientes());
     }
 
     @Override
@@ -83,7 +74,6 @@ public class Receta {
                 "titulo='" + titulo + '\'' +
                 ", linkImagen='" + linkImagen + '\'' +
                 ", kcalorias=" + kcalorias +
-                ", numRaciones=" + numRaciones +
                 ", ingredientes=" + ingredientes +
                 '}';
     }
