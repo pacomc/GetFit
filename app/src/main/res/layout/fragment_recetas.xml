@@ -31,8 +31,10 @@
                 android:orientation="vertical">
 
                 <SearchView
+                    android:id="@+id/buscar_recetas"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="text"/>
             </LinearLayout>
 
         </LinearLayout>

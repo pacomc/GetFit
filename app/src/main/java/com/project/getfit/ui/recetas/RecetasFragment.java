@@ -1,13 +1,16 @@
 package com.project.getfit.ui.recetas;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.project.getfit.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -31,6 +35,7 @@ import java.util.List;
 
 
 public class RecetasFragment extends Fragment {
+
     private ListView listViewRecetas;
     private ArrayAdapter arrayAdapterRecetas;
 
@@ -43,35 +48,46 @@ public class RecetasFragment extends Fragment {
     private final String API_ID = "b054b49b";
 
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_recetas, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
 
         listViewRecetas = root.findViewById(R.id.list_recetas);
 
+        //Buscar receta:
 
-        query = "pollo";
-        from = "0";
-        to = "3";
-        calories = "591-722";
+        SearchView buscarReceta = root.findViewById(R.id.buscar_recetas);
+        query = buscarReceta.getQuery().toString();
+        Log.e(query, "ESTA ES LA QUERY");
+        Log.e("ESTA ES LA QUERY", query);
 
-        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query + "&from=" + from +  "&to=" + to + "&calories=" + calories);
+        //FIN
+        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query);
 
 
+        // Funcion OnClick para meternos dentro del layout de las recetas
+        /*
+        listViewRecetas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), Receta.class);
+                intent.putExtra("objetoData", arrayAdapterRecetas.getPosition(posicion));
+                view.startActionMode(intent);
+            }
+        });
+        */
 
+        //FIN
 
         return root;
     }
 
-
-
     class RecetasRequest extends AsyncTask<String, Void, String> {
 
-
         protected String doInBackground(String... targetURL) {
-            HttpURLConnection connection = null;
 
+            HttpURLConnection connection = null;
             try {
                 //Create connection
                 URL url = new URL(targetURL[0]);
@@ -99,27 +115,27 @@ public class RecetasFragment extends Fragment {
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
                 String line;
+
                 while ((line = rd.readLine()) != null) {
                     response.append(line);
                     response.append('\r');
                 }
+
                 rd.close();
                 return response.toString();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 return null;
-            } finally {
+            }
+            finally {
                 if (connection != null) {
                     connection.disconnect();
                 }
             }
-
         }
 
-
-
         protected void onPostExecute(String feed) {
-
 
             try {
                 // get JSONObject from JSON file
@@ -149,14 +165,15 @@ public class RecetasFragment extends Fragment {
                 }
 
                 arrayAdapterRecetas = new ListaRecetas(getContext(), recetas);
-
                 listViewRecetas.setAdapter(arrayAdapterRecetas);
 
-
-            } catch (JSONException e) {
+            }
+            catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 
 }
