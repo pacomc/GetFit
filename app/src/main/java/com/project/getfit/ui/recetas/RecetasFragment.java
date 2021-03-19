@@ -39,11 +39,6 @@ public class RecetasFragment extends Fragment {
     private ListView listViewRecetas;
     private ArrayAdapter arrayAdapterRecetas;
 
-    private String query;
-    private String from;
-    private String to;
-    private String calories;
-
     private final String API_KEY = "cc758b2be822d3e8f2eea92b195e957e";
     private final String API_ID = "b054b49b";
 
@@ -58,27 +53,39 @@ public class RecetasFragment extends Fragment {
         //Buscar receta:
 
         SearchView buscarReceta = root.findViewById(R.id.buscar_recetas);
-        query = buscarReceta.getQuery().toString();
-        Log.e(query, "ESTA ES LA QUERY");
-        Log.e("ESTA ES LA QUERY", query);
+        buscarReceta.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // lo que hace cuando se pulsa intro
+                String url = "https://test-es.edamam.com/search?q=" + query;
 
-        //FIN
-        new RecetasRequest().execute("https://test-es.edamam.com/search?q=" + query);
+                new RecetasRequest().execute(url);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+            // lo que se hace cada vez que el texto cambia
+                return false;
+            }
+        });
+
+
 
 
         // Funcion OnClick para meternos dentro del layout de las recetas
-        /*
+/*
         listViewRecetas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), Receta.class);
-                intent.putExtra("objetoData", arrayAdapterRecetas.getPosition(posicion));
+                intent.putExtra("objetoData", arrayAdapterRecetas.getPosition(position));
                 view.startActionMode(intent);
             }
         });
-        */
+*/
 
-        //FIN
 
         return root;
     }
