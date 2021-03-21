@@ -1,5 +1,6 @@
 package com.project.getfit.ui.recetas;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,10 +9,10 @@ public class Receta {
     private String linkImagen;
     private String kcalorias;
     private String numPorciones;
-    private List<String> ingredientes;
+    private ArrayList<String> ingredientes;
 
 
-    public Receta(String titulo, String linkImagen, String kcalorias, String numPorciones, List<String> ingredientes) {
+    public Receta(String titulo, String linkImagen, String kcalorias, String numPorciones, ArrayList<String> ingredientes) {
         this.titulo = titulo;
         this.linkImagen = linkImagen;
         this.kcalorias = kcalorias;
@@ -36,7 +37,7 @@ public class Receta {
         return numPorciones;
     }
 
-    public List<String> getIngredientes() {
+    public ArrayList<String> getIngredientes() {
         return ingredientes;
     }
 

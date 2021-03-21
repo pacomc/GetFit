@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.project.getfit.R;
 
 import org.json.JSONArray;
@@ -38,9 +41,19 @@ public class RecetasFragment extends Fragment {
 
     private ListView listViewRecetas;
     private ArrayAdapter arrayAdapterRecetas;
+    private ArrayAdapter arrayAdapterIngredientes;
 
     private final String API_KEY = "cc758b2be822d3e8f2eea92b195e957e";
     private final String API_ID = "b054b49b";
+
+    private LinearLayout linearListaRecetas;
+    private LinearLayout linearReceta;
+    private TextView textNombreReceta;
+    private TextView textKcalorias;
+    private TextView textRaciones;
+    private ImageView imagenReceta;
+    private ListView listViewIngredientes;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +62,15 @@ public class RecetasFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_slideshow);
 
         listViewRecetas = root.findViewById(R.id.list_recetas);
+        linearListaRecetas = root.findViewById(R.id.linear_lista_recetas);
+        linearReceta = root.findViewById(R.id.linear_receta);
+        textNombreReceta = root.findViewById(R.id.text_nombre_receta);
+        textKcalorias = root.findViewById(R.id.text_kcalorias_recetas);
+        textRaciones = root.findViewById(R.id.text_raciones);
+        imagenReceta = root.findViewById(R.id.imagen_receta_individual);
+        listViewIngredientes = root.findViewById(R.id.lista_ingredientes);
+
+
 
         //Buscar receta:
 
@@ -74,17 +96,6 @@ public class RecetasFragment extends Fragment {
 
 
 
-        // Funcion OnClick para meternos dentro del layout de las recetas
-/*
-        listViewRecetas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), Receta.class);
-                intent.putExtra("objetoData", arrayAdapterRecetas.getPosition(position));
-                view.startActionMode(intent);
-            }
-        });
-*/
 
 
         return root;
@@ -165,7 +176,7 @@ public class RecetasFragment extends Fragment {
 
                     JSONArray listaIngredientesJSON = (JSONArray) jsonrecipe.get("ingredientLines");
 
-                    List<String> listaIngredientes = new ArrayList<>();
+                    ArrayList<String> listaIngredientes = new ArrayList<>();
                     for (int j = 0; j < listaIngredientesJSON.length(); j++) {
                         listaIngredientes.add(listaIngredientesJSON.getString(j));
                     }
@@ -177,13 +188,38 @@ public class RecetasFragment extends Fragment {
                 arrayAdapterRecetas = new ListaRecetas(getContext(), recetas);
                 listViewRecetas.setAdapter(arrayAdapterRecetas);
 
+                listViewRecetas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        linearListaRecetas.setVisibility(View.GONE);
+                        linearReceta.setVisibility(View.VISIBLE);
+                        Receta recetaPulsada = recetas.get(position);
+
+                        textNombreReceta.setText(recetaPulsada.getTitulo());
+                        textKcalorias.setText(recetaPulsada.getKcalorias());
+                        textRaciones.setText(recetaPulsada.getNumPorciones());
+
+                        arrayAdapterIngredientes = new ListaIngredientes(getContext(), recetaPulsada.getIngredientes());
+                        listViewIngredientes.setAdapter(arrayAdapterIngredientes);
+
+
+                        Glide.with(getContext())
+                                .load(recetaPulsada.getLinkImagen())
+                                .placeholder(R.drawable.diet_error)
+                                .error(R.drawable.diet)
+                                .into(imagenReceta);
+
+
+
+                    }
+                });
+
             }
             catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
 
 }

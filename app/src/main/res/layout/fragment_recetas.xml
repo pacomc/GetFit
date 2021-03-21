@@ -7,9 +7,12 @@
     tools:context=".ui.medidor_tiempo.MedidorTiempoFragment">
 
     <LinearLayout
+        android:id="@+id/linear_lista_recetas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:visibility="visible">
 
 
         <LinearLayout
@@ -34,7 +37,7 @@
                     android:id="@+id/buscar_recetas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text"/>
+                    android:inputType="text" />
             </LinearLayout>
 
         </LinearLayout>
@@ -52,6 +55,136 @@
                 android:layout_weight="10">
 
             </ListView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_receta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_nombre_receta"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Nombre Receta"
+                        android:textColor="@color/color_principal"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imagen_receta_individual"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_kcalorias_recetas"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        android:gravity="center"
+                        android:text="Kcal"
+                        android:textColor="@color/color_principal"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/text_raciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        android:gravity="center"
+                        android:text="Número raciones"
+                        android:textColor="@color/color_principal"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="90"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="38"
+                    android:text="Ingredientes:"
+                    android:textColor="@color/color_principal"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lista_ingredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
