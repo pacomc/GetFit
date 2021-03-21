@@ -7,13 +7,15 @@ public class Receta {
     private String titulo;
     private String linkImagen;
     private String kcalorias;
+    private String numPorciones;
     private List<String> ingredientes;
 
 
-    public Receta(String titulo, String linkImagen, String kcalorias, List<String> ingredientes) {
+    public Receta(String titulo, String linkImagen, String kcalorias, String numPorciones, List<String> ingredientes) {
         this.titulo = titulo;
         this.linkImagen = linkImagen;
         this.kcalorias = kcalorias;
+        this.numPorciones = numPorciones;
         this.ingredientes = ingredientes;
     }
 
@@ -30,27 +32,15 @@ public class Receta {
         return kcalorias;
     }
 
+    public String getNumPorciones() {
+        return numPorciones;
+    }
 
     public List<String> getIngredientes() {
         return ingredientes;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
 
-    public void setLinkImagen(String linkImagen) {
-        this.linkImagen = linkImagen;
-    }
-
-    public void setKcalorias(String kcalorias) {
-        this.kcalorias = kcalorias;
-    }
-
-
-    public void setIngredientes(List<String> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -60,12 +50,13 @@ public class Receta {
         return Objects.equals(getTitulo(), receta.getTitulo()) &&
                 Objects.equals(getLinkImagen(), receta.getLinkImagen()) &&
                 Objects.equals(getKcalorias(), receta.getKcalorias()) &&
+                Objects.equals(getNumPorciones(), receta.getNumPorciones()) &&
                 Objects.equals(getIngredientes(), receta.getIngredientes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitulo(), getLinkImagen(), getKcalorias(), getIngredientes());
+        return Objects.hash(getTitulo(), getLinkImagen(), getKcalorias(), getNumPorciones(), getIngredientes());
     }
 
     @Override
@@ -74,6 +65,7 @@ public class Receta {
                 "titulo='" + titulo + '\'' +
                 ", linkImagen='" + linkImagen + '\'' +
                 ", kcalorias=" + kcalorias +
+                ", numPorciones=" + numPorciones +
                 ", ingredientes=" + ingredientes +
                 '}';
     }

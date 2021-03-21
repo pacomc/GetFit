@@ -156,9 +156,12 @@ public class RecetasFragment extends Fragment {
                     JSONObject jsonrecipe = (JSONObject) jsoni.get("recipe");
                     String titulo = jsonrecipe.getString("label");
                     String linkImagen = jsonrecipe.getString("image");
-                    String calorias = jsonrecipe.getString("calories");
-                    Float kcalFloat = Float.valueOf(calorias) / 1000;
-                    Integer kcalorias = Math.round(kcalFloat);
+                    String kcalString = jsonrecipe.getString("calories");
+                    Float kcalFloat = Float.valueOf(kcalString);
+                    Integer kcaloriasTotal = Math.round(kcalFloat);
+                    String numPorcionesString = jsonrecipe.getString("yield");
+                    Integer numPorciones = Math.round(Float.valueOf(numPorcionesString));
+                    Integer kcalPorcion = kcaloriasTotal / numPorciones;
 
                     JSONArray listaIngredientesJSON = (JSONArray) jsonrecipe.get("ingredientLines");
 
@@ -167,7 +170,7 @@ public class RecetasFragment extends Fragment {
                         listaIngredientes.add(listaIngredientesJSON.getString(j));
                     }
 
-                    recetas.add(new Receta(titulo, linkImagen, kcalorias.toString(), listaIngredientes));
+                    recetas.add(new Receta(titulo, linkImagen, kcalPorcion.toString(), numPorciones.toString(), listaIngredientes));
 
                 }
 

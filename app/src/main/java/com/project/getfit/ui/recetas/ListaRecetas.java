@@ -40,6 +40,8 @@ public class ListaRecetas extends ArrayAdapter<Receta> {
 
         Glide.with(getContext())
                 .load(item.getLinkImagen())
+                .placeholder(R.drawable.diet_error)
+                .error(R.drawable.diet)
                 .into(cajaImagen);
 
 
