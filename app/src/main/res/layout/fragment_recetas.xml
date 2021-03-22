@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".ui.medidor_tiempo.MedidorTiempoFragment">
 
     <LinearLayout
@@ -126,25 +127,62 @@
                     android:layout_weight="10"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/text_kcalorias_recetas"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="Kcal"
-                        android:textColor="@color/color_principal"
-                        android:textSize="25dp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/text_raciones"
+                        <TextView
+                            android:id="@+id/text_kcalorias_recetas"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:gravity="center|right"
+                            android:text="Kcal"
+                            android:textColor="@color/color_principal"
+                            android:textSize="25dp" />
+
+                        <ImageView
+                            android:id="@+id/imageViewKcal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="65"
+                            app:srcCompat="@drawable/calories" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:orientation="horizontal"></LinearLayout>
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="Número raciones"
-                        android:textColor="@color/color_principal"
-                        android:textSize="25dp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_raciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:layout_weight="10"
+                            android:gravity="center|right"
+                            android:text="racion"
+                            android:textColor="@color/color_principal"
+                            android:textSize="25dp" />
+
+                        <ImageView
+                            android:id="@+id/imagen_raciones_receta"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="80dp"
+                            android:layout_weight="6"
+                            app:srcCompat="@drawable/numero_raciones" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
