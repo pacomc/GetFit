@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -49,11 +50,21 @@ public class RecetasFragment extends Fragment {
 
     private LinearLayout linearListaRecetas;
     private LinearLayout linearReceta;
+    private LinearLayout linearListViewRecetas;
+    private LinearLayout linearScrollViewsRecetas;
     private TextView textNombreReceta;
     private TextView textKcalorias;
     private TextView textRaciones;
     private ImageView imagenReceta;
     private ListView listViewIngredientes;
+
+    private Button boton_100_200;
+    private Button boton_200_300;
+    private Button boton_300_500;
+    private Button botonDesayuno;
+    private Button botonAlmuerzo;
+    private Button botonCena;
+    private Button botonTentempie;
 
 
 
@@ -64,12 +75,21 @@ public class RecetasFragment extends Fragment {
 
         listViewRecetas = root.findViewById(R.id.list_recetas);
         linearListaRecetas = root.findViewById(R.id.linear_lista_recetas);
+        linearListViewRecetas = root.findViewById(R.id.linear_list_view_recetas);
+        linearScrollViewsRecetas = root.findViewById(R.id.linear_scrollviews_recetas);
         linearReceta = root.findViewById(R.id.linear_receta);
         textNombreReceta = root.findViewById(R.id.text_nombre_receta);
         textKcalorias = root.findViewById(R.id.text_kcalorias_recetas);
         textRaciones = root.findViewById(R.id.text_raciones);
         imagenReceta = root.findViewById(R.id.imagen_receta_individual);
         listViewIngredientes = root.findViewById(R.id.lista_ingredientes);
+        boton_100_200 = root.findViewById(R.id.boton_100_200);
+        boton_200_300 = root.findViewById(R.id.boton_200_300);
+        boton_300_500 = root.findViewById(R.id.boton_300_500);
+        botonDesayuno = root.findViewById(R.id.boton_desayuno);
+        botonAlmuerzo = root.findViewById(R.id.boton_almuerzo);
+        botonCena = root.findViewById(R.id.boton_cena);
+        botonTentempie = root.findViewById(R.id.boton_tentempie);
 
 
 
@@ -80,6 +100,11 @@ public class RecetasFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // lo que hace cuando se pulsa intro
+
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+
+
                 String url = "https://test-es.edamam.com/search?q=" + query;
 
                 new RecetasRequest().execute(url);
@@ -94,6 +119,84 @@ public class RecetasFragment extends Fragment {
             }
         });
 
+
+
+        boton_100_200.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&calories=100-200";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        boton_200_300.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&calories=200-300";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        boton_300_500.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&calories=300-500";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonDesayuno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&mealType=breakfast";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonAlmuerzo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&mealType=lunch";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonCena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&mealType=dinner";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonTentempie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&mealType=snack";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
 
 
 

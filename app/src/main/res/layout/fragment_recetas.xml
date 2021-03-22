@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
-        tools:visibility="visible">
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -49,13 +48,138 @@
             android:layout_weight="15"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/list_recetas"
+            <LinearLayout
+                android:id="@+id/linear_list_view_recetas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="10">
+                android:layout_weight="10"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            </ListView>
+                <ListView
+                    android:id="@+id/list_recetas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:visibility="visible">
+
+                </ListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_scrollviews_recetas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="80"
+                        android:text="¿Buscas por calorías?"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:fillViewport="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/boton_100_200"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="de 100 a 200" />
+
+                            <Button
+                                android:id="@+id/boton_200_300"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="de 200 a 300" />
+
+                            <Button
+                                android:id="@+id/boton_300_500"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="de 300 a 500" />
+
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="80"
+                        android:text="¿Buscas por el tipo de comida?"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:fillViewport="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/boton_desayuno"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Desayuno" />
+
+                            <Button
+                                android:id="@+id/boton_almuerzo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Almuerzo" />
+
+                            <Button
+                                android:id="@+id/boton_cena"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Cena" />
+
+                            <Button
+                                android:id="@+id/boton_tentempie"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Tentempié" />
+
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -69,8 +193,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
