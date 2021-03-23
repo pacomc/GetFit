@@ -133,7 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="80"
-                        android:text="¿Buscas por el tipo de comida?"
+                        android:text="¿Buscas alguna característica especial?"
                         android:textAlignment="center"
                         android:textColor="@color/black" />
 
@@ -149,29 +149,29 @@
                             android:orientation="horizontal">
 
                             <Button
-                                android:id="@+id/boton_desayuno"
+                                android:id="@+id/boton_vegana"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Desayuno" />
+                                android:text="Vegana" />
 
                             <Button
-                                android:id="@+id/boton_almuerzo"
+                                android:id="@+id/boton_vegetariana"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Almuerzo" />
+                                android:text="Vegentariana" />
 
                             <Button
-                                android:id="@+id/boton_cena"
+                                android:id="@+id/boton_libre_grasas"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Cena" />
+                                android:text="Libre de grasas" />
 
                             <Button
-                                android:id="@+id/boton_tentempie"
+                                android:id="@+id/boton_libre_gluten"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Tentempié" />
+                                android:text="Libre de gluten" />
 
 
                         </LinearLayout>

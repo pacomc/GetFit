@@ -61,10 +61,10 @@ public class RecetasFragment extends Fragment {
     private Button boton_100_200;
     private Button boton_200_300;
     private Button boton_300_500;
-    private Button botonDesayuno;
-    private Button botonAlmuerzo;
-    private Button botonCena;
-    private Button botonTentempie;
+    private Button botonVegana;
+    private Button botonVegetariana;
+    private Button botonLibreGrasas;
+    private Button botonLibreGluten;
 
 
 
@@ -86,10 +86,10 @@ public class RecetasFragment extends Fragment {
         boton_100_200 = root.findViewById(R.id.boton_100_200);
         boton_200_300 = root.findViewById(R.id.boton_200_300);
         boton_300_500 = root.findViewById(R.id.boton_300_500);
-        botonDesayuno = root.findViewById(R.id.boton_desayuno);
-        botonAlmuerzo = root.findViewById(R.id.boton_almuerzo);
-        botonCena = root.findViewById(R.id.boton_cena);
-        botonTentempie = root.findViewById(R.id.boton_tentempie);
+        botonVegana = root.findViewById(R.id.boton_vegana);
+        botonVegetariana = root.findViewById(R.id.boton_vegetariana);
+        botonLibreGrasas = root.findViewById(R.id.boton_libre_grasas);
+        botonLibreGluten = root.findViewById(R.id.boton_libre_gluten);
 
 
 
@@ -154,10 +154,10 @@ public class RecetasFragment extends Fragment {
             }
         });
 
-        botonDesayuno.setOnClickListener(new View.OnClickListener() {
+        botonVegana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&mealType=breakfast";
+                String url = "https://test-es.edamam.com/search?q=&health=vegan";
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -165,10 +165,10 @@ public class RecetasFragment extends Fragment {
             }
         });
 
-        botonAlmuerzo.setOnClickListener(new View.OnClickListener() {
+        botonVegetariana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&mealType=lunch";
+                String url = "https://test-es.edamam.com/search?q=&health=vegetarian";
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -176,10 +176,10 @@ public class RecetasFragment extends Fragment {
             }
         });
 
-        botonCena.setOnClickListener(new View.OnClickListener() {
+        botonLibreGrasas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&mealType=dinner";
+                String url = "https://test-es.edamam.com/search?q=&health=fat-free";
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -187,10 +187,10 @@ public class RecetasFragment extends Fragment {
             }
         });
 
-        botonTentempie.setOnClickListener(new View.OnClickListener() {
+        botonLibreGluten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&mealType=snack";
+                String url = "https://test-es.edamam.com/search?q=&health=gluten-free";
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
