@@ -94,6 +94,14 @@ public class MiPerfilFragment extends Fragment {
         editar.commit();
 
 
+        /* TODO: Mirar esto Dani, no se puede cambiar la info de un text de otro fragment, puedes acceder a la info guardada y
+        modificarlo desde inicio. Un saludo Dani.
+
+        if (editNombre.getText().toString() != "") {
+            textoBienvenida.setText("BIENVENIDO " + editNombre.getText().toString().toUpperCase() + "!");
+        }
+
+        */
     }
 
     private void mostrarInfo() {
