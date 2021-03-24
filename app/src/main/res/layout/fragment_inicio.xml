@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
-                    android:text="¿Cómo usar nuestra App?:"
+                    android:gravity="center"
+                    android:text="¿Cómo usar nuestra App?"
                     android:textColor="@color/color_principal"
                     android:textSize="25dp" />
             </LinearLayout>
