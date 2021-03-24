@@ -13,5 +13,6 @@
     <string name="menu_calendario">Calendario</string>
     <string name="menu_rutina">Rutina</string>
     <string name="menu_recetas">Recetas</string>
+    <string name="menu_mi_perfil">Mi perfil</string>
 
 </resources>

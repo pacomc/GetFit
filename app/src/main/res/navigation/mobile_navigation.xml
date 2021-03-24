@@ -40,4 +40,10 @@
         android:name="com.project.getfit.ui.recetas.RecetasFragment"
         android:label="@string/menu_recetas"
         tools:layout="@layout/fragment_recetas" />
+
+    <fragment
+        android:id="@+id/nav_mi_perfil"
+        android:name="com.project.getfit.ui.mi_perfil.MiPerfilFragment"
+        android:label="@string/menu_mi_perfil"
+        tools:layout="@layout/fragment_mi_perfil" />
 </navigation>

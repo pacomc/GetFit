@@ -9,9 +9,17 @@
             android:icon="@raw/home"
             android:title="@string/menu_inicio" />
         <item
+            android:id="@+id/nav_mi_perfil"
+            android:icon="@raw/usuario"
+            android:title="@string/menu_mi_perfil" />
+        <item
             android:id="@+id/nav_cronometro"
             android:icon="@raw/chronometer"
             android:title="@string/menu_medidor_tiempo" />
+        <item
+            android:id="@+id/nav_recetas"
+            android:icon="@raw/food"
+            android:title="@string/menu_recetas" />
         <item
             android:id="@+id/nav_ejercicios"
             android:icon="@raw/fitness"
@@ -24,9 +32,5 @@
             android:id="@+id/nav_rutina"
             android:icon="@raw/routine"
             android:title="@string/menu_rutina" />
-        <item
-            android:id="@+id/nav_recetas"
-            android:icon="@raw/food"
-            android:title="@string/menu_recetas" />
     </group>
 </menu>
