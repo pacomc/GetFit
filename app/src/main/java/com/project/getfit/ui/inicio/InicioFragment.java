@@ -25,8 +25,9 @@ public class InicioFragment extends Fragment {
 
     private InicioViewModel inicioViewModel;
     private TextView textoBienvenida;
+    private com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView videoYoutube;
     private TextView textoTituloConfiguracion;
-    private TextView textoConsejos;
+    private TextView textoVideoYoutube;
     private TextView textoNoticias;
     private TextView textoRedesSociales;
     private EditText editNombre;
@@ -40,10 +41,12 @@ public class InicioFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         textoBienvenida = root.findViewById(R.id.text_mensaje_inicio);
-        textoConsejos = root.findViewById(R.id.text_consejos_inicio);
+        textoVideoYoutube = root.findViewById(R.id.text_consejos_inicio);
         textoNoticias = root.findViewById(R.id.text_noticias_inicio);
         textoRedesSociales = root.findViewById(R.id.text_redes_sociales_inicio);
         textoTituloConfiguracion = root.findViewById(R.id.tituloConfiguracionPerfil);
+        videoYoutube = root.findViewById(R.id.video_youtube);
+
 
         SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
         String nombre = datos.getString("nombrePerfil", "");
@@ -71,7 +74,8 @@ public class InicioFragment extends Fragment {
         });
 
         animacionArriba(textoBienvenida);
-        animacionIzquierda(textoConsejos);
+        animacionIzquierda(textoVideoYoutube);
+        animacionIzquierda(videoYoutube);
         animacionIzquierda(textoNoticias);
         animacionIzquierda(textoRedesSociales);
 
