@@ -1,4 +1,4 @@
-/*package com.project.getfit.ui.inicio;
+package com.project.getfit.ui.inicio;
 
 public class TweetRepository {
     private static TweetRepository instance;
@@ -28,4 +28,3 @@ public class TweetRepository {
         asyncTwitter.addListener(listener);
         asyncTwitter.getHomeTimeline();
     }
-} */
