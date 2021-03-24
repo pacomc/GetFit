@@ -1,11 +1,16 @@
 package com.project.getfit.ui.inicio;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,9 +25,14 @@ public class InicioFragment extends Fragment {
 
     private InicioViewModel inicioViewModel;
     private TextView textoBienvenida;
+    private TextView textoTituloConfiguracion;
     private TextView textoConsejos;
     private TextView textoNoticias;
     private TextView textoRedesSociales;
+    private EditText editNombre;
+    private EditText editEstatura;
+    private EditText editPeso;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -33,6 +43,25 @@ public class InicioFragment extends Fragment {
         textoConsejos = root.findViewById(R.id.text_consejos_inicio);
         textoNoticias = root.findViewById(R.id.text_noticias_inicio);
         textoRedesSociales = root.findViewById(R.id.text_redes_sociales_inicio);
+        textoTituloConfiguracion = root.findViewById(R.id.tituloConfiguracionPerfil);
+
+        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        String nombre = datos.getString("nombrePerfil", "");
+        if (nombre != "") {
+            textoBienvenida.setText("BIENVENIDO " + nombre.toUpperCase() + "!");
+            textoTituloConfiguracion.setText("Perfil de " + nombre);
+        }
+
+        LinearLayout linearInicio = root.findViewById(R.id.linearInicio);
+        linearInicio.setVisibility(View.VISIBLE);
+        LinearLayout linearConfiguracion = root.findViewById(R.id.linearConfigurarPerfil);
+        linearConfiguracion.setVisibility(View.GONE);
+
+        editNombre = root.findViewById(R.id.edittext_nombre_perfil);
+        editEstatura = root.findViewById(R.id.edittext_estatura);
+        editPeso = root.findViewById(R.id.edittext_peso);
+
+
 
         inicioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -46,6 +75,34 @@ public class InicioFragment extends Fragment {
         animacionIzquierda(textoNoticias);
         animacionIzquierda(textoRedesSociales);
 
+        Button configurar = root.findViewById(R.id.botonIrAConfiguracion);
+        configurar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearInicio.setVisibility(View.GONE);
+                linearConfiguracion.setVisibility(View.VISIBLE);
+                mostrarInfo();
+            }
+        });
+
+        Button guardar = root.findViewById(R.id.botonGuardarConfiguracionPerfil);
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarInfo();
+                linearInicio.setVisibility(View.VISIBLE);
+                linearConfiguracion.setVisibility(View.GONE);
+            }
+        });
+
+        Button cancelar = root.findViewById(R.id.botonCancelarConfiguracionPerfil);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearInicio.setVisibility(View.VISIBLE);
+                linearConfiguracion.setVisibility(View.GONE);
+            }
+        });
         /*
         super.onCreate(savedInstanceState);
 
@@ -68,6 +125,28 @@ public class InicioFragment extends Fragment {
     }
 
 
+    private void guardarInfo() {
+        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editar = datos.edit();
+        editar.putString("nombrePerfil", editNombre.getText().toString());
+        editar.putString("estaturaPerfil", editEstatura.getText().toString());
+        editar.putString("pesoPerfil", editPeso.getText().toString());
+        editar.commit();
+
+        if (editNombre.getText().toString() != "") {
+            textoBienvenida.setText("BIENVENIDO " + editNombre.getText().toString().toUpperCase() + "!");
+        }
+    }
+
+    private void mostrarInfo() {
+        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        String nombre = datos.getString("nombrePerfil", "");
+        editNombre.setText(nombre);
+        String estatura = datos.getString("estaturaPerfil", "");
+        editEstatura.setText(estatura);
+        String peso = datos.getString("pesoPerfil", "");
+        editPeso.setText(peso);
+    }
 
     // Creación efectos visuales pagina de inicio:
     private void animacionArriba(View view){
