@@ -51,11 +51,13 @@
                 android:layout_weight="10"
                 android:orientation="vertical">
 
-                <VideoView
-                    android:id="@+id/video_inicio"
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/video_youtube"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="10" />
+                    app:videoId="DQrZBa-6fP4"
+                    app:autoPlay="true"
+                    app:showFullScreenButton="false" />
 
                 <TextView
                     android:id="@+id/text_noticias_inicio"

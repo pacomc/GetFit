@@ -124,6 +124,7 @@ public class InicioFragment extends Fragment {
         return root;
     }
 
+    // Creación de información de Usuarios.
 
     private void guardarInfo() {
         SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
@@ -158,6 +159,8 @@ public class InicioFragment extends Fragment {
         Animation efectoAnimacionIzquierda = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_izquierda);
         view.startAnimation(efectoAnimacionIzquierda);
     }
+
+
 
     /*
     // Esta clase interna es la encargada de manejar el callback,  tiene dos métodos para manejar la posibilidad de éxito y de error.
