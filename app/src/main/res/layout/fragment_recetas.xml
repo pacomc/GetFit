@@ -173,6 +173,67 @@
                                 android:layout_weight="1"
                                 android:text="Libre de gluten" />
 
+                            <Button
+                                android:id="@+id/boton_dieta_paleo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Dieta paleo" />
+                            <Button
+                                android:id="@+id/boton_libre_lacteos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de lacteos" />
+                            <Button
+                                android:id="@+id/boton_libre_trigo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de trigo" />
+                            <Button
+                                android:id="@+id/boton_poca_azucar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Poca azucar" />
+                            <Button
+                                android:id="@+id/boton_libre_huevos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de huevos" />
+                            <Button
+                                android:id="@+id/boton_libre_cacahuete"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de cacahuete" />
+                            <Button
+                                android:id="@+id/boton_libre_nuez"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de nuez" />
+                            <Button
+                                android:id="@+id/boton_libre_soja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de soja" />
+                            <Button
+                                android:id="@+id/boton_libre_pescado"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de pescado" />
+                            <Button
+                                android:id="@+id/boton_libre_mariscos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Libre de mariscos" />
+
 
                         </LinearLayout>
                     </HorizontalScrollView>

@@ -66,6 +66,19 @@ public class RecetasFragment extends Fragment {
     private Button botonLibreGrasas;
     private Button botonLibreGluten;
 
+    private Button botonDietaPaleo;
+    private Button botonLibreTrigo;
+    private Button botonLibreLacteos;
+    private Button botonPocaAzucar;
+    private Button botonLibreNuez;
+    private Button botonLibreHuevos;
+    private Button botonLibreCacahuete;
+    private Button botonLibrePescado;
+    private Button botonLibreSoja;
+    private Button botonLibreMariscos;
+
+    //
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,18 +91,34 @@ public class RecetasFragment extends Fragment {
         linearListViewRecetas = root.findViewById(R.id.linear_list_view_recetas);
         linearScrollViewsRecetas = root.findViewById(R.id.linear_scrollviews_recetas);
         linearReceta = root.findViewById(R.id.linear_receta);
+
         textNombreReceta = root.findViewById(R.id.text_nombre_receta);
         textKcalorias = root.findViewById(R.id.text_kcalorias_recetas);
         textRaciones = root.findViewById(R.id.text_raciones);
         imagenReceta = root.findViewById(R.id.imagen_receta_individual);
         listViewIngredientes = root.findViewById(R.id.lista_ingredientes);
+
         boton_100_200 = root.findViewById(R.id.boton_100_200);
         boton_200_300 = root.findViewById(R.id.boton_200_300);
         boton_300_500 = root.findViewById(R.id.boton_300_500);
+
         botonVegana = root.findViewById(R.id.boton_vegana);
         botonVegetariana = root.findViewById(R.id.boton_vegetariana);
         botonLibreGrasas = root.findViewById(R.id.boton_libre_grasas);
         botonLibreGluten = root.findViewById(R.id.boton_libre_gluten);
+
+        botonDietaPaleo = root.findViewById(R.id.boton_dieta_paleo);
+        botonLibreLacteos = root.findViewById(R.id.boton_libre_lacteos);
+        botonLibreTrigo = root.findViewById(R.id.boton_libre_trigo);
+        botonPocaAzucar = root.findViewById(R.id.boton_poca_azucar);
+        botonLibreHuevos = root.findViewById(R.id.boton_libre_huevos);
+        botonLibreCacahuete = root.findViewById(R.id.boton_libre_cacahuete);
+        botonLibreNuez = root.findViewById(R.id.boton_libre_nuez);
+        botonLibreSoja = root.findViewById(R.id.boton_libre_soja);
+        botonLibrePescado = root.findViewById(R.id.boton_libre_pescado);
+        botonLibreMariscos = root.findViewById(R.id.boton_libre_mariscos);
+
+
 
 
 
@@ -119,7 +148,7 @@ public class RecetasFragment extends Fragment {
             }
         });
 
-
+        //Botones de busqueda:
 
         boton_100_200.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +227,115 @@ public class RecetasFragment extends Fragment {
             }
         });
 
+        botonDietaPaleo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=paleo";
 
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreLacteos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=dairy-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreTrigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=wheat-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonPocaAzucar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=low-sugar";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreHuevos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=egg-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreCacahuete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=peanut-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreNuez.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=tree-nut-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreSoja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=soy-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibrePescado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=fish-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
+
+        botonLibreMariscos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://test-es.edamam.com/search?q=&health=shellfish-free";
+
+                new RecetasRequest().execute(url);
+                linearScrollViewsRecetas.setVisibility(View.GONE);
+                linearListViewRecetas.setVisibility(View.VISIBLE);
+            }
+        });
 
 
 
