@@ -46,6 +46,24 @@ public class InicioFragment extends Fragment {
         animacionIzquierda(textoNoticias);
         animacionIzquierda(textoRedesSociales);
 
+        /*
+        super.onCreate(savedInstanceState);
+
+        //Buscamos a ver si hay algún fragmento en el contenedor
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
+        // En caso de que no haya ningún fragmento, obtenemos los Tweets del Timeline de la API de twtitter y manejamos el Callback
+        if (fragment == null) {
+            TweetRepository.getInstance().getTimelineAsync(timelineListener); // => timelineListener
+        } else {
+            View progressBar = findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.GONE);
+        }
+
+        */
+
+
+
         return root;
     }
 
@@ -61,4 +79,20 @@ public class InicioFragment extends Fragment {
         Animation efectoAnimacionIzquierda = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_izquierda);
         view.startAnimation(efectoAnimacionIzquierda);
     }
+
+    /*
+    // Esta clase interna es la encargada de manejar el callback,  tiene dos métodos para manejar la posibilidad de éxito y de error.
+    TwitterListener timelineListener = new TwitterAdapter() {
+
+        @Override
+        public void gotHomeTimeline(ResponseList<Status> statuses) {
+        }
+            showTimeline(statuses);
+        }
+
+        @Override
+        public void onException(TwitterException te, TwitterMethod method) {
+            showError();
+        }
+    */
 }
