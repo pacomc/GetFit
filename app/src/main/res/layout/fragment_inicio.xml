@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
-                    android:text="Consejos:"
+                    android:text="¿Cómo usar nuestra App?:"
                     android:textColor="@color/color_principal"
                     android:textSize="25dp" />
             </LinearLayout>
@@ -49,12 +49,11 @@
                 android:layout_weight="10"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView5"
+                <VideoView
+                    android:id="@+id/video_inicio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    tools:src="@tools:sample/avatars" />
+                    android:layout_weight="10" />
 
                 <TextView
                     android:id="@+id/text_noticias_inicio"
