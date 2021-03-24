@@ -11,4 +11,6 @@
     <color name="color_reloj_inicio_descanso">#7AA2FF</color>
     <color name="color_reloj_inicio_ejercicio">#7BFF7A</color>
     <color name="color_reloj_fin_ejercicio_completo">#FF867A</color>
+    <color name="color_titulos">#F8D9AC</color>
+
 </resources>
