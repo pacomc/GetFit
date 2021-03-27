@@ -193,10 +193,18 @@ public class EjerciciosFragment extends Fragment {
                 parteCuerpoActual = entry.getKey();
                 new ExtraeInfoEjerciciosRequest().execute(entry.getValue());
             } else {
-                arrayAdapterEjercicios = new ListaEjercicios(getContext(), ejercicios);
-                listViewEjercicios.setAdapter(arrayAdapterEjercicios);
-                progressBarEjercicios.setVisibility(View.GONE);
-                listViewEjercicios.setVisibility(View.VISIBLE);
+                // Este try es necesario ya que puede cambiar de fragment mientras
+                // la peticion termina y el getConext no devolveria el context apropiado
+                // (y cerraria la app)
+                try {
+                    arrayAdapterEjercicios = new ListaEjercicios(getContext(), ejercicios);
+                    listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+                    progressBarEjercicios.setVisibility(View.GONE);
+                    listViewEjercicios.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    Log.e("Warning", "Se ha cambiado de fragment mientras se estaba cargando los ejercicios");
+                }
+
             }
 
         }

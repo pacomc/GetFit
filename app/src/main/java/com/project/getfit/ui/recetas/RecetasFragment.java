@@ -77,7 +77,7 @@ public class RecetasFragment extends Fragment {
     private Button botonLibreSoja;
     private Button botonLibreMariscos;
 
-    //
+
 
 
 
@@ -117,7 +117,29 @@ public class RecetasFragment extends Fragment {
         botonLibreMariscos = root.findViewById(R.id.boton_libre_mariscos);
 
 
+        // Codigo para el boton de pulsar atras
+        root.setFocusableInTouchMode(true);
+        root.requestFocus();
+        root.setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    if (linearListaRecetas.getVisibility() == View.GONE) {
+                        linearListaRecetas.setVisibility(View.VISIBLE);
+                        linearReceta.setVisibility(View.GONE);
+                        linearScrollViewsRecetas.setVisibility(View.GONE);
+                        return true;
+                    } else {
+                        return false;
+                    }
 
+                }
+                return false;
+            }
+        } );
 
 
         //Buscar receta:

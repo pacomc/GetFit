@@ -3,6 +3,7 @@ package com.project.getfit.ui.mi_perfil;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.project.getfit.MainActivity;
 import com.project.getfit.R;
 
 public class MiPerfilFragment extends Fragment {
@@ -45,7 +47,28 @@ public class MiPerfilFragment extends Fragment {
         linearConfiguracion = root.findViewById(R.id.linearConfigurarPerfil);
         textoTituloConfiguracion = root.findViewById(R.id.tituloConfiguracionPerfil);
 
+        // Codigo para el boton de pulsar atras
+        root.setFocusableInTouchMode(true);
+        root.requestFocus();
+        root.setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    if (linearMiPerfil.getVisibility() == View.GONE) {
+                        linearMiPerfil.setVisibility(View.VISIBLE);
+                        linearConfiguracion.setVisibility(View.GONE);
+                        return true; // Si devuelve true captura el boton
+                    } else {
+                        return false; // si devuelve false no, y volveria hacia atras
+                    }
 
+                }
+                return false;
+            }
+        } );
 
         SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
         String nombre = datos.getString("nombrePerfil", "");

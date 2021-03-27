@@ -234,7 +234,7 @@ public class MedidorTiempoFragment extends Fragment {
                                 countDownTimer.cancel();
                                 tiempoContadorActual = 0;
                                 tiempoContadorTotal = 0;
-                                hacerEditable();
+
                                 botonPausar.setVisibility(View.GONE);
 
                             } else {
