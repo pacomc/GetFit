@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import androidx.navigation.Navigation;
 
 import com.project.getfit.MainActivity;
 import com.project.getfit.R;
+import com.project.getfit.ui.ejercicios.DatosEjercicios;
 
 public class RutinaFragment extends Fragment {
 
@@ -35,9 +38,16 @@ public class RutinaFragment extends Fragment {
     public Button boton_rutina;
     public Button boton_atras_ejercicios;
 
+    private ListView listViewEjerciciosRutina;
+    private ProgressBar progressBarEjerciciosRutina;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_rutina, container, false);
+        definirVariables(root);
+
+        DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
+        datosEjercicios.empezar();
 
         // Codigo para el boton de pulsar atras
         root.setFocusableInTouchMode(true);
@@ -63,13 +73,13 @@ public class RutinaFragment extends Fragment {
             }
         } );
 
-        definirVariables(root);
 
         boton_ejercicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reiniciarLinear();
                 contenido_ejercicio.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -96,6 +106,8 @@ public class RutinaFragment extends Fragment {
 
 
     private void definirVariables(View root) {
+        listViewEjerciciosRutina = root.findViewById(R.id.listViewEjerciciosRutina);
+        progressBarEjerciciosRutina = root.findViewById(R.id.progressBarEjerciciosRutina);
         contenido_principal = root.findViewById(R.id.linearPrincipalRutina);
         contenido_ejercicio = root.findViewById(R.id.linearEjercicioRutina);
         contenido_empezar = root.findViewById(R.id.linearEmpezarRutina);
