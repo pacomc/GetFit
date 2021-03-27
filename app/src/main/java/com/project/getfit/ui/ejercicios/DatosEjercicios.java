@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class DatosEjercicios {
     private Iterator<HashMap<String, String>> iteradorEnlaces;
-    private ArrayList<Ejercicio> ejercicios;
+    private static ArrayList<Ejercicio> ejercicios; // static para que guarde la info y no la borre al salir
     private String parteCuerpoActual;
     private Context contextoActual;
     private ArrayAdapter arrayAdapterEjercicios;
@@ -43,7 +43,16 @@ public class DatosEjercicios {
     }
 
     public void empezar() {
-        new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        if (ejercicios != null) {
+            arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejercicios);
+            listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+            progressBarEjercicios.setVisibility(View.GONE);
+            listViewEjercicios.setVisibility(View.VISIBLE);
+
+        } else {
+            new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        }
+
     }
 
     private ArrayList<HashMap<String, String>> extraerInfoEjercicios(String paginaHTML) {
