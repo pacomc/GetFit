@@ -33,7 +33,6 @@ public class MiPerfilFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_mi_perfil, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
 
 
         editNombre = root.findViewById(R.id.edittext_nombre_perfil);

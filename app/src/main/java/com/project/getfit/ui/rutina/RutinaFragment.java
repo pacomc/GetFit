@@ -18,7 +18,6 @@ import com.project.getfit.R;
 
 public class RutinaFragment extends Fragment {
 
-    private RutinaViewModel rutinaViewModel;
 
     private View root;
 
@@ -32,13 +31,10 @@ public class RutinaFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rutinaViewModel = new ViewModelProvider(this).get(RutinaViewModel.class);
         View root = inflater.inflate(R.layout.fragment_rutina, container, false);
 
 
         definirVariables(root);
-        reiniciarLinear();
-        contenido_principal.setVisibility(View.VISIBLE);
 
         boton_ejercicios.setOnClickListener(new View.OnClickListener() {
             @Override

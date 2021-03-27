@@ -84,8 +84,6 @@ public class RecetasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_recetas, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-
         listViewRecetas = root.findViewById(R.id.list_recetas);
         linearListaRecetas = root.findViewById(R.id.linear_lista_recetas);
         linearListViewRecetas = root.findViewById(R.id.linear_list_view_recetas);
