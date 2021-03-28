@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.room.Room;
 
 import com.project.getfit.MainActivity;
 import com.project.getfit.R;
@@ -98,6 +99,17 @@ public class RutinaFragment extends Fragment {
                 contenido_principal.setVisibility(View.VISIBLE);
             }
         });
+
+
+
+        /*
+        // Código válido para almacenar las rutinas en una base de datos creadas con Room
+        AppDatabase db = Room.databaseBuilder(getContext(),
+                AppDatabase.class, "basedatos-rutinas").build();
+        RutinaDao rd = db.rutinaDao();
+        rd.insert();
+
+        */
 
         return root;
     }
