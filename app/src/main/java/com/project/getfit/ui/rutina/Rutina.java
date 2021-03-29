@@ -14,7 +14,6 @@ public class Rutina {
     @ColumnInfo(name = "nombre_rutina")
     public String nombreRutina;
 
-    @ColumnInfo(name = "ejercicios_rutina")
-    public List<Ejercicio> ejerciciosRutina;
+
 }
 

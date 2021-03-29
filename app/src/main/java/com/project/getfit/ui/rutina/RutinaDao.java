@@ -17,11 +17,7 @@ public interface RutinaDao {
     @Query("SELECT * FROM rutina WHERE nombre_rutina LIKE :nombreRutina LIMIT 1")
     Rutina findByName(String nombreRutina);
 
-    @Query("SELECT ejercicios_rutina FROM rutina WHERE nombre_rutina LIKE :nombreRutina LIMIT 1")
-    Rutina getEjerciciosRutinaByName(String nombreRutina);
 
-    @Query("SELECT ejercicios_rutina FROM rutina WHERE uid LIKE :idRutina")
-    Rutina getEjerciciosRutinaById(int idRutina);
 
     @Insert
     void insertAll(Rutina... rutinas);
