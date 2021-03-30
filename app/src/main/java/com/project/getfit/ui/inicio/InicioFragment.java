@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,9 +26,9 @@ public class InicioFragment extends Fragment {
 
     private InicioViewModel inicioViewModel;
     private TextView textoBienvenida;
+    private ImageView imagenLogo;
     private com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView videoYoutube;
     private TextView textoVideoYoutube;
-    private TextView textoNoticias;
     private TextView textoRedesSociales;
 
 
@@ -39,8 +40,8 @@ public class InicioFragment extends Fragment {
 
         textoBienvenida = root.findViewById(R.id.text_mensaje_inicio);
         textoVideoYoutube = root.findViewById(R.id.text_consejos_inicio);
-        textoNoticias = root.findViewById(R.id.text_noticias_inicio);
         textoRedesSociales = root.findViewById(R.id.text_redes_sociales_inicio);
+        imagenLogo = root.findViewById(R.id.imagenLogo);
         videoYoutube = root.findViewById(R.id.video_youtube);
 
         textoBienvenida.setText("¡BIENVENIDO!");
@@ -58,10 +59,10 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        animacionArriba(textoBienvenida);
+        animacionArriba(imagenLogo);
+        animacionIzquierda(textoBienvenida);
         animacionIzquierda(textoVideoYoutube);
         animacionIzquierda(videoYoutube);
-        animacionIzquierda(textoNoticias);
         animacionIzquierda(textoRedesSociales);
 
 
