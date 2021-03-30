@@ -27,9 +27,14 @@ public class MiPerfilFragment extends Fragment {
     private Button guardar;
     private Button cancelar;
     private TextView textoTituloConfiguracion;
+    private TextView textoTituloPerfil;
     private EditText editNombre;
     private EditText editEstatura;
     private EditText editPeso;
+    private TextView mostrarClasificacion;
+    private TextView mostrarIMC;
+    private TextView mostrarEstatura;
+    private TextView mostrarPeso;
     private LinearLayout linearMiPerfil;
     private LinearLayout linearConfiguracion;
 
@@ -40,12 +45,20 @@ public class MiPerfilFragment extends Fragment {
         editNombre = root.findViewById(R.id.edittext_nombre_perfil);
         editEstatura = root.findViewById(R.id.edittext_estatura);
         editPeso = root.findViewById(R.id.edittext_peso);
+        mostrarEstatura = root.findViewById(R.id.mostrarEstaturaPerfil);
+        mostrarPeso = root.findViewById(R.id.mostrarPesoPerfil);
+        mostrarIMC = root.findViewById(R.id.mostrarIMCPerfil);
+        mostrarClasificacion = root.findViewById(R.id.mostrarClasificacionPerfil);
+
         configurar = root.findViewById(R.id.botonIrAConfiguracion);
         guardar = root.findViewById(R.id.botonGuardarConfiguracionPerfil);
         cancelar = root.findViewById(R.id.botonCancelarConfiguracionPerfil);
         linearMiPerfil = root.findViewById(R.id.linear_mi_perfil);
         linearConfiguracion = root.findViewById(R.id.linearConfigurarPerfil);
         textoTituloConfiguracion = root.findViewById(R.id.tituloConfiguracionPerfil);
+        textoTituloPerfil = root.findViewById(R.id.tituloPerfil);
+
+        mostrarInfo();
 
         // Codigo para el boton de pulsar atras
         root.setFocusableInTouchMode(true);
@@ -74,6 +87,7 @@ public class MiPerfilFragment extends Fragment {
         String nombre = datos.getString("nombrePerfil", "");
         if (nombre != "") {
             textoTituloConfiguracion.setText("Perfil de " + nombre);
+            textoTituloPerfil.setText("Perfil de " + nombre);
         }
 
         configurar.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +105,7 @@ public class MiPerfilFragment extends Fragment {
                 guardarInfo();
                 linearMiPerfil.setVisibility(View.VISIBLE);
                 linearConfiguracion.setVisibility(View.GONE);
+                mostrarInfo();
             }
         });
 
@@ -115,15 +130,6 @@ public class MiPerfilFragment extends Fragment {
         editar.putString("pesoPerfil", editPeso.getText().toString());
         editar.commit();
 
-
-        /* TODO: Mirar esto Dani, no se puede cambiar la info de un text de otro fragment, puedes acceder a la info guardada y
-        modificarlo desde inicio. Un saludo Dani.
-
-        if (editNombre.getText().toString() != "") {
-            textoBienvenida.setText("BIENVENIDO " + editNombre.getText().toString().toUpperCase() + "!");
-        }
-
-        */
     }
 
     private void mostrarInfo() {
@@ -132,7 +138,42 @@ public class MiPerfilFragment extends Fragment {
         editNombre.setText(nombre);
         String estatura = datos.getString("estaturaPerfil", "");
         editEstatura.setText(estatura);
+        mostrarEstatura.setText(estatura + " cm");
         String peso = datos.getString("pesoPerfil", "");
         editPeso.setText(peso);
+        mostrarPeso.setText(peso + " kg");
+        if(!peso.equals("") && !estatura.equals("")) {
+            Double formula = (Double.parseDouble(peso) / Math.pow(Double.parseDouble(estatura) / 100, 2));
+            mostrarIMC.setText(formula.toString().substring(0, 6));
+            if(formula < 18.5) {
+                mostrarClasificacion.setText("Peso insuficiente");
+            } else if(formula < 24.9) {
+                mostrarClasificacion.setText("Normopeso");
+
+            }else if(formula < 26.9) {
+                mostrarClasificacion.setText("Sobrepeso grado I");
+
+            }else if(formula < 29.9) {
+                mostrarClasificacion.setText("Sobrepeso grado II (preobesidad)");
+
+            }else if(formula < 34.9) {
+                mostrarClasificacion.setText("Obesidad tipo I");
+
+            }else if(formula < 39.9) {
+                mostrarClasificacion.setText("Obesidad tipo II");
+
+            }else if(formula < 49.9) {
+                mostrarClasificacion.setText("Obesidad tipo III (mórbida)");
+
+            }else {
+                mostrarClasificacion.setText("Obesidad tipo IV (Extrema)");
+
+            }
+        }else {
+            mostrarPeso.setText("-- kg");
+            mostrarEstatura.setText("-- cm");
+            mostrarIMC.setText("--");
+            mostrarClasificacion.setText("Desconocido");
+        }
     }
 }

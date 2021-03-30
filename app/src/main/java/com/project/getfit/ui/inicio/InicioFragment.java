@@ -45,6 +45,12 @@ public class InicioFragment extends Fragment {
 
         textoBienvenida.setText("¡BIENVENIDO!");
 
+        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        String nombreUsuario = datos.getString("nombrePerfil", "");
+        if(!nombreUsuario.equals("")) {
+            textoBienvenida.setText("¡BIENVENIDO " + nombreUsuario.toUpperCase() + "!");
+        }
+
         inicioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
