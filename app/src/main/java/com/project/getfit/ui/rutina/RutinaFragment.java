@@ -1,6 +1,8 @@
 package com.project.getfit.ui.rutina;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,19 @@ import androidx.room.Room;
 import com.project.getfit.MainActivity;
 import com.project.getfit.R;
 import com.project.getfit.ui.ejercicios.DatosEjercicios;
+import com.project.getfit.ui.ejercicios.Ejercicio;
+import com.project.getfit.ui.ejercicios.ListaEjercicios;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RutinaFragment extends Fragment {
 
@@ -36,6 +51,7 @@ public class RutinaFragment extends Fragment {
     public LinearLayout contenido_principal;
     public LinearLayout contenido_ejercicio;
     public LinearLayout contenido_empezar;
+    public LinearLayout contenido_nueva_rutina;
 
     public Button boton_ejercicios;
     public Button boton_rutina;
@@ -53,7 +69,6 @@ public class RutinaFragment extends Fragment {
         DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
         datosEjercicios.empezar();
 
-        boton_tresPuntos = root.findViewById(R.id.boton_tres_puntos);
 
         // Codigo para el boton de pulsar atras
         root.setFocusableInTouchMode(true);
@@ -68,6 +83,7 @@ public class RutinaFragment extends Fragment {
                     if (contenido_principal.getVisibility() == View.GONE) {
                         contenido_principal.setVisibility(View.VISIBLE);
                         contenido_ejercicio.setVisibility(View.GONE);
+                        contenido_nueva_rutina.setVisibility(View.GONE);
                         contenido_empezar.setVisibility(View.GONE);
                         return true;
                     } else {
@@ -93,7 +109,7 @@ public class RutinaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 reiniciarLinear();
-                contenido_empezar.setVisibility(View.VISIBLE);
+                contenido_nueva_rutina.setVisibility(View.VISIBLE);
             }
         });
 
@@ -108,20 +124,50 @@ public class RutinaFragment extends Fragment {
 
 
         /*
-        // Código válido para almacenar las rutinas en una base de datos creadas con Room
-        AppDatabase db = Room.databaseBuilder(getContext(),
-                AppDatabase.class, "basedatos-rutinas").build();
-        RutinaDao rd = db.rutinaDao();
-        rd.insert();
+        //Ejemplo insertar datos en bd
+        Rutina r = new Rutina("Nombre rutina");
+        new InsertarRutina().execute(r);
 
         */
 
-        animacionAbajo(boton_atras_ejercicios);
-        animacionAbajo(boton_rutina);
-        animacionAbajo(boton_ejercicios);
-        animacionAbajo(boton_tresPuntos);
 
         return root;
+    }
+
+    private class InsertarRutina extends AsyncTask<Rutina, Void, String> {
+
+        protected String doInBackground(Rutina... rutina) {
+            // Código válido para almacenar las rutinas en una base de datos creadas con Room
+            AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "basedatos-rutinas").build();
+            RutinaDao rd = db.rutinaDao();
+
+            rd.insert(rutina[0]);
+
+            return rd.getAll().toString();
+        }
+
+
+        protected void onPostExecute(String peticionBaseDatos) {
+            Log.e("Se han insertado datos:", peticionBaseDatos);
+        }
+    }
+
+    private class CrearLista extends AsyncTask<Rutina, Void, ArrayList<Rutina>> {
+
+        protected ArrayList<Rutina> doInBackground(Rutina... rutinas) {
+            // Código válido para almacenar las rutinas en una base de datos creadas con Room
+            AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "basedatos-rutinas").build();
+            RutinaDao rd = db.rutinaDao();
+
+            return new ArrayList<>(rd.getAll());
+        }
+
+
+        protected void onPostExecute(ArrayList<Rutina> listaRutinas) {
+            // Hacer adapter de listview rutinas.
+
+
+        }
     }
 
 
@@ -133,6 +179,7 @@ public class RutinaFragment extends Fragment {
         contenido_principal = root.findViewById(R.id.linearPrincipalRutina);
         contenido_ejercicio = root.findViewById(R.id.linearEjercicioRutina);
         contenido_empezar = root.findViewById(R.id.linearEmpezarRutina);
+        contenido_nueva_rutina = root.findViewById(R.id.linearNuevaRutina);
         boton_ejercicios = root.findViewById(R.id.botonIrAEjercicios);
         boton_rutina = root.findViewById(R.id.botonIrARutina);
         boton_atras_ejercicios = root.findViewById(R.id.botonAtrasEjercicios);
@@ -144,12 +191,5 @@ public class RutinaFragment extends Fragment {
         contenido_empezar.setVisibility(View.GONE);
     }
 
-    // Creación efectos visuales pagina de inicio:
-
-    private void animacionAbajo(View view) {
-        Animation efectoAnimacionAbajo = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_abajo);
-        view.startAnimation(efectoAnimacionAbajo);
-
-    }
 
 }

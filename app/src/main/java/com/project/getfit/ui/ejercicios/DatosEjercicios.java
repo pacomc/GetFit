@@ -125,7 +125,7 @@ public class DatosEjercicios {
     }
 
 
-    class ExtraeInfoEjerciciosRequest extends AsyncTask<String, Void, String> {
+    private class ExtraeInfoEjerciciosRequest extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... targetURL) {
             HttpURLConnection connection = null;
