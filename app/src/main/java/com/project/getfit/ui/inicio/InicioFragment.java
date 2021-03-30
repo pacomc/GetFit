@@ -60,7 +60,7 @@ public class InicioFragment extends Fragment {
         });
 
         animacionArriba(imagenLogo);
-        animacionIzquierda(textoBienvenida);
+        animacionArriba(textoBienvenida);
         animacionIzquierda(textoVideoYoutube);
         animacionIzquierda(videoYoutube);
         animacionIzquierda(textoRedesSociales);

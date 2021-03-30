@@ -5,6 +5,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +40,7 @@ public class RutinaFragment extends Fragment {
     public Button boton_ejercicios;
     public Button boton_rutina;
     public Button boton_atras_ejercicios;
+    public Button boton_tresPuntos;
 
     private ListView listViewEjerciciosRutina;
     private ProgressBar progressBarEjerciciosRutina;
@@ -49,6 +52,8 @@ public class RutinaFragment extends Fragment {
 
         DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
         datosEjercicios.empezar();
+
+        boton_tresPuntos = root.findViewById(R.id.boton_tres_puntos);
 
         // Codigo para el boton de pulsar atras
         root.setFocusableInTouchMode(true);
@@ -111,6 +116,11 @@ public class RutinaFragment extends Fragment {
 
         */
 
+        animacionAbajo(boton_atras_ejercicios);
+        animacionAbajo(boton_rutina);
+        animacionAbajo(boton_ejercicios);
+        animacionAbajo(boton_tresPuntos);
+
         return root;
     }
 
@@ -132,6 +142,14 @@ public class RutinaFragment extends Fragment {
         contenido_principal.setVisibility(View.GONE);
         contenido_ejercicio.setVisibility(View.GONE);
         contenido_empezar.setVisibility(View.GONE);
+    }
+
+    // Creación efectos visuales pagina de inicio:
+
+    private void animacionAbajo(View view) {
+        Animation efectoAnimacionAbajo = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_abajo);
+        view.startAnimation(efectoAnimacionAbajo);
+
     }
 
 }

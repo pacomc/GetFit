@@ -7,8 +7,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +41,13 @@ public class MiPerfilFragment extends Fragment {
     private LinearLayout linearMiPerfil;
     private LinearLayout linearConfiguracion;
 
+    private TextView TextoPesoPerfil;
+    private TextView TextoEstaturaPerfil;
+    private TextView TextoImcPerfil;
+    private TextView TextoResultadoPerfil;
+    private ImageView imagenMiPerfil;
+    private ImageView imagenMiPerfilConfiguracion;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_mi_perfil, container, false);
 
@@ -57,6 +67,13 @@ public class MiPerfilFragment extends Fragment {
         linearConfiguracion = root.findViewById(R.id.linearConfigurarPerfil);
         textoTituloConfiguracion = root.findViewById(R.id.tituloConfiguracionPerfil);
         textoTituloPerfil = root.findViewById(R.id.tituloPerfil);
+
+        TextoPesoPerfil = root.findViewById(R.id.text_peso_perfil);
+        TextoEstaturaPerfil = root.findViewById(R.id.text_estatura_perfil);
+        TextoImcPerfil = root.findViewById(R.id.text_imc_perfil);
+        TextoResultadoPerfil = root.findViewById(R.id.text_resultado_perfil);
+        imagenMiPerfil = root.findViewById(R.id.imagen_mi_perfil);
+        imagenMiPerfilConfiguracion = root.findViewById(R.id.imagen_mi_perfil_configuracion);
 
         mostrarInfo();
 
@@ -117,6 +134,23 @@ public class MiPerfilFragment extends Fragment {
             }
         });
 
+        animacionArriba(textoTituloConfiguracion);
+        animacionArriba(imagenMiPerfil);
+        animacionArriba(imagenMiPerfilConfiguracion);
+        animacionArriba(textoTituloPerfil);
+        animacionIzquierda(mostrarClasificacion);
+        animacionIzquierda(mostrarIMC);
+        animacionIzquierda(mostrarEstatura);
+        animacionIzquierda(mostrarPeso);
+        animacionDerecha(TextoPesoPerfil);
+        animacionDerecha(TextoImcPerfil);
+        animacionDerecha(TextoEstaturaPerfil);
+        animacionDerecha(TextoResultadoPerfil);
+        animacionAbajo(configurar);
+        animacionAbajo(guardar);
+        animacionAbajo(cancelar);
+
+
         return root;
     }
 
@@ -175,5 +209,27 @@ public class MiPerfilFragment extends Fragment {
             mostrarIMC.setText("--");
             mostrarClasificacion.setText("Desconocido");
         }
+    }
+
+    // Creación efectos visuales pagina de inicio:
+    private void animacionArriba(View view){
+        Animation efectoAnimacionArriba = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_arriba);
+        view.startAnimation(efectoAnimacionArriba);
+
+    }
+    private void animacionAbajo(View view){
+        Animation efectoAnimacionAbajo = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_abajo);
+        view.startAnimation(efectoAnimacionAbajo);
+
+    }
+    private void animacionIzquierda(View view){
+        Animation efectoAnimacionIzquierda = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_izquierda);
+        view.startAnimation(efectoAnimacionIzquierda);
+
+    }
+    private void animacionDerecha(View view){
+        Animation efectoAnimacionDerecha = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_derecha);
+        view.startAnimation(efectoAnimacionDerecha);
+
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
@@ -33,6 +35,9 @@ public class CalendarioFragment extends Fragment {
     private Button botonHora;
     private LinearLayout linearMostrarEvento;
     private LinearLayout linearAñadirEvento;
+    private TextView tituloEvento;
+    private TextView descripcionEvento;
+    private TextView horaEvento;
 
 
 
@@ -42,6 +47,9 @@ public class CalendarioFragment extends Fragment {
 
         final CalendarView calendarView = root.findViewById(R.id.calendarView);
         miFecha = root.findViewById(R.id.texto_fecha);
+        tituloEvento = root.findViewById(R.id.texto_titulo_evento_calendario);
+        descripcionEvento = root.findViewById(R.id.texto_descripcion_evento_calendario);
+        horaEvento = root.findViewById(R.id.texto_hora_evento_calendario);
 
         Calendar fechaActual= Calendar.getInstance();
         Integer diaInt = fechaActual.get(Calendar.DAY_OF_MONTH);
@@ -111,7 +119,39 @@ public class CalendarioFragment extends Fragment {
             }
         });
 
+        animacionArriba(calendarView);
+        animacionIzquierda(miFecha);
+        animacionIzquierda(tituloEvento);
+        animacionIzquierda(descripcionEvento);
+        animacionIzquierda(horaEvento);
+        animacionIzquierda(linearMostrarEvento);
+        animacionIzquierda(linearAñadirEvento);
+        animacionDerecha(botonHora);
+        animacionAbajo(botonAñadirEvento);
+
+
     return root;
+    }
+    // Creación efectos visuales pagina de inicio:
+    private void animacionArriba(View view){
+        Animation efectoAnimacionArriba = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_arriba);
+        view.startAnimation(efectoAnimacionArriba);
+
+    }
+    private void animacionAbajo(View view){
+        Animation efectoAnimacionAbajo = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_abajo);
+        view.startAnimation(efectoAnimacionAbajo);
+
+    }
+    private void animacionIzquierda(View view){
+        Animation efectoAnimacionIzquierda = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_izquierda);
+        view.startAnimation(efectoAnimacionIzquierda);
+
+    }
+    private void animacionDerecha(View view){
+        Animation efectoAnimacionDerecha = AnimationUtils.loadAnimation(getContext(), R.anim.animacion_desde_derecha);
+        view.startAnimation(efectoAnimacionDerecha);
+
     }
 
 }
