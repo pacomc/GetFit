@@ -33,13 +33,13 @@ public class CalendarioFragment extends Fragment {
         miFecha = root.findViewById(R.id.texto_fecha);
         botonGuardarFecha = root.findViewById(R.id.boton_guardar_fecha);
         if(botonGuardarFecha.callOnClick()){
-            Calendar cambiarColorDia = Calendar.getInstance();
-            calendarView.setDate(cambiarColorDia.getTimeInMillis());
+
 
         }
 
 
-
+        Calendar cambiarColorDia = Calendar.getInstance();
+        calendarView.setDate(cambiarColorDia.getTimeInMillis());
 
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
