@@ -12,7 +12,11 @@ public class Rutina {
         this.nombreRutina = nombreRutina;
     }
 
-    @PrimaryKey
+    public String getNombreRutina() {
+        return nombreRutina;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     public int uid;
 
     @Override
