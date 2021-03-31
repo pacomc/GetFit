@@ -1,6 +1,10 @@
-/*
 package com.project.getfit.ui.inicio;
 
+
+import twitter4j.AsyncTwitter;
+import twitter4j.AsyncTwitterFactory;
+import twitter4j.TwitterListener;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TweetRepository {
     private static TweetRepository instance;
@@ -16,10 +20,10 @@ public class TweetRepository {
     private ConfigurationBuilder getConfiguration() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("PEGAR LA CLAVE OBTENIDA")
-                .setOAuthConsumerSecret("PEGAR LA CLAVE OBTENIDA")
-                .setOAuthAccessToken("PEGAR LA CLAVE OBTENIDA")
-                .setOAuthAccessTokenSecret("PEGAR LA CLAVE OBTENIDA");
+                .setOAuthConsumerKey("EuOER6WmxCNxyzHNVB983yDdw")
+                .setOAuthConsumerSecret("F9JMQu5kSGole2ZqbDtFUvMVcUtsodyXE69oNhexm6P6A6zYMw")
+                .setOAuthAccessToken("1374677001945120768-h7lELdEi6RdhfQzt1uemDzdwXzB7VR")
+                .setOAuthAccessTokenSecret("zj2wG0wIS28p5uUFIPlHIPj6jFm6WdsSLuVBZVcW1jMG3");
 
         return cb;
     }
@@ -30,4 +34,4 @@ public class TweetRepository {
         asyncTwitter.addListener(listener);
         asyncTwitter.getHomeTimeline();
     }
-} */
+}
