@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import twitter4j.TwitterMethod;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private static Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         //Tweets
-
         //Buscamos a ver si hay algún fragmento en el contenedor
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        fragment = getSupportFragmentManager().findFragmentById(R.id.container);
 
         // En caso de que no haya ningún fragmento, obtenemos los Tweets del Timeline de la API de twtitter y manejamos el Callback
         if (fragment == null) {
@@ -67,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
 
+
+
     }
+
 
     //Mostrar Tweets
 
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void showError() {
-            System.out.print("Error al imprimir un Tweet");
+            Log.e("Error", "Error al imprimir un Tweet");
         }
     };
     private void showTimeline(ResponseList<Status> statuses) {
@@ -140,10 +144,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
     // Para que tenga que presionar dos veces si quiere salir
     private static final int TIME_DELAY = 2000;
     private static long back_pressed;
-
 
     @Override
     public void onBackPressed() {

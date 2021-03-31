@@ -152,6 +152,7 @@
                         tools:context=".MainActivity">
 
                         <LinearLayout
+                            android:id="@+id/linear_progress_bar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
@@ -167,13 +168,22 @@
                                     style="?android:attr/progressBarStyle"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />
+
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="50"
-                                android:orientation="vertical"></LinearLayout>
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pulsa para recargar"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
