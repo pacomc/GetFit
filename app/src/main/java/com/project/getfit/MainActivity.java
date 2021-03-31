@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static Fragment fragment;
+    private LinearLayout linearLayoutProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +66,16 @@ public class MainActivity extends AppCompatActivity {
         if (fragment == null) {
             TweetRepository.getInstance().getTimelineAsync(timelineListener); // => timelineListener
         } else {
-            View progressBar = findViewById(R.id.progressBar);
-            progressBar.setVisibility(View.GONE);
+            View linearLayoutProgressBar = findViewById(R.id.linear_progress_bar);
+            linearLayoutProgressBar.setVisibility(View.GONE);
         }
 
 
 
+
+
     }
+
 
 
     //Mostrar Tweets
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 // Ocultamos la barra de progreso
-                View progressBar = findViewById(R.id.progressBar);
+                View progressBar = findViewById(R.id.linear_progress_bar);
                 progressBar.setVisibility(View.GONE);
 
                 // Insertamos el TimelineFragment
