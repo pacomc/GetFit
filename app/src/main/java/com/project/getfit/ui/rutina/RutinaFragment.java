@@ -105,6 +105,8 @@ public class RutinaFragment extends Fragment {
             }
         } );
 
+        // Para que se muestre la lista de rutinas al principio
+        actualizarLista();
 
         boton_ejercicios.setOnClickListener(new View.OnClickListener() {
             @Override
