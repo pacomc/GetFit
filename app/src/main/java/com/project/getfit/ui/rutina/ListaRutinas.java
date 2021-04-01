@@ -29,7 +29,6 @@ public class ListaRutinas extends ArrayAdapter<Rutina> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.lista_rutinas, null);
         }
         TextView cajaTitulo = convertView.findViewById(R.id.textoTituloRutina);
-        TextView cajaSubtitulo = convertView.findViewById(R.id.textoSubtituloRutina);
 
         cajaTitulo.setText(item.getNombreRutina());
 
