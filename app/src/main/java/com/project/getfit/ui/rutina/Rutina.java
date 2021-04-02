@@ -21,9 +21,9 @@ public class Rutina {
 
 
 
-    public Rutina(String nombreRutina) {
+    public Rutina(String nombreRutina, ArrayList<Ejercicio> ejercicios) {
         this.nombreRutina = nombreRutina;
-        this.ejercicios = new ArrayList<>();
+        this.ejercicios = ejercicios;
     }
 
     public void setUid(int uid) {

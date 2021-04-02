@@ -26,6 +26,10 @@ public interface RutinaDao {
     @Query("UPDATE rutina SET ejercicios = :ejerciciosActualizados WHERE uid = :idRutina")
     void insertarEjercicioRutina(int idRutina, ArrayList<Ejercicio> ejerciciosActualizados);
 
+    @Delete
+    void eliminarRutina(Rutina rutina);
+
+
 
     @Query("UPDATE rutina SET nombre_rutina = :nombreActualizado WHERE uid = :idRutina")
     void actualizarRutina(int idRutina, String nombreActualizado);
