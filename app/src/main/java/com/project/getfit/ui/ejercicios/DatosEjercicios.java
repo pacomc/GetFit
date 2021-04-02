@@ -55,6 +55,10 @@ public class DatosEjercicios {
 
     }
 
+    public static ArrayList<Ejercicio> getEjercicios() {
+        return ejercicios;
+    }
+
     private ArrayList<HashMap<String, String>> extraerInfoEjercicios(String paginaHTML) {
         ArrayList<HashMap<String, String>> infoEjercicios = new ArrayList<>();
 

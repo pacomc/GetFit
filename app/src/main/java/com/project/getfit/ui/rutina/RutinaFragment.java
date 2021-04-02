@@ -7,8 +7,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,39 +14,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
-import com.project.getfit.MainActivity;
 import com.project.getfit.R;
 import com.project.getfit.ui.ejercicios.DatosEjercicios;
 import com.project.getfit.ui.ejercicios.Ejercicio;
 import com.project.getfit.ui.ejercicios.ListaEjercicios;
 import com.project.getfit.ui.recetas.ListaIngredientes;
-import com.project.getfit.ui.recetas.ListaRecetas;
 import com.project.getfit.ui.recetas.Receta;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RutinaFragment extends Fragment {
 
@@ -56,21 +36,24 @@ public class RutinaFragment extends Fragment {
 
     private View root;
 
-    public LinearLayout contenido_principal;
-    public LinearLayout contenido_ejercicio;
-    public LinearLayout contenido_empezar;
-    public LinearLayout contenido_nueva_rutina;
-    public LinearLayout contenido_actualizar_rutina;
+    private LinearLayout contenido_principal;
+    private LinearLayout contenido_ejercicio;
+    private LinearLayout contenido_empezar;
+    private LinearLayout contenido_nueva_rutina;
+    private LinearLayout contenido_actualizar_rutina;
 
-    public Button boton_ejercicios;
-    public Button boton_rutina;
-    public Button boton_atras_ejercicios;
-    public Button boton_guardar;
-    public Button boton_cancelar;
-    public Button boton_actualizar_rutina;
-    public Button boton_cancelar_actualizar;
+    private Button boton_ejercicios;
+    private Button boton_ejercicios_actualizar;
+    private Button boton_rutina;
+    private Button boton_atras_ejercicios;
+    private Button boton_guardar;
+    private Button boton_cancelar;
+    private Button boton_actualizar_rutina;
+    private Button boton_cancelar_actualizar;
 
     private ArrayAdapter arrayAdapterRutina;
+    private ArrayAdapter arrayAdapterEjerciciosActualizados;
+    private ArrayAdapter arrayAdapterEjerciciosInsertados;
 
     private EditText editTextNombreRutina;
     private EditText editTextNombreRutinaActualizada;
@@ -78,16 +61,36 @@ public class RutinaFragment extends Fragment {
 
     private ListView listViewRutinas;
     private ListView listViewEjerciciosRutina;
+    private ListView listViewEjerciciosActualizados;
+    private ListView listViewEjerciciosInsertados;
 
     private ProgressBar progressBarEjerciciosRutina;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_rutina, container, false);
-        definirVariables(root);
+        listViewEjerciciosRutina = root.findViewById(R.id.listViewEjerciciosRutina);
+        progressBarEjerciciosRutina = root.findViewById(R.id.progressBarEjerciciosRutina);
+        contenido_principal = root.findViewById(R.id.linearPrincipalRutina);
+        contenido_ejercicio = root.findViewById(R.id.linearEjercicioRutina);
+        contenido_empezar = root.findViewById(R.id.linearEmpezarRutina);
+        contenido_nueva_rutina = root.findViewById(R.id.linearNuevaRutina);
+        contenido_actualizar_rutina = root.findViewById(R.id.linearActualizarRutina);
+        boton_ejercicios = root.findViewById(R.id.botonIrAEjercicios);
+        boton_ejercicios_actualizar = root.findViewById(R.id.botonIrAEjerciciosActualizar);
+        boton_rutina = root.findViewById(R.id.botonIrARutina);
+        boton_atras_ejercicios = root.findViewById(R.id.botonAtrasEjercicios);
+        boton_guardar = root.findViewById(R.id.botonGuardarConfiguracionRutina);
+        boton_cancelar = root.findViewById(R.id.botonCancelarConfiguracionRutina);
+        boton_actualizar_rutina = root.findViewById(R.id.botonActualizarRutina);
+        boton_cancelar_actualizar = root.findViewById(R.id.botonCancelarActualizarRutina);
+        editTextNombreRutina = root.findViewById(R.id.edittext_nombre_rutina);
+        editTextNombreRutinaActualizada = root.findViewById(R.id.edittext_nombre_rutina_actualizar);
+        listViewRutinas = root.findViewById(R.id.listaDeRutinas);
+        listViewEjerciciosActualizados = root.findViewById(R.id.ListViewEjericiciosActualizados);
+        listViewEjerciciosInsertados = root.findViewById(R.id.ListViewEjericiciosAnyadidos);
 
-        DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
-        datosEjercicios.empezar();
+
 
 
         // Codigo para el boton de pulsar atras
@@ -118,20 +121,44 @@ public class RutinaFragment extends Fragment {
         // Para que se muestre la lista de rutinas al principio
         actualizarLista();
 
-        boton_ejercicios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reiniciarLinear();
-                contenido_ejercicio.setVisibility(View.VISIBLE);
 
-            }
-        });
+
+
 
         boton_rutina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boton_guardar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String nombreRutina = String.valueOf(editTextNombreRutina.getText());
+                        Rutina rutina = new Rutina(nombreRutina);
+
+                        insertarRutina(rutina);
+                        actualizarLista();
+
+                        reiniciarLinear();
+                        contenido_principal.setVisibility(View.VISIBLE);
+                    }
+                });
+
+                boton_ejercicios.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
+                        datosEjercicios.empezar();
+
+                        reiniciarLinear();
+                        contenido_ejercicio.setVisibility(View.VISIBLE);
+
+                    }
+                });
+
+
                 reiniciarLinear();
                 contenido_nueva_rutina.setVisibility(View.VISIBLE);
+
+
             }
         });
 
@@ -145,19 +172,7 @@ public class RutinaFragment extends Fragment {
 
 
 
-        boton_guardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nombreRutina = String.valueOf(editTextNombreRutina.getText());
-                Rutina rutina = new Rutina(nombreRutina);
 
-                insertarRutina(rutina);
-                actualizarLista();
-
-                reiniciarLinear();
-                contenido_principal.setVisibility(View.VISIBLE);
-            }
-        });
 
 
 
@@ -168,9 +183,13 @@ public class RutinaFragment extends Fragment {
         new InsertarRutina().execute(rutina);
     }
 
+    private void insertarEjercicioRutina(Rutina rutina, ArrayList<Ejercicio> ejerciciosActualizados) {
+        new InsertarEjercicioRutina(ejerciciosActualizados).execute(rutina);
+    }
 
-    private void actualizarRutina(Rutina rutina) {
 
+    private void actualizarRutina(Rutina rutina, String nuevoNombreRutina) {
+        nombreRutinaActualizado = nuevoNombreRutina;
 
         new ActualizarRutina().execute(rutina);
     }
@@ -201,6 +220,31 @@ public class RutinaFragment extends Fragment {
         }
     }
 
+    private class InsertarEjercicioRutina extends AsyncTask<Rutina, Void, String> {
+        private ArrayList<Ejercicio> ejerciciosActualizados;
+
+        public InsertarEjercicioRutina(ArrayList<Ejercicio> ejerciciosActualizados) {
+            this.ejerciciosActualizados = ejerciciosActualizados;
+        }
+
+        protected String doInBackground(Rutina... rutina) {
+            // Código válido para almacenar las rutinas en una base de datos creadas con Room
+            AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "basedatos-rutinas")
+                    .fallbackToDestructiveMigration()
+                    .build();;
+            RutinaDao rd = db.rutinaDao();
+
+            rd.insertarEjercicioRutina(rutina[0].getUid(), ejerciciosActualizados);
+
+            return rd.obtenerTodas().toString();
+        }
+
+
+        protected void onPostExecute(String peticionBaseDatos) {
+            Log.d("Se han insertado datos:", peticionBaseDatos);
+        }
+    }
+
     private class ActualizarRutina extends AsyncTask<Rutina, Void, Rutina> {
 
         protected Rutina doInBackground(Rutina... rutina) {
@@ -209,7 +253,7 @@ public class RutinaFragment extends Fragment {
                     .build();;
             RutinaDao rd = db.rutinaDao();
 
-            rd.actualizarRutina(rutina[0].uid, nombreRutinaActualizado);
+            rd.actualizarRutina(rutina[0].getUid(), nombreRutinaActualizado);
 
             return rutina[0];
         }
@@ -240,8 +284,11 @@ public class RutinaFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     Rutina rutinaPulsada = listaRutinas.get(position);
+                    ArrayList<Ejercicio> ejerciciosOriginales = rutinaPulsada.getEjercicios();
 
                     editTextNombreRutinaActualizada.setText(rutinaPulsada.getNombreRutina());
+                    arrayAdapterEjerciciosActualizados = new ListaEjercicios(getContext(), rutinaPulsada.getEjercicios());
+                    listViewEjerciciosActualizados.setAdapter(arrayAdapterEjerciciosActualizados);
 
                     reiniciarLinear();
                     contenido_actualizar_rutina.setVisibility(View.VISIBLE);
@@ -249,9 +296,9 @@ public class RutinaFragment extends Fragment {
                     boton_actualizar_rutina.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // TODO: ACTUALIZAR RUTINA
-                            //actualizarRutina();
+                            actualizarRutina(rutinaPulsada, editTextNombreRutinaActualizada.getText().toString());
 
+                            actualizarLista();
                             reiniciarLinear();
                             contenido_principal.setVisibility(View.VISIBLE);
                         }
@@ -260,8 +307,50 @@ public class RutinaFragment extends Fragment {
                     boton_cancelar_actualizar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            // Si cancela, modificamos la rutina y ponemos los ejercicios originales
+                            insertarEjercicioRutina(rutinaPulsada, ejerciciosOriginales);
                             reiniciarLinear();
                             contenido_principal.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+
+
+                    boton_ejercicios_actualizar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
+                            datosEjercicios.empezar();
+
+
+                            reiniciarLinear();
+                            contenido_ejercicio.setVisibility(View.VISIBLE);
+
+                            listViewEjerciciosRutina.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    ArrayList<Ejercicio> ejercicios = datosEjercicios.getEjercicios();
+                                    Ejercicio ejercicioPulsado = ejercicios.get(position);
+
+
+                                    ArrayList<Ejercicio> ejerciciosActualizados = new ArrayList<>(ejerciciosOriginales);
+                                    ejerciciosActualizados.add(ejercicioPulsado);
+
+                                    insertarEjercicioRutina(rutinaPulsada, ejerciciosActualizados);
+
+                                    arrayAdapterEjerciciosActualizados = new ListaEjercicios(getContext(), ejerciciosActualizados);
+                                    listViewEjerciciosActualizados.setAdapter(arrayAdapterEjerciciosActualizados);
+
+                                    reiniciarLinear();
+                                    contenido_actualizar_rutina.setVisibility(View.VISIBLE);
+
+
+                                }
+                            });
+
+
+
+
                         }
                     });
 
@@ -276,27 +365,6 @@ public class RutinaFragment extends Fragment {
     }
 
 
-
-
-    private void definirVariables(View root) {
-        listViewEjerciciosRutina = root.findViewById(R.id.listViewEjerciciosRutina);
-        progressBarEjerciciosRutina = root.findViewById(R.id.progressBarEjerciciosRutina);
-        contenido_principal = root.findViewById(R.id.linearPrincipalRutina);
-        contenido_ejercicio = root.findViewById(R.id.linearEjercicioRutina);
-        contenido_empezar = root.findViewById(R.id.linearEmpezarRutina);
-        contenido_nueva_rutina = root.findViewById(R.id.linearNuevaRutina);
-        contenido_actualizar_rutina = root.findViewById(R.id.linearActualizarRutina);
-        boton_ejercicios = root.findViewById(R.id.botonIrAEjercicios);
-        boton_rutina = root.findViewById(R.id.botonIrARutina);
-        boton_atras_ejercicios = root.findViewById(R.id.botonAtrasEjercicios);
-        boton_guardar = root.findViewById(R.id.botonGuardarConfiguracionRutina);
-        boton_cancelar = root.findViewById(R.id.botonCancelarConfiguracionRutina);
-        boton_actualizar_rutina = root.findViewById(R.id.botonActualizarRutina);
-        boton_cancelar_actualizar = root.findViewById(R.id.botonCancelarActualizarRutina);
-        editTextNombreRutina = root.findViewById(R.id.edittext_nombre_rutina);
-        editTextNombreRutinaActualizada = root.findViewById(R.id.edittext_nombre_rutina_actualizar);
-        listViewRutinas = root.findViewById(R.id.listaDeRutinas);
-    }
 
     private void reiniciarLinear() {
         contenido_principal.setVisibility(View.GONE);

@@ -1,7 +1,11 @@
 package com.project.getfit.ui.rutina;
 
 
+import android.widget.ArrayAdapter;
+
 import androidx.room.*;
+
+import com.project.getfit.ui.ejercicios.Ejercicio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +16,16 @@ public interface RutinaDao {
     @Query("SELECT * FROM rutina")
     List<Rutina> obtenerTodas();
 
-    @Query("SELECT * FROM rutina WHERE uid = :userIds")
-    Rutina obtenerPorId(int userIds);
+    @Query("SELECT * FROM rutina WHERE uid = :idRutina")
+    Rutina obtenerPorId(int idRutina);
 
     @Query("SELECT * FROM rutina WHERE nombre_rutina LIKE :nombreRutina")
     List<Rutina> obtenerPorNombre(String nombreRutina);
+
+
+    @Query("UPDATE rutina SET ejercicios = :ejerciciosActualizados WHERE uid = :idRutina")
+    void insertarEjercicioRutina(int idRutina, ArrayList<Ejercicio> ejerciciosActualizados);
+
 
     @Query("UPDATE rutina SET nombre_rutina = :nombreActualizado WHERE uid = :idRutina")
     void actualizarRutina(int idRutina, String nombreActualizado);
