@@ -99,7 +99,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        app:autoPlay="true"
+                        app:autoPlay="false"
                         app:showFullScreenButton="false"
                         app:videoId="DQrZBa-6fP4" />
                 </LinearLayout>
@@ -145,23 +145,47 @@
                     android:layout_weight="30"
                     android:orientation="vertical">
 
-                    <ScrollView
+                    <FrameLayout
+                        android:id="@+id/container"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="8">
+                        tools:context=".MainActivity">
 
                         <LinearLayout
+                            android:id="@+id/linear_progress_bar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="10"
                             android:orientation="vertical">
 
-                            <androidx.recyclerview.widget.RecyclerView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="10" />
+                                android:layout_weight="50"
+                                android:orientation="vertical">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBar"
+                                    style="?android:attr/progressBarStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="50"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pulsa para recargar"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
                         </LinearLayout>
-                    </ScrollView>
+                    </FrameLayout>
                 </LinearLayout>
 
             </LinearLayout>
