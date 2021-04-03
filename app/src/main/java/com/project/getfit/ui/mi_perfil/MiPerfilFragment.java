@@ -3,6 +3,7 @@ package com.project.getfit.ui.mi_perfil;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,10 +37,16 @@ public class MiPerfilFragment extends Fragment {
     private EditText editNombre;
     private EditText editEstatura;
     private EditText editPeso;
+    private EditText editEdad;
+    private RadioGroup editSexo;
     private TextView mostrarClasificacion;
     private TextView mostrarIMC;
     private TextView mostrarEstatura;
     private TextView mostrarPeso;
+    private TextView mostrarSexo;
+    private TextView mostrarEdad;
+    private TextView mostrarTasaMetabolica;
+    private TextView mostrarFrecuencia;
     private LinearLayout linearMiPerfil;
     private LinearLayout linearConfiguracion;
 
@@ -45,19 +54,30 @@ public class MiPerfilFragment extends Fragment {
     private TextView TextoEstaturaPerfil;
     private TextView TextoImcPerfil;
     private TextView TextoResultadoPerfil;
+    private TextView TextoSexoPerfil;
+    private TextView TextoEdadPerfil;
+    private TextView TextoTasaMetabolicaPerfil;
+    private TextView TextoFrecuenciaPerfil;
     private ImageView imagenMiPerfil;
     private ImageView imagenMiPerfilConfiguracion;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_mi_perfil, container, false);
+        root = inflater.inflate(R.layout.fragment_mi_perfil, container, false);
 
 
         editNombre = root.findViewById(R.id.edittext_nombre_perfil);
         editEstatura = root.findViewById(R.id.edittext_estatura);
         editPeso = root.findViewById(R.id.edittext_peso);
+        editEdad = root.findViewById(R.id.edittext_edad_perfil);
+        editSexo = root.findViewById(R.id.radioSexo);
         mostrarEstatura = root.findViewById(R.id.mostrarEstaturaPerfil);
         mostrarPeso = root.findViewById(R.id.mostrarPesoPerfil);
         mostrarIMC = root.findViewById(R.id.mostrarIMCPerfil);
+        mostrarSexo = root.findViewById(R.id.mostrarSexo);
+        mostrarEdad = root.findViewById(R.id.mostrarEdadPerfil);
+        mostrarTasaMetabolica = root.findViewById(R.id.mostrarTasaMetabolicaPerfil);
+        mostrarFrecuencia = root.findViewById(R.id.mostrarFrecuenciaPerfil);
         mostrarClasificacion = root.findViewById(R.id.mostrarClasificacionPerfil);
 
         configurar = root.findViewById(R.id.botonIrAConfiguracion);
@@ -72,6 +92,10 @@ public class MiPerfilFragment extends Fragment {
         TextoEstaturaPerfil = root.findViewById(R.id.text_estatura_perfil);
         TextoImcPerfil = root.findViewById(R.id.text_imc_perfil);
         TextoResultadoPerfil = root.findViewById(R.id.text_resultado_perfil);
+        TextoEdadPerfil = root.findViewById(R.id.text_edad_perfil);
+        TextoSexoPerfil = root.findViewById(R.id.text_sexo_perfil);
+        TextoFrecuenciaPerfil = root.findViewById(R.id.text_frecuencia_perfil);
+        TextoTasaMetabolicaPerfil = root.findViewById(R.id.text_tasa_metabolica_perfil);
         imagenMiPerfil = root.findViewById(R.id.imagen_mi_perfil);
         imagenMiPerfilConfiguracion = root.findViewById(R.id.imagen_mi_perfil_configuracion);
 
@@ -138,6 +162,7 @@ public class MiPerfilFragment extends Fragment {
         animacionArriba(imagenMiPerfil);
         animacionArriba(imagenMiPerfilConfiguracion);
         animacionArriba(textoTituloPerfil);
+        /*
         animacionDerecha(mostrarClasificacion);
         animacionDerecha(mostrarIMC);
         animacionDerecha(mostrarEstatura);
@@ -146,6 +171,7 @@ public class MiPerfilFragment extends Fragment {
         animacionIzquierda(TextoImcPerfil);
         animacionIzquierda(TextoEstaturaPerfil);
         animacionIzquierda(TextoResultadoPerfil);
+         */
         animacionAbajo(configurar);
         animacionAbajo(guardar);
         animacionAbajo(cancelar);
@@ -162,6 +188,14 @@ public class MiPerfilFragment extends Fragment {
         editar.putString("nombrePerfil", editNombre.getText().toString());
         editar.putString("estaturaPerfil", editEstatura.getText().toString());
         editar.putString("pesoPerfil", editPeso.getText().toString());
+        editar.putString("edadPerfil", editEdad.getText().toString());
+        RadioButton femenino = root.findViewById(R.id.Femenino);
+        RadioButton masculino = root.findViewById(R.id.Masculino);
+        if (femenino.isChecked()){
+            editar.putString("sexoPerfil", "Femenino");
+        }else if(masculino.isChecked()){
+            editar.putString("sexoPerfil", "Masculino");
+        }
         editar.commit();
 
     }
@@ -173,6 +207,16 @@ public class MiPerfilFragment extends Fragment {
         String estatura = datos.getString("estaturaPerfil", "");
         editEstatura.setText(estatura);
         mostrarEstatura.setText(estatura + " cm");
+        String edad = datos.getString("edadPerfil", "");
+        editEdad.setText(edad);
+        mostrarEdad.setText(edad + " años");
+        String sexo = datos.getString("sexoPerfil", "");
+        if(sexo == "Femenino"){
+            editSexo.check(R.id.Femenino);
+        }else{
+            editSexo.check(R.id.Masculino);
+        }
+        mostrarSexo.setText(sexo);
         String peso = datos.getString("pesoPerfil", "");
         editPeso.setText(peso);
         mostrarPeso.setText(peso + " kg");
@@ -208,6 +252,33 @@ public class MiPerfilFragment extends Fragment {
             mostrarEstatura.setText("-- cm");
             mostrarIMC.setText("--");
             mostrarClasificacion.setText("Desconocido");
+        }
+
+        if(!edad.equals("")) {
+            int frecuencia = 220 - Integer.valueOf(edad);
+            mostrarFrecuencia.setText(frecuencia + " pulsaciones");
+        } else {
+            mostrarEdad.setText("-- años");
+            mostrarFrecuencia.setText("-- pulsaciones");
+        }
+
+        if(!peso.equals("") && !estatura.equals("") && !sexo.equals("") && !edad.equals("")){
+            if(sexo.equals("Femenino")){
+                Double calorias = 10 * Double.parseDouble(peso) + 6.5 * Double.parseDouble(estatura) - 5 * Double.parseDouble(edad) - 161;
+                int caloriasInt = (int) Math.round(calorias);
+                mostrarTasaMetabolica.setText(caloriasInt + " kcal");
+            }else{
+                Double calorias = 10 * Double.parseDouble(peso) + 6.5 * Double.parseDouble(estatura) - 5 * Double.parseDouble(edad) + 5;
+                int caloriasInt = (int) Math.round(calorias);
+                mostrarTasaMetabolica.setText(caloriasInt + " kcal");
+            }
+
+        }else{
+            mostrarPeso.setText("-- kg");
+            mostrarEstatura.setText("-- cm");
+            mostrarEdad.setText("-- años");
+            mostrarSexo.setText("Desconocido");
+            mostrarTasaMetabolica.setText("-- kcal");
         }
     }
 
