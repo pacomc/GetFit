@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -40,10 +41,21 @@ public class RutinaFragment extends Fragment {
 
     private Button botonEjerciciosActualizar;
     private Button botonNuevaRutina;
-    private Button botonAtrasEjercicios;
     private Button botonActualizarRutina;
     private Button botonCancelarActualizar;
     private Button botonEliminarRutina;
+    private Button botonFiltraPectorales;
+    private Button botonFiltraEspalda;
+    private Button botonFiltraPiernas;
+    private Button botonFiltraBiceps;
+    private Button botonFiltraAbdomen;
+    private Button botonFiltraHombros;
+    private Button botonFiltraPantorrillas;
+    private Button botonFiltraTriceps;
+    private Button botonFiltraTodos;
+
+    private SearchView searchViewEjercicios;
+
 
     private ArrayAdapter arrayAdapterRutina;
     private ArrayAdapter arrayAdapterEjerciciosActualizados;
@@ -67,7 +79,6 @@ public class RutinaFragment extends Fragment {
         linearActualizarRutina = root.findViewById(R.id.linearActualizarRutina);
         botonEjerciciosActualizar = root.findViewById(R.id.botonIrAEjerciciosActualizar);
         botonNuevaRutina = root.findViewById(R.id.botonIrARutina);
-        botonAtrasEjercicios = root.findViewById(R.id.botonAtrasEjercicios);
         botonActualizarRutina = root.findViewById(R.id.botonActualizarRutina);
         botonCancelarActualizar = root.findViewById(R.id.botonCancelarActualizarRutina);
         editTextNombreRutinaActualizada = root.findViewById(R.id.edittext_nombre_rutina_actualizar);
@@ -75,6 +86,16 @@ public class RutinaFragment extends Fragment {
         listViewEjerciciosActualizados = root.findViewById(R.id.ListViewEjericiciosActualizados);
         linearBotonEliminar = root.findViewById(R.id.linearBotonEliminar);
         botonEliminarRutina = root.findViewById(R.id.botonEliminarRutina);
+        botonFiltraPectorales = root.findViewById(R.id.boton_pectoral);
+        botonFiltraEspalda = root.findViewById(R.id.boton_espalda);
+        botonFiltraPiernas = root.findViewById(R.id.boton_piernas);
+        botonFiltraBiceps = root.findViewById(R.id.boton_biceps);
+        botonFiltraTriceps = root.findViewById(R.id.boton_triceps);
+        botonFiltraAbdomen = root.findViewById(R.id.boton_abdomen);
+        botonFiltraHombros = root.findViewById(R.id.boton_hombros);
+        botonFiltraPantorrillas = root.findViewById(R.id.boton_pantorrillas);
+        botonFiltraTodos = root.findViewById(R.id.boton_todos);
+        searchViewEjercicios = root.findViewById(R.id.search_view_ejercicios);
 
 
 
@@ -155,14 +176,110 @@ public class RutinaFragment extends Fragment {
                         // Se cargan los ejercicios para que el usuario pueda elegirlos y se muestra el linear correspondiente
                         DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
                         datosEjercicios.empezar();
+
+                        pulsaEjercicio(datosEjercicios.getEjercicios());
+
+                        searchViewEjercicios.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                            @Override
+                            public boolean onQueryTextSubmit(String query) {
+                                datosEjercicios.empezarConBusqueda(query);
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onQueryTextChange(String newText) {
+                                return false;
+                            }
+
+
+                        });
+
+                        botonFiltraTodos.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezar();
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraPectorales.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Pectorales");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraAbdomen.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Abdomen");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraEspalda.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Espalda");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraBiceps.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Bíceps");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraTriceps.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Tríceps");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraPiernas.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Piernas");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+                        botonFiltraHombros.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Hombros");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
+
+                        botonFiltraPantorrillas.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                datosEjercicios.empezarConFiltro("Pantorrillas");
+                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                            }
+                        });
+
                         reiniciarLinear();
                         linearEjercicios.setVisibility(View.VISIBLE);
+                    }
+
+                    private void pulsaEjercicio (ArrayList<Ejercicio> listaEjercicios) {
                         // Al pulsar un ejercicio, se inserta en la rutina que estaba
                         // y se vuelve al linear de actualizar rutina con el listview de ejercicios actualizado
                         listViewEjerciciosRutina.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                ArrayList<Ejercicio> ejercicios = datosEjercicios.getEjercicios();
+                                ArrayList<Ejercicio> ejercicios = listaEjercicios;
                                 Ejercicio ejercicioPulsado = ejercicios.get(position);
 
 
@@ -180,9 +297,9 @@ public class RutinaFragment extends Fragment {
                                 linearActualizarRutina.setVisibility(View.VISIBLE);
 
 
+
                             }
                         });
-
                     }
                 });
 
@@ -197,13 +314,6 @@ public class RutinaFragment extends Fragment {
             }
         });
 
-        botonAtrasEjercicios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reiniciarLinear();
-                linearPrincipal.setVisibility(View.VISIBLE);
-            }
-        });
 
 
 
@@ -399,21 +509,117 @@ public class RutinaFragment extends Fragment {
                         }
                     });
 
-
                     botonEjerciciosActualizar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // Se cargan los ejercicios para que el usuario pueda elegirlos y se muestra el linear correspondiente
                             DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
                             datosEjercicios.empezar();
+
+                            searchViewEjercicios.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                @Override
+                                public boolean onQueryTextSubmit(String query) {
+                                    datosEjercicios.empezarConBusqueda(query);
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onQueryTextChange(String newText) {
+                                    return false;
+                                }
+                            });
+
+                            botonFiltraTodos.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezar();
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraPectorales.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Pectorales");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraAbdomen.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Abdomen");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraEspalda.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Espalda");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraBiceps.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Bíceps");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraTriceps.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Tríceps");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraPiernas.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Piernas");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+                            botonFiltraHombros.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Hombros");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+
+                            botonFiltraPantorrillas.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datosEjercicios.empezarConFiltro("Pantorrillas");
+                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                }
+                            });
+
+
+
+                            pulsaEjercicio(datosEjercicios.getEjercicios());
+
                             reiniciarLinear();
                             linearEjercicios.setVisibility(View.VISIBLE);
+
+                        }
+
+                        private void pulsaEjercicio (ArrayList<Ejercicio> listaEjercicios) {
                             // Al pulsar un ejercicio, se inserta en la rutina que estaba
                             // y se vuelve al linear de actualizar rutina con el listview de ejercicios actualizado
                             listViewEjerciciosRutina.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    ArrayList<Ejercicio> ejercicios = datosEjercicios.getEjercicios();
+                                    ArrayList<Ejercicio> ejercicios = listaEjercicios;
                                     Ejercicio ejercicioPulsado = ejercicios.get(position);
 
 
@@ -434,7 +640,6 @@ public class RutinaFragment extends Fragment {
 
                                 }
                             });
-
                         }
                     });
 

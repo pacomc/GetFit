@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -25,10 +26,11 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DatosEjercicios {
     private Iterator<HashMap<String, String>> iteradorEnlaces;
-    private static ArrayList<Ejercicio> ejercicios; // static para que guarde la info y no la borre al salir
+    private static ArrayList<Ejercicio> ejercicios = new ArrayList<>(); // static para que guarde la info y no la borre al salir
     private String parteCuerpoActual;
     private Context contextoActual;
     private ArrayAdapter arrayAdapterEjercicios;
@@ -55,9 +57,38 @@ public class DatosEjercicios {
 
     }
 
+    public void empezarConFiltro(String parteCuerpo) {
+        if (ejercicios == null) {
+            new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        }
+
+        ArrayList<Ejercicio> ejerciciosFiltrado = ejercicios.stream().filter(ejercicio -> ejercicio.getParteCuerpo().equals(parteCuerpo)).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrado);
+        listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+        progressBarEjercicios.setVisibility(View.GONE);
+        listViewEjercicios.setVisibility(View.VISIBLE);
+
+    }
+
+    public void empezarConBusqueda(String busqueda) {
+        if (ejercicios == null) {
+            new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        }
+
+        ArrayList<Ejercicio> ejerciciosFiltrado = ejercicios.stream().filter(ejercicio -> ejercicio.getNombre().toLowerCase().contains(busqueda.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrado);
+        listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+        progressBarEjercicios.setVisibility(View.GONE);
+        listViewEjercicios.setVisibility(View.VISIBLE);
+
+    }
+
+
     public static ArrayList<Ejercicio> getEjercicios() {
         return ejercicios;
     }
+
+
 
     private ArrayList<HashMap<String, String>> extraerInfoEjercicios(String paginaHTML) {
         ArrayList<HashMap<String, String>> infoEjercicios = new ArrayList<>();
@@ -115,7 +146,7 @@ public class DatosEjercicios {
                 HashMap<String, String> nombreEnlaces = new HashMap<>();
                 String nombre = m.group(2);
                 String enlace = m.group(1);
-                nombreEnlaces.put(nombre, enlace);
+                nombreEnlaces.put(nombre.trim(), enlace);
                 listaIteradoraEnlaces.add(nombreEnlaces);
 
             }

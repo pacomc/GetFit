@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,11 +119,11 @@
 
                 <LinearLayout
                     android:id="@+id/linearBotonEliminar"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="20"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <LinearLayout
@@ -132,7 +131,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="10"
 
-                        android:orientation="vertical"/>
+                        android:orientation="vertical" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -226,7 +225,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -240,44 +244,10 @@
                 android:layout_weight="40"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <SearchView
+                    android:id="@+id/search_view_ejercicios"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="88"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/botonAtrasEjercicios"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="50"
-                        android:text="〈 " />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="12"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="27"
-                        android:hint="Buscar ejercicio" />
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="73"
-                        android:text="Buscar" />
-                </LinearLayout>
-
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
@@ -286,46 +256,113 @@
                 android:layout_weight="60"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="75"
-                    android:orientation="horizontal">
+                    android:layout_weight="20"
+                    android:fillViewport="true">
 
-                    <TextView
-                        android:id="@+id/textView"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="FILTROS:"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="25"
-                    android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/boton_todos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_principal"
+                            android:text="Todos"
+                            android:textSize="20dp" />
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        <Button
+                            android:id="@+id/boton_pectoral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_titulos"
+                            android:text="Pectorales"
+                            android:textSize="20dp" />
 
-                    <Spinner
-                        android:id="@+id/spinner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                        <Button
+                            android:id="@+id/boton_piernas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_botones_grises"
+                            android:text="Piernas"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_espalda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_titulos"
+                            android:text="Espalda"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_biceps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_botones_grises"
+                            android:text="Bíceps"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_abdomen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_titulos"
+                            android:text="Abdomen"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_hombros"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_botones_grises"
+                            android:text="Hombros"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_pantorrillas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_titulos"
+                            android:text="Pantorrillas"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/boton_triceps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:backgroundTint="@color/color_botones_grises"
+                            android:text="Tríceps"
+                            android:textSize="20dp" />
+
+
+                    </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
         </LinearLayout>
 
