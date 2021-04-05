@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -66,7 +68,7 @@ public class CalendarioFragment extends Fragment {
 
         Calendar fechaActual= Calendar.getInstance();
         Integer diaInt = fechaActual.get(Calendar.DAY_OF_MONTH);
-        Integer mesInt = fechaActual.get(Calendar.MONTH);
+        Integer mesInt = fechaActual.get(Calendar.MONTH) + 1;
         Integer año = fechaActual.get(Calendar.YEAR);
         String dia = "" + diaInt; String mes = "" + mesInt;
         if(diaInt < 10) {dia = "0" + diaInt;}
@@ -133,20 +135,18 @@ public class CalendarioFragment extends Fragment {
             }
         });
 
-
-
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String mes = "" + month;
+                String mes = "" + (month + 1);
                 String dia = "" + dayOfMonth;
-                if(month < 10){mes = "0" + month; }
+                if(month < 10){mes = "0" + (month + 1); }
                 if(dayOfMonth < 10){dia = "0" + dayOfMonth;}
                 String fecha = dia + "/" + mes + "/" + year;
-                diaActual = dia;mesActual = mes;añoActual = año.toString();
+                diaActual = dia;mesActual = mes;añoActual = ""+ year;
                 miFecha.setText(fecha);
-
+                mostrarEvento(root);
             }
         });
 
@@ -214,11 +214,12 @@ public class CalendarioFragment extends Fragment {
     }
 
     public ArrayList<String> filtrarEventosPorFecha(Set<String> listaEventosSet) {
-        ArrayList<String> listaEventos = new ArrayList<>(listaEventosSet);
+        ArrayList<String> listaEventos = new ArrayList<>();
+        ArrayList<String> listaEventosAux = new ArrayList<>(); listaEventosAux.addAll(listaEventosSet);
         String fecha = diaActual + "/" + mesActual + "/" + añoActual;
-        for (int i = 0; i < listaEventos.size(); i++) {
-            if(!fecha.equals(listaEventos.get(i).substring(0, 10))) {//Si no es la fecha seleccionamos la borramos
-                listaEventos.remove(i);
+        for (int i = 0; i < listaEventosAux.size(); i++) {
+            if(fecha.equals(listaEventosAux.get(i).substring(0, 10))) {//Si es la fecha la mostramos
+                listaEventos.add(listaEventosAux.get(i));
             }
         }
         return listaEventos;
