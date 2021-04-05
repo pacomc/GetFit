@@ -106,26 +106,7 @@ public class EjerciciosFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 datosEjercicios.empezarConBusqueda(query);
-                listViewEjercicios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        linearLayoutEjercicios.setVisibility(View.GONE);
-                        linearLayoutEjercicio.setVisibility(View.VISIBLE);
-                        Ejercicio ejercicioPulsado = datosEjercicios.getEjercicios().get(position);
 
-                        textViewNombreEjercicio.setText(ejercicioPulsado.getNombre());
-                        textViewParteEjercicio.setText(ejercicioPulsado.getParteCuerpo());
-
-                        Glide.with(getContext())
-                                .load(ejercicioPulsado.getLinkImagen())
-                                .placeholder(R.drawable.diet_error)
-                                .error(R.drawable.diet)
-                                .into(imageViewEjercicio);
-
-
-
-                    }
-                });
                 return false;
             }
 
@@ -141,7 +122,7 @@ public class EjerciciosFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 linearLayoutEjercicios.setVisibility(View.GONE);
                 linearLayoutEjercicio.setVisibility(View.VISIBLE);
-                Ejercicio ejercicioPulsado = datosEjercicios.getEjercicios().get(position);
+                Ejercicio ejercicioPulsado = datosEjercicios.getEjerciciosFiltrados().get(position);
 
                 textViewNombreEjercicio.setText(ejercicioPulsado.getNombre());
                 textViewParteEjercicio.setText(ejercicioPulsado.getParteCuerpo());

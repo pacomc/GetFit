@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 public class DatosEjercicios {
     private Iterator<HashMap<String, String>> iteradorEnlaces;
     private static ArrayList<Ejercicio> ejercicios; // static para que guarde la info y no la borre al salir
+    private static ArrayList<Ejercicio> ejerciciosFiltrados;
     private String parteCuerpoActual;
     private Context contextoActual;
     private ArrayAdapter arrayAdapterEjercicios;
@@ -51,6 +52,7 @@ public class DatosEjercicios {
             progressBarEjercicios.setVisibility(View.GONE);
             listViewEjercicios.setVisibility(View.VISIBLE);
 
+
         } else {
             new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
         }
@@ -62,8 +64,8 @@ public class DatosEjercicios {
             new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
         }
 
-        ArrayList<Ejercicio> ejerciciosFiltrado = ejercicios.stream().filter(ejercicio -> ejercicio.getParteCuerpo().equals(parteCuerpo)).collect(Collectors.toCollection(ArrayList::new));
-        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrado);
+        ejerciciosFiltrados = ejercicios.stream().filter(ejercicio -> ejercicio.getParteCuerpo().equals(parteCuerpo)).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrados);
         listViewEjercicios.setAdapter(arrayAdapterEjercicios);
         progressBarEjercicios.setVisibility(View.GONE);
         listViewEjercicios.setVisibility(View.VISIBLE);
@@ -75,11 +77,13 @@ public class DatosEjercicios {
             new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
         }
 
-        ArrayList<Ejercicio> ejerciciosFiltrado = ejercicios.stream().filter(ejercicio -> ejercicio.getNombre().toLowerCase().contains(busqueda.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
-        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrado);
+        ejerciciosFiltrados = ejercicios.stream().filter(ejercicio -> ejercicio.getNombre().toLowerCase().contains(busqueda.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrados);
         listViewEjercicios.setAdapter(arrayAdapterEjercicios);
         progressBarEjercicios.setVisibility(View.GONE);
         listViewEjercicios.setVisibility(View.VISIBLE);
+
+
 
     }
 
@@ -88,7 +92,9 @@ public class DatosEjercicios {
         return ejercicios;
     }
 
-
+    public static ArrayList<Ejercicio> getEjerciciosFiltrados() {
+        return ejerciciosFiltrados;
+    }
 
     private ArrayList<HashMap<String, String>> extraerInfoEjercicios(String paginaHTML) {
         ArrayList<HashMap<String, String>> infoEjercicios = new ArrayList<>();
@@ -111,8 +117,6 @@ public class DatosEjercicios {
 
         return infoEjercicios;
     }
-
-
 
 
     private class ExtraeEjerciciosRequest extends AsyncTask<String, Void, String> {
@@ -230,6 +234,7 @@ public class DatosEjercicios {
                     listViewEjercicios.setAdapter(arrayAdapterEjercicios);
                     progressBarEjercicios.setVisibility(View.GONE);
                     listViewEjercicios.setVisibility(View.VISIBLE);
+                    ejerciciosFiltrados = new ArrayList<>(ejercicios);
                 } catch (Exception e) {
                     Log.e("Warning", "Se ha cambiado de fragment mientras se estaba cargando los ejercicios");
                 }

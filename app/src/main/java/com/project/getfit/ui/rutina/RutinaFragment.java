@@ -183,7 +183,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public boolean onQueryTextSubmit(String query) {
                                 datosEjercicios.empezarConBusqueda(query);
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
 
                                 return false;
                             }
@@ -208,7 +208,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Pectorales");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -216,7 +216,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Abdomen");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -224,7 +224,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Espalda");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -232,7 +232,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Bíceps");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -240,7 +240,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Tríceps");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -248,7 +248,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Piernas");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -256,7 +256,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Hombros");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -265,7 +265,7 @@ public class RutinaFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 datosEjercicios.empezarConFiltro("Pantorrillas");
-                                pulsaEjercicio(datosEjercicios.getEjercicios());
+                                pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                             }
                         });
 
@@ -520,7 +520,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public boolean onQueryTextSubmit(String query) {
                                     datosEjercicios.empezarConBusqueda(query);
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
 
                                     return false;
                                 }
@@ -543,7 +543,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Pectorales");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -551,7 +551,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Abdomen");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -559,7 +559,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Espalda");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -567,7 +567,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Bíceps");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -575,7 +575,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Tríceps");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -583,7 +583,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Piernas");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -591,7 +591,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Hombros");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -600,7 +600,7 @@ public class RutinaFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     datosEjercicios.empezarConFiltro("Pantorrillas");
-                                    pulsaEjercicio(datosEjercicios.getEjercicios());
+                                    pulsaEjercicio(datosEjercicios.getEjerciciosFiltrados());
                                 }
                             });
 
@@ -619,8 +619,7 @@ public class RutinaFragment extends Fragment {
                             listViewEjerciciosRutina.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    ArrayList<Ejercicio> ejercicios = listaEjercicios;
-                                    Ejercicio ejercicioPulsado = ejercicios.get(position);
+                                    Ejercicio ejercicioPulsado = listaEjercicios.get(position);
 
 
                                     ejerciciosActualizados.add(ejercicioPulsado);
