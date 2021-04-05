@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 public class DatosEjercicios {
     private Iterator<HashMap<String, String>> iteradorEnlaces;
-    private static ArrayList<Ejercicio> ejercicios = new ArrayList<>(); // static para que guarde la info y no la borre al salir
+    private static ArrayList<Ejercicio> ejercicios; // static para que guarde la info y no la borre al salir
     private String parteCuerpoActual;
     private Context contextoActual;
     private ArrayAdapter arrayAdapterEjercicios;
@@ -137,6 +137,7 @@ public class DatosEjercicios {
         protected void onPostExecute(String paginaHTML) {
             ejercicios = new ArrayList<>();
             ArrayList<HashMap<String, String>> listaIteradoraEnlaces = new ArrayList<>();
+
 
             Pattern r = Pattern.compile("<div[\\s]*class=\\\"consebox\\\"[\\s]*[^>]*>[\\s|\\n]*<a[\\s|\\n]*href=\\\"([^\\\"]*)\\\"[\\s|\\n]*>[\\s|\\n]*</p>[\\s|\\n]*<h3>([^<]*)");
 
