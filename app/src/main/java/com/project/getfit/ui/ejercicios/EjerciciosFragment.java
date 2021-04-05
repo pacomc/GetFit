@@ -148,7 +148,7 @@ public class EjerciciosFragment extends Fragment {
                                     public void run() {
                                         Glide.with(getContext())
                                                 .load(ejercicioPulsado.getLinkImagen()) // Para obtener mejores fotos se sustituye el enlace (porque existe)
-                                                .placeholder(R.drawable.ejercicio)
+                                                .placeholder(R.drawable.loading)
                                                 .error(R.drawable.ejercicio_error)
                                                 .into(imageViewEjercicio);
                                     }
@@ -163,7 +163,7 @@ public class EjerciciosFragment extends Fragment {
                                 return false;
                             }
                         })
-                        .placeholder(R.drawable.ejercicio)
+                        .placeholder(R.drawable.loading)
                         .error(R.drawable.ejercicio_error)
                         .into(imageViewEjercicio);
 

@@ -59,7 +59,7 @@ public class ListaEjercicios extends ArrayAdapter<Ejercicio> {
                                          public void run() {
                                              Glide.with(getContext())
                                                      .load(item.getLinkImagen()) // Para obtener mejores fotos se sustituye el enlace (porque existe)
-                                                     .placeholder(R.drawable.ejercicio)
+                                                     .placeholder(R.drawable.loading)
                                                      .error(R.drawable.ejercicio_error)
                                                      .into(cajaImagen);
                                          }
@@ -74,7 +74,7 @@ public class ListaEjercicios extends ArrayAdapter<Ejercicio> {
                         return false;
                     }
                 })
-                .placeholder(R.drawable.ejercicio)
+                .placeholder(R.drawable.loading)
                 .error(R.drawable.ejercicio_error)
                 .into(cajaImagen);
 
