@@ -32,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/titulActualizarPerfil"
+                    android:id="@+id/text_view_titulo_rutina"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="25"
@@ -92,7 +92,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="60"
                         android:gravity="center"
-                        android:text="Nombre rutina:"
+                        android:text="Elegir ejercicios:"
                         android:textColor="@android:color/black" />
 
                     <Button
@@ -187,8 +187,7 @@
         android:layout_height="match_parent"
         android:layout_weight="50"
         android:orientation="vertical"
-        android:visibility="visible"
-        tools:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,12 +209,33 @@
             android:orientation="horizontal">
 
 
-            <Button
-                android:id="@+id/botonIrARutina"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Nueva rutina" />
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/botonIrARutina"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Nueva rutina" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -229,8 +249,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"

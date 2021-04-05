@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -62,6 +63,7 @@ public class RutinaFragment extends Fragment {
 
     private EditText editTextNombreRutinaActualizada;
 
+    private TextView textViewTituloRutina;
 
     private ListView listViewRutinas;
     private ListView listViewEjerciciosRutina;
@@ -96,6 +98,7 @@ public class RutinaFragment extends Fragment {
         botonFiltraPantorrillas = root.findViewById(R.id.boton_pantorrillas);
         botonFiltraTodos = root.findViewById(R.id.boton_todos);
         searchViewEjercicios = root.findViewById(R.id.search_view_ejercicios);
+        textViewTituloRutina = root.findViewById(R.id.text_view_titulo_rutina);
 
 
 
@@ -141,6 +144,7 @@ public class RutinaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editTextNombreRutinaActualizada.setText("");
+                textViewTituloRutina.setText("Nueva rutina");
                 arrayAdapterEjerciciosActualizados = new ListaEjercicios(getContext(), new ArrayList<>());
                 listViewEjerciciosActualizados.setAdapter(arrayAdapterEjerciciosActualizados);
 
