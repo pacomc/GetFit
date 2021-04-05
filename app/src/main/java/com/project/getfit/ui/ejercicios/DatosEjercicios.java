@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -25,10 +26,12 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DatosEjercicios {
     private Iterator<HashMap<String, String>> iteradorEnlaces;
     private static ArrayList<Ejercicio> ejercicios; // static para que guarde la info y no la borre al salir
+    private static ArrayList<Ejercicio> ejerciciosFiltrados;
     private String parteCuerpoActual;
     private Context contextoActual;
     private ArrayAdapter arrayAdapterEjercicios;
@@ -49,10 +52,48 @@ public class DatosEjercicios {
             progressBarEjercicios.setVisibility(View.GONE);
             listViewEjercicios.setVisibility(View.VISIBLE);
 
+
         } else {
             new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
         }
 
+    }
+
+    public void empezarConFiltro(String parteCuerpo) {
+        if (ejercicios == null) {
+            new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        }
+
+        ejerciciosFiltrados = ejercicios.stream().filter(ejercicio -> ejercicio.getParteCuerpo().equals(parteCuerpo)).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrados);
+        listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+        progressBarEjercicios.setVisibility(View.GONE);
+        listViewEjercicios.setVisibility(View.VISIBLE);
+
+    }
+
+    public void empezarConBusqueda(String busqueda) {
+        if (ejercicios == null) {
+            new ExtraeEjerciciosRequest().execute("https://eresfitness.com/ejercicios/");
+        }
+
+        ejerciciosFiltrados = ejercicios.stream().filter(ejercicio -> ejercicio.getNombre().toLowerCase().contains(busqueda.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        arrayAdapterEjercicios = new ListaEjercicios(contextoActual, ejerciciosFiltrados);
+        listViewEjercicios.setAdapter(arrayAdapterEjercicios);
+        progressBarEjercicios.setVisibility(View.GONE);
+        listViewEjercicios.setVisibility(View.VISIBLE);
+
+
+
+    }
+
+
+    public static ArrayList<Ejercicio> getEjercicios() {
+        return ejercicios;
+    }
+
+    public static ArrayList<Ejercicio> getEjerciciosFiltrados() {
+        return ejerciciosFiltrados;
     }
 
     private ArrayList<HashMap<String, String>> extraerInfoEjercicios(String paginaHTML) {
@@ -78,8 +119,6 @@ public class DatosEjercicios {
     }
 
 
-
-
     private class ExtraeEjerciciosRequest extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... targetURL) {
@@ -103,6 +142,7 @@ public class DatosEjercicios {
             ejercicios = new ArrayList<>();
             ArrayList<HashMap<String, String>> listaIteradoraEnlaces = new ArrayList<>();
 
+
             Pattern r = Pattern.compile("<div[\\s]*class=\\\"consebox\\\"[\\s]*[^>]*>[\\s|\\n]*<a[\\s|\\n]*href=\\\"([^\\\"]*)\\\"[\\s|\\n]*>[\\s|\\n]*</p>[\\s|\\n]*<h3>([^<]*)");
 
             Matcher m = r.matcher(paginaHTML);
@@ -111,7 +151,7 @@ public class DatosEjercicios {
                 HashMap<String, String> nombreEnlaces = new HashMap<>();
                 String nombre = m.group(2);
                 String enlace = m.group(1);
-                nombreEnlaces.put(nombre, enlace);
+                nombreEnlaces.put(nombre.trim(), enlace);
                 listaIteradoraEnlaces.add(nombreEnlaces);
 
             }
@@ -194,6 +234,7 @@ public class DatosEjercicios {
                     listViewEjercicios.setAdapter(arrayAdapterEjercicios);
                     progressBarEjercicios.setVisibility(View.GONE);
                     listViewEjercicios.setVisibility(View.VISIBLE);
+                    ejerciciosFiltrados = new ArrayList<>(ejercicios);
                 } catch (Exception e) {
                     Log.e("Warning", "Se ha cambiado de fragment mientras se estaba cargando los ejercicios");
                 }
