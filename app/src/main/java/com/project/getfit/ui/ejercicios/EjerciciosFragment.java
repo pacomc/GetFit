@@ -1,7 +1,9 @@
 package com.project.getfit.ui.ejercicios;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +25,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.project.getfit.R;
 import com.project.getfit.ui.recetas.ListaIngredientes;
 import com.project.getfit.ui.recetas.ListaRecetas;
@@ -127,12 +133,39 @@ public class EjerciciosFragment extends Fragment {
                 textViewNombreEjercicio.setText(ejercicioPulsado.getNombre());
                 textViewParteEjercicio.setText(ejercicioPulsado.getParteCuerpo());
 
-                Glide.with(getContext())
-                        .load(ejercicioPulsado.getLinkImagen())
-                        .placeholder(R.drawable.diet_error)
-                        .error(R.drawable.diet)
-                        .into(imageViewEjercicio);
 
+
+                Handler handler = new Handler();
+
+                Glide.with(getContext())
+                        .load(ejercicioPulsado.getLinkImagen().replaceAll("370x150", "740x416")) // Para obtener mejores fotos se sustituye el enlace (porque existe)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Glide.with(getContext())
+                                                .load(ejercicioPulsado.getLinkImagen()) // Para obtener mejores fotos se sustituye el enlace (porque existe)
+                                                .placeholder(R.drawable.ejercicio)
+                                                .error(R.drawable.ejercicio_error)
+                                                .into(imageViewEjercicio);
+                                    }
+                                });
+
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                //on load success
+                                return false;
+                            }
+                        })
+                        .placeholder(R.drawable.ejercicio)
+                        .error(R.drawable.ejercicio_error)
+                        .into(imageViewEjercicio);
 
 
             }
