@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +48,12 @@ public class CalendarioFragment extends Fragment {
     private String añoActual;
     private ListView listViewCalendario;
 
+    private View root;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarioViewModel = new ViewModelProvider(this).get(CalendarioViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_calendario, container, false);
+        root = inflater.inflate(R.layout.fragment_calendario, container, false);
 
         final CalendarView calendarView = root.findViewById(R.id.calendarView);
         miFecha = root.findViewById(R.id.texto_fecha);
@@ -78,7 +81,7 @@ public class CalendarioFragment extends Fragment {
 
         linearMostrarEvento.setVisibility(View.VISIBLE);
         linearAñadirEvento.setVisibility(View.GONE);
-        mostrarEvento(root);
+        mostrarEvento();
 
 
         botonAñadirEvento.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +97,8 @@ public class CalendarioFragment extends Fragment {
             public void onClick(View v) {
                 linearMostrarEvento.setVisibility(View.VISIBLE);
                 linearAñadirEvento.setVisibility(View.GONE);
-                guardarEvento(root);
-                mostrarEvento(root);
+                guardarEvento();
+                mostrarEvento();
             }
         });
 
@@ -104,7 +107,7 @@ public class CalendarioFragment extends Fragment {
             public void onClick(View v) {
                 linearMostrarEvento.setVisibility(View.VISIBLE);
                 linearAñadirEvento.setVisibility(View.GONE);
-                mostrarEvento(root);
+                mostrarEvento();
             }
         });
 
@@ -138,7 +141,7 @@ public class CalendarioFragment extends Fragment {
                 String fecha = dia + "/" + mes + "/" + year;
                 diaActual = dia;mesActual = mes;añoActual = ""+ year;
                 miFecha.setText(fecha);
-                mostrarEvento(root);
+                mostrarEvento();
             }
         });
 
@@ -177,8 +180,8 @@ public class CalendarioFragment extends Fragment {
 
     }
 
-    public void guardarEvento(View root) {
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+    public void guardarEvento() {
+        SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
         Set<String> listaEventos = new HashSet<>();
         listaEventos = datos.getStringSet("listaEventos", new HashSet<>());
         SharedPreferences.Editor editar = datos.edit();
@@ -189,17 +192,20 @@ public class CalendarioFragment extends Fragment {
         String evento = diaActual + "/" + mesActual + "/" + añoActual + "&" + titulo.getText().toString() + "&"
                 + descripcion.getText().toString() + "&" + hora.getText().toString() + "&";
         listaEventos.add(evento);
+        editar.clear();
         editar.putStringSet("listaEventos", listaEventos);
         editar.commit();
+
     }
 
-    public void mostrarEvento(View root) {
+    public void mostrarEvento() {
         listViewCalendario = root.findViewById(R.id.lista_eventos);
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
         Set<String> listaEventos = new HashSet<>();
         listaEventos = datos.getStringSet("listaEventos", new HashSet<>());
         //Hay que filtrar para mostrar solo los eventos de ese dia
         ArrayList listaEventosArray = filtrarEventosPorFecha(listaEventos);
+
         ArrayAdapter listaEventosAdapter = new ListaCalendario(getContext(), listaEventosArray);
         listViewCalendario.setAdapter(listaEventosAdapter);
 
@@ -207,13 +213,19 @@ public class CalendarioFragment extends Fragment {
 
     public ArrayList<String> filtrarEventosPorFecha(Set<String> listaEventosSet) {
         ArrayList<String> listaEventos = new ArrayList<>();
-        ArrayList<String> listaEventosAux = new ArrayList<>(); listaEventosAux.addAll(listaEventosSet);
+        ArrayList<String> listaEventosAux = new ArrayList<>(listaEventosSet);
+
         String fecha = diaActual + "/" + mesActual + "/" + añoActual;
-        for (int i = 0; i < listaEventosAux.size(); i++) {
-            if(fecha.equals(listaEventosAux.get(i).substring(0, 10))) {//Si es la fecha la mostramos
-                listaEventos.add(listaEventosAux.get(i));
+
+        for (String eventoSinFiltrar: listaEventosSet) {
+            String fechaEvento = eventoSinFiltrar.split("&")[0].trim();
+
+
+            if(fecha.equals(fechaEvento)) {//Si es la fecha la mostramos
+                listaEventos.add(eventoSinFiltrar);
             }
         }
+
         return listaEventos;
     }
 

@@ -124,7 +124,7 @@ public class MiPerfilFragment extends Fragment {
             }
         } );
 
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences datos = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
         String nombre = datos.getString("nombrePerfil", "");
         if (nombre != "") {
             textoTituloConfiguracion.setText("Perfil de " + nombre);
@@ -183,7 +183,7 @@ public class MiPerfilFragment extends Fragment {
     // Creación de información de Usuarios.
 
     private void guardarInfo() {
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences datos = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
         SharedPreferences.Editor editar = datos.edit();
         editar.putString("nombrePerfil", editNombre.getText().toString());
         editar.putString("estaturaPerfil", editEstatura.getText().toString());
@@ -201,7 +201,7 @@ public class MiPerfilFragment extends Fragment {
     }
 
     private void mostrarInfo() {
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences datos = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
         String nombre = datos.getString("nombrePerfil", "");
         editNombre.setText(nombre);
         String estatura = datos.getString("estaturaPerfil", "");
