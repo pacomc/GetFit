@@ -1,4 +1,4 @@
-package com.project.getfit.ui.recetas;
+package com.project.getfit.ui.calendario;
 
 import android.content.Context;
 import android.view.LayoutInflater;
