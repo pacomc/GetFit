@@ -71,6 +71,8 @@ public class RutinaFragment extends Fragment {
 
     private ProgressBar progressBarEjerciciosRutina;
 
+    private DatosEjercicios datosEjercicios;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_rutina, container, false);
@@ -100,6 +102,8 @@ public class RutinaFragment extends Fragment {
         searchViewEjercicios = root.findViewById(R.id.search_view_ejercicios);
         textViewTituloRutina = root.findViewById(R.id.text_view_titulo_rutina);
 
+        datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
+        datosEjercicios.empezar();
 
 
 
@@ -178,8 +182,8 @@ public class RutinaFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         // Se cargan los ejercicios para que el usuario pueda elegirlos y se muestra el linear correspondiente
-                        DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
-                        datosEjercicios.empezar();
+
+
 
                         pulsaEjercicio(datosEjercicios.getEjercicios());
 
@@ -517,8 +521,7 @@ public class RutinaFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             // Se cargan los ejercicios para que el usuario pueda elegirlos y se muestra el linear correspondiente
-                            DatosEjercicios datosEjercicios = new DatosEjercicios(getContext(),listViewEjerciciosRutina, progressBarEjerciciosRutina);
-                            datosEjercicios.empezar();
+
 
                             searchViewEjercicios.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                                 @Override
