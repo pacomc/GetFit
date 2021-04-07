@@ -1,4 +1,4 @@
-package com.project.getfit.ui.inicio;
+package com.project.getfit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

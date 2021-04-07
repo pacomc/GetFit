@@ -1,4 +1,4 @@
-package com.project.getfit.ui.inicio;
+package com.project.getfit;
 
 
 import twitter4j.AsyncTwitter;

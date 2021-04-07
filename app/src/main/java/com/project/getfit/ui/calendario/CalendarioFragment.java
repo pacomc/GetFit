@@ -192,7 +192,7 @@ public class CalendarioFragment extends Fragment {
         String evento = diaActual + "/" + mesActual + "/" + añoActual + "&" + titulo.getText().toString() + "&"
                 + descripcion.getText().toString() + "&" + hora.getText().toString() + "&";
         listaEventos.add(evento);
-        editar.clear();
+        editar.clear(); // IMPORTANTE BORRAR EL SHARED YA QUE SINO HAY PROBLEMAS (SOLO GUARDABA EL PRIMERO)
         editar.putStringSet("listaEventos", listaEventos);
         editar.commit();
 
