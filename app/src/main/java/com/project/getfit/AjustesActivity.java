@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.project.getfit.ui.rutina.AppDatabase;
 import com.project.getfit.ui.rutina.Rutina;
@@ -44,6 +45,8 @@ public class AjustesActivity extends AppCompatActivity {
                 editarCalendario.commit();
 
                 new ResetearRutinas().execute();
+
+                Toast.makeText(AjustesActivity.this, "Datos reseteados, reinicia la app.", Toast.LENGTH_SHORT).show();
             }
         });
     }
