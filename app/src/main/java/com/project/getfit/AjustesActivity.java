@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.project.getfit.ui.rutina.AppDatabase;
 import com.project.getfit.ui.rutina.Rutina;
@@ -18,26 +20,32 @@ import java.io.File;
 
 public class AjustesActivity extends AppCompatActivity {
 
-
+    private Button botonResetearDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
-        SharedPreferences datosPerfil = getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editarPerfil = datosPerfil.edit();
-        editarPerfil.clear();
-        editarPerfil.commit();
 
-        SharedPreferences datosCalendario = getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editarCalendario = datosCalendario.edit();
-        editarCalendario.clear();
-        editarCalendario.commit();
-
-        new ResetearRutinas().execute();
+        botonResetearDatos = findViewById(R.id.boton_resetear_datos);
 
 
+        botonResetearDatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences datosPerfil = getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editarPerfil = datosPerfil.edit();
+                editarPerfil.clear();
+                editarPerfil.commit();
 
+                SharedPreferences datosCalendario = getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editarCalendario = datosCalendario.edit();
+                editarCalendario.clear();
+                editarCalendario.commit();
+
+                new ResetearRutinas().execute();
+            }
+        });
     }
 
     private class ResetearRutinas extends AsyncTask<Rutina, Void, String> {
