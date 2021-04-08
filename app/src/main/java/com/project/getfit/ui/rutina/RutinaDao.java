@@ -43,4 +43,7 @@ public interface RutinaDao {
 
     @Delete
     void borrarRutina(Rutina rutina);
+
+    @Query("DELETE FROM rutina")
+    void resetearRutinas();
 }
