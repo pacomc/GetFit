@@ -3,6 +3,7 @@ package com.project.getfit.ui.calendario;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,7 +30,16 @@ import com.project.getfit.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class CalendarioFragment extends Fragment {
 
@@ -71,6 +82,11 @@ public class CalendarioFragment extends Fragment {
         String fecha = dia + "/" + mes + "/" + año;
         diaActual = dia;mesActual = mes;añoActual = año.toString();
         miFecha.setText(fecha);
+
+        SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
+        Set<String> listaEventos = new HashSet<>();
+        listaEventos = datos.getStringSet("listaEventos", new HashSet<>());
+        enviarRecordatorioPorCorreo();
 
         linearMostrarEvento = root.findViewById(R.id.linearMostrarEventos);
         linearAñadirEvento = root.findViewById(R.id.linearAñadirEventos);
@@ -203,6 +219,7 @@ public class CalendarioFragment extends Fragment {
         SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
         Set<String> listaEventos = new HashSet<>();
         listaEventos = datos.getStringSet("listaEventos", new HashSet<>());
+
         //Hay que filtrar para mostrar solo los eventos de ese dia
         ArrayList listaEventosArray = filtrarEventosPorFecha(listaEventos);
 
@@ -213,14 +230,10 @@ public class CalendarioFragment extends Fragment {
 
     public ArrayList<String> filtrarEventosPorFecha(Set<String> listaEventosSet) {
         ArrayList<String> listaEventos = new ArrayList<>();
-        ArrayList<String> listaEventosAux = new ArrayList<>(listaEventosSet);
-
         String fecha = diaActual + "/" + mesActual + "/" + añoActual;
 
         for (String eventoSinFiltrar: listaEventosSet) {
             String fechaEvento = eventoSinFiltrar.split("&")[0].trim();
-
-
             if(fecha.equals(fechaEvento)) {//Si es la fecha la mostramos
                 listaEventos.add(eventoSinFiltrar);
             }
@@ -228,5 +241,126 @@ public class CalendarioFragment extends Fragment {
 
         return listaEventos;
     }
+    public String fechaDeHoy() {
+        Calendar fechaActual= Calendar.getInstance();
+        Integer diaInt = fechaActual.get(Calendar.DAY_OF_MONTH);
+        Integer mesInt = fechaActual.get(Calendar.MONTH) + 1;
+        Integer año = fechaActual.get(Calendar.YEAR);
+        String dia = "" + diaInt; String mes = "" + mesInt;
+        if(diaInt < 10) {dia = "0" + diaInt;}
+        if(mesInt < 10) {mes = "0" + mesInt;}
+        String fecha = dia + "/" + mes + "/" + año;
+        return fecha;
+
+    }
+    public void guardarCorreosEnviados(String fecha) {
+        //Guardar correos enviados
+        SharedPreferences datosCorreo = getContext().getSharedPreferences("DatosCorreo", Context.MODE_PRIVATE);
+        Set<String> listaCorreosSet = datosCorreo.getStringSet("listaCorreos", new HashSet<>());
+        SharedPreferences.Editor editar = datosCorreo.edit();
+        listaCorreosSet.add(fecha);
+        editar.clear(); // IMPORTANTE BORRAR EL SHARED YA QUE SINO HAY PROBLEMAS (SOLO GUARDABA EL PRIMERO)
+        editar.putStringSet("listaCorreos", listaCorreosSet);
+        editar.commit();
+    }
+
+    public void enviarRecordatorioPorCorreo(){
+        String fecha = fechaDeHoy();
+
+        SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
+        SharedPreferences datosCorreo = getContext().getSharedPreferences("DatosCorreo", Context.MODE_PRIVATE);
+        Set<String> listaEventosSet = datos.getStringSet("listaEventos", new HashSet<>());
+        Set<String> listaCorreosSet = datosCorreo.getStringSet("listaCorreos", new HashSet<>());
+
+        String correo = "danieldecadiz@gmail.com";
+        ArrayList<String> listaEventos = new ArrayList<>();
+        if(!listaCorreosSet.contains(fecha)) {
+            for (String eventoSinFiltrar: listaEventosSet) {
+                String fechaEvento = eventoSinFiltrar.split("&")[0].trim();
+                if(fecha.equals(fechaEvento)) {//Si es la fecha la mostramos
+                    listaEventos.add(eventoSinFiltrar);
+                    String[] evento = eventoSinFiltrar.split("&");
+                    new SendMail().execute(fecha, correo, evento[1], evento[2], evento[3]);
+                    guardarCorreosEnviados(fecha);
+                }
+            }
+        }
+    }
+
+    public class SendMail extends AsyncTask<String, Void, Void> {
+        private Session session;
+        private String subject = "Correo de GetFit";
+        private String message = "Correo enviado";
+        private String direccionCorreo = "getfitapp@yahoo.com";
+        private String contraseña = "hibcewjdzrwqyfzk";
+        public Boolean error = false;
+        public String mensajeError = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(error) {
+                Toast.makeText(getContext(), "Ups! Creo que debemos revisar tu configuración de correo.", Toast.LENGTH_LONG);
+            }
+        }
+        @Override
+        protected Void doInBackground(String... params) {
+            String fecha = params[0];
+            String correoDestino = params[1];
+            String tituloEvento = params[2];
+            String descripcionEvento = params[3];
+            String horaEvento = params[4];
+
+            subject = "Recordatorio de GetFit";
+            message = "Querido usuario,\n\n\nQueriamos recordarte que el día " + fecha + " tienes el siguiente evento:\n"
+                    + horaEvento.toUpperCase() + " | " + tituloEvento.toUpperCase()
+                    + "\n " + descripcionEvento +
+                    "\n\nEsperamos que disfrutes del evento ;)";
+
+            // GMAIL
+//            Properties props = new Properties();
+//            props.put("mail.smtp.host", "smtp.gmail.com");
+//            props.put("mail.smtp.socketFactory.port", "465");
+//            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//            props.put("mail.smtp.auth", "true");
+
+            // YAHOO
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.mail.yahoo.com");
+            props.put("mail.smtp.port", "465");
+            props.put("mail.smtp.debug", "true");
+            props.put("mail.smtp.ssl.enable", "true");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+
+
+            try {
+                session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(direccionCorreo, contraseña);
+                    }
+                });
+
+                MimeMessage mm = new MimeMessage(session);
+                mm.setFrom(new InternetAddress(correoDestino));
+                mm.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
+                mm.setSubject(subject);
+                mm.setText(message);
+                Transport.send(mm);
+            }
+            catch (MessagingException e) {
+                e.printStackTrace();
+                error = true;
+                mensajeError = "" + e;
+            }
+            return null;
+        }
+    }
+
 
 }

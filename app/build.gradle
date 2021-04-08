@@ -45,6 +45,8 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-async:4.0.7'
     //Youtube
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    //Email
+    implementation 'com.sun.mail:android-mail:1.5.5'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
