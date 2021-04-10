@@ -269,12 +269,21 @@ public class CalendarioFragment extends Fragment {
 
         SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
         SharedPreferences datosCorreo = getContext().getSharedPreferences("DatosCorreo", Context.MODE_PRIVATE);
+        SharedPreferences datosPerfil = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
         Set<String> listaEventosSet = datos.getStringSet("listaEventos", new HashSet<>());
         Set<String> listaCorreosSet = datosCorreo.getStringSet("listaCorreos", new HashSet<>());
 
-        String correo = "danieldecadiz@gmail.com";
+        String correo = datosPerfil.getString("correoPerfil", "");
         ArrayList<String> listaEventos = new ArrayList<>();
-        if(!listaCorreosSet.contains(fecha)) {
+
+        Boolean error = true;
+        if((correo.contains(".com") || correo.contains(".es")) && correo.contains("@")
+                && (correo.contains("gmail") || (correo.contains("hotmail"))
+                || (correo.contains("yahoo")) || (correo.contains("outlook")))) {
+            error = false;
+        }
+
+        if(!listaCorreosSet.contains(fecha) && !error) {
             for (String eventoSinFiltrar: listaEventosSet) {
                 String fechaEvento = eventoSinFiltrar.split("&")[0].trim();
                 if(fecha.equals(fechaEvento)) {//Si es la fecha la mostramos
@@ -284,6 +293,8 @@ public class CalendarioFragment extends Fragment {
                     guardarCorreosEnviados(fecha);
                 }
             }
+        } else if(error){
+            Toast.makeText(root.getContext(), "Ups! Creo que debes revisar tu configuración de correo.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -292,7 +303,7 @@ public class CalendarioFragment extends Fragment {
         private String subject = "Correo de GetFit";
         private String message = "Correo enviado";
         private String direccionCorreo = "getfitapp@yahoo.com";
-        private String contraseña = "hibcewjdzrwqyfzk";
+        private String contraseña = "qhmoxlzyvwucojme";
         public Boolean error = false;
         public String mensajeError = "";
 
@@ -305,7 +316,7 @@ public class CalendarioFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if(error) {
-                Toast.makeText(getContext(), "Ups! Creo que debemos revisar tu configuración de correo.", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "Ups! Creo que debes revisar tu configuración de correo.", Toast.LENGTH_LONG).show();
             }
         }
         @Override
@@ -317,10 +328,10 @@ public class CalendarioFragment extends Fragment {
             String horaEvento = params[4];
 
             subject = "Recordatorio de GetFit";
-            message = "Querido usuario,\n\n\nQueriamos recordarte que el día " + fecha + " tienes el siguiente evento:\n"
-                    + horaEvento.toUpperCase() + " | " + tituloEvento.toUpperCase()
-                    + "\n " + descripcionEvento +
-                    "\n\nEsperamos que disfrutes del evento ;)";
+            message = "Querido usuario,\n\nQueriamos recordarte que el día " + fecha + " tienes el siguiente evento:\n\n------------------------\n| "
+                    + horaEvento.toUpperCase() + "  |  " + tituloEvento.toUpperCase()
+                    + "\n|  " + descripcionEvento +
+                    "\n------------------------\n\nEsperamos que disfrutes del evento ;)";
 
             // GMAIL
 //            Properties props = new Properties();
@@ -347,7 +358,7 @@ public class CalendarioFragment extends Fragment {
                 });
 
                 MimeMessage mm = new MimeMessage(session);
-                mm.setFrom(new InternetAddress(correoDestino));
+                mm.setFrom(new InternetAddress(direccionCorreo));
                 mm.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
                 mm.setSubject(subject);
                 mm.setText(message);

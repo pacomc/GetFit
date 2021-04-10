@@ -38,6 +38,7 @@ public class MiPerfilFragment extends Fragment {
     private EditText editEstatura;
     private EditText editPeso;
     private EditText editEdad;
+    private EditText editCorreo;
     private RadioGroup editSexo;
     private TextView mostrarClasificacion;
     private TextView mostrarIMC;
@@ -47,6 +48,7 @@ public class MiPerfilFragment extends Fragment {
     private TextView mostrarEdad;
     private TextView mostrarTasaMetabolica;
     private TextView mostrarFrecuencia;
+    private TextView mostrarCorreo;
     private LinearLayout linearMiPerfil;
     private LinearLayout linearConfiguracion;
 
@@ -71,6 +73,7 @@ public class MiPerfilFragment extends Fragment {
         editPeso = root.findViewById(R.id.edittext_peso);
         editEdad = root.findViewById(R.id.edittext_edad_perfil);
         editSexo = root.findViewById(R.id.radioSexo);
+        editCorreo = root.findViewById(R.id.edittext_correo);
         mostrarEstatura = root.findViewById(R.id.mostrarEstaturaPerfil);
         mostrarPeso = root.findViewById(R.id.mostrarPesoPerfil);
         mostrarIMC = root.findViewById(R.id.mostrarIMCPerfil);
@@ -78,6 +81,7 @@ public class MiPerfilFragment extends Fragment {
         mostrarEdad = root.findViewById(R.id.mostrarEdadPerfil);
         mostrarTasaMetabolica = root.findViewById(R.id.mostrarTasaMetabolicaPerfil);
         mostrarFrecuencia = root.findViewById(R.id.mostrarFrecuenciaPerfil);
+        mostrarCorreo = root.findViewById(R.id.mostrarCorreoPerfil);
         mostrarClasificacion = root.findViewById(R.id.mostrarClasificacionPerfil);
 
         configurar = root.findViewById(R.id.botonIrAConfiguracion);
@@ -189,6 +193,8 @@ public class MiPerfilFragment extends Fragment {
         editar.putString("estaturaPerfil", editEstatura.getText().toString());
         editar.putString("pesoPerfil", editPeso.getText().toString());
         editar.putString("edadPerfil", editEdad.getText().toString());
+        editar.putString("correoPerfil", editCorreo.getText().toString());
+
         RadioButton femenino = root.findViewById(R.id.Femenino);
         RadioButton masculino = root.findViewById(R.id.Masculino);
         if (femenino.isChecked()){
@@ -280,6 +286,9 @@ public class MiPerfilFragment extends Fragment {
             mostrarSexo.setText("Desconocido");
             mostrarTasaMetabolica.setText("-- kcal");
         }
+        String correo = datos.getString("correoPerfil", "");
+        editCorreo.setText(correo);
+        mostrarCorreo.setText(correo);
     }
 
     // Creación efectos visuales pagina de inicio:
