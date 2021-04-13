@@ -115,7 +115,7 @@ public class RutinaFragment extends Fragment {
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event )
             {
-                if( keyCode == KeyEvent.KEYCODE_BACK )
+                if( keyCode == KeyEvent.KEYCODE_BACK) // && event.getAction() == KeyEvent.ACTION_UP
                 {
                     if (linearPrincipal.getVisibility() == View.GONE) {
                         reiniciarLinear();
