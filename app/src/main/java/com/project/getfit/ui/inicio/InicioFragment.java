@@ -47,7 +47,7 @@ public class InicioFragment extends Fragment {
 
         textoBienvenida.setText("¡BIENVENIDO!");
 
-        SharedPreferences datos = getContext().getSharedPreferences("Datos", Context.MODE_PRIVATE);
+        SharedPreferences datos = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
         String nombreUsuario = datos.getString("nombrePerfil", "");
         if(!nombreUsuario.equals("")) {
             textoBienvenida.setText("¡BIENVENIDO " + nombreUsuario.toUpperCase() + "!");
