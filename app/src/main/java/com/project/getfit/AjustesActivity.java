@@ -1,9 +1,11 @@
 package com.project.getfit;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,19 +36,44 @@ public class AjustesActivity extends AppCompatActivity {
         botonResetearDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences datosPerfil = getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editarPerfil = datosPerfil.edit();
-                editarPerfil.clear();
-                editarPerfil.commit();
+                alertDialog();
 
-                SharedPreferences datosCalendario = getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editarCalendario = datosCalendario.edit();
-                editarCalendario.clear();
-                editarCalendario.commit();
+            }
 
-                new ResetearRutinas().execute();
+            private void alertDialog() {
+                AlertDialog.Builder dialog=new AlertDialog.Builder(AjustesActivity.this);
+                dialog.setMessage("¿De verdad quieres borrar todos tus datos?");
+                dialog.setTitle("¡ATENCIÓN!");
+                dialog.setPositiveButton("Sí",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                SharedPreferences datosPerfil = getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editarPerfil = datosPerfil.edit();
+                                editarPerfil.clear();
+                                editarPerfil.commit();
 
-                Toast.makeText(AjustesActivity.this, "Datos reseteados, reinicia la app.", Toast.LENGTH_SHORT).show();
+                                SharedPreferences datosCalendario = getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editarCalendario = datosCalendario.edit();
+                                editarCalendario.clear();
+                                editarCalendario.commit();
+
+                                new ResetearRutinas().execute();
+
+                                Toast.makeText(AjustesActivity.this, "Datos reseteados, reinicia la app.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                dialog.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(AjustesActivity.this, "¡Uf! Casi se pierden todos tus datos.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                AlertDialog alertDialog=dialog.create();
+                alertDialog.show();
             }
         });
     }
