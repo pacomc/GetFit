@@ -18,6 +18,48 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/text_sobre_nosotros"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="10"
+                    android:backgroundTint="@color/color_titulos"
+                    android:gravity="center"
+                    android:text="Sobre nosotros"
+                    android:textColor="@color/color_principal"
+                    android:textSize="19dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/texto_sobre_nosotros"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Aplicación realizada para la asignatura de Computación Móvil por: \n \n
+  Fernando Baeza Rodríguez \n   Daniel González Rey \n   Francisco Mohedano Caro \n   Isabel María Trujillo Gómez"
+                    android:textColor="@color/color_principal"
+                    android:textSize="22dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -26,65 +68,80 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Twitter"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <FrameLayout
-                android:id="@+id/container"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                android:layout_weight="40"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linear_progress_bar"
+                <Button
+                    android:id="@+id/text_twitter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="10"
+                    android:backgroundTint="@color/color_titulos"
+                    android:gravity="center"
+                    android:text="Twitter"
+                    android:textColor="@color/color_principal"
+                    android:drawablePadding="8dp"
+                    android:textSize="19dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".MainActivity">
 
                     <LinearLayout
+                        android:id="@+id/linear_progress_bar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="50"
                         android:orientation="vertical">
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="50"
-                        android:orientation="vertical">
-
-                        <ProgressBar
-                            android:id="@+id/progressBar"
-                            style="?android:attr/progressBarStyle"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical">
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                style="?android:attr/progressBarStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical"></LinearLayout>
 
                     </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="50"
-                        android:orientation="vertical"></LinearLayout>
-
-                </LinearLayout>
-            </FrameLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
