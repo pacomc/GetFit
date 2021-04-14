@@ -1,5 +1,6 @@
 package com.project.getfit.ui.medidor_tiempo;
 
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -64,6 +65,8 @@ public class MedidorTiempoFragment extends Fragment {
     private TextView textViewNum2Ejercicio;
     private TextView textViewNumSeries;
     private TextView textViewSerieActual;
+    private TextView textEjercicio;
+    private TextView textDescanso;
     private List<EditText> editTextsMedidorTiempo = new ArrayList<>();
 
     private Integer seriesRestantes; // Numero de series que le quedan
@@ -97,6 +100,8 @@ public class MedidorTiempoFragment extends Fragment {
         editTextNum1Ejercicio = root.findViewById(R.id.edittext_num1_ejercicio);
         editTextNum2Ejercicio = root.findViewById(R.id.edittext_num2_ejercicio);
         editTextNumSeries = root.findViewById(R.id.edittext_num_series);
+        textEjercicio = root.findViewById(R.id.text_ejercicio);
+        textDescanso = root.findViewById(R.id.text_descanso);
         // Inicializacion edittexts
         textViewNum1Descanso = root.findViewById(R.id.text_num1_descanso);
         textViewNum2Descanso = root.findViewById(R.id.text_num2_descanso);
@@ -164,6 +169,8 @@ public class MedidorTiempoFragment extends Fragment {
         textViewRelojActual.setText(tiempoActualFormateado);
         textViewRelojTotal.setText(tiempoTotalFormateado);
         textViewSerieActual.setText("0");
+        textEjercicio.setTypeface(null, Typeface.NORMAL);
+        textDescanso.setTypeface(null, Typeface.NORMAL);
         estaEjercicio = true;
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
@@ -180,6 +187,7 @@ public class MedidorTiempoFragment extends Fragment {
         MediaPlayer sonidoInicioEjercicio = MediaPlayer.create(getContext(), R.raw.when_604);
         MediaPlayer sonidoInicioDescanso = MediaPlayer.create(getContext(), R.raw.done_you_612);
         MediaPlayer sonidoFinEjercicioCompleto = MediaPlayer.create(getContext(), R.raw.inflicted_601);
+
 
 
 
@@ -214,6 +222,9 @@ public class MedidorTiempoFragment extends Fragment {
 
 
                     if (estaEjercicio) { // Si esta en tiempo de ejercicio
+                        textEjercicio.setTypeface(null, Typeface.BOLD);
+                        textDescanso.setTypeface(null, Typeface.NORMAL);
+                        root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_inicio_ejercicio));
                         if (tiempoContadorActual == segundosTotalesEjercicio) { // Si termina el ejercicio
                             tiempoContadorActual = 0;
                             estaEjercicio = false;
@@ -223,12 +234,16 @@ public class MedidorTiempoFragment extends Fragment {
                         }
 
                     } else { // si esta en tiempo de descanso
+                        textEjercicio.setTypeface(null, Typeface.NORMAL);
+                        textDescanso.setTypeface(null, Typeface.BOLD);
                         if (tiempoContadorActual == segundosTotalesDescanso) { // Si termina el descanso
                             tiempoContadorActual = 0;
                             estaEjercicio = true;
 
                             if (seriesRestantes == 0) { // Si se han acabado las series, es decir, ha terminado la duracion total del ejercicio
                                 root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_reloj_fin_ejercicio_completo));
+                                textEjercicio.setTypeface(null, Typeface.NORMAL);
+                                textDescanso.setTypeface(null, Typeface.NORMAL);
                                 sonidoFinEjercicioCompleto.start();
 
                                 countDownTimer.cancel();
