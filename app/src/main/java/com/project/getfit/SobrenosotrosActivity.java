@@ -3,9 +3,13 @@ package com.project.getfit;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -16,11 +20,59 @@ import twitter4j.TwitterMethod;
 
 public class SobrenosotrosActivity extends AppCompatActivity {
     private static Fragment fragment;
+    private ImageView botonTwitter;
+    private ImageView botonInstagram;
+    private ImageView botonYoutube;
+    String urlTwitter = "https://twitter.com/GetFitAppCM";
+    String urlYoutube = "https://www.youtube.com/channel/UCVV02_UWJsfxz9VKZrgltrw";
+    String urlInstagram = "https://www.instagram.com/getfitappcm/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sobrenosotros);
+
+        // Links de perfiles redes sociales
+
+        botonInstagram = findViewById(R.id.icono_instagram);
+        botonTwitter = findViewById(R.id.icono_twitter);
+        botonYoutube = findViewById(R.id.icono_youtube);
+
+        botonInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Uri link = Uri.parse(urlInstagram);
+                Intent i = new Intent(Intent.ACTION_VIEW, link);
+                startActivity(i);
+
+            }
+        });
+
+        botonTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Uri link = Uri.parse(urlTwitter);
+                Intent i = new Intent(Intent.ACTION_VIEW, link);
+                startActivity(i);
+
+            }
+        });
+
+        botonYoutube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Uri link = Uri.parse(urlYoutube);
+                Intent i = new Intent(Intent.ACTION_VIEW, link);
+                startActivity(i);
+
+            }
+        });
+
+        // FIN
+
 
         //Tweets
         //Buscamos a ver si hay algún fragmento en el contenedor

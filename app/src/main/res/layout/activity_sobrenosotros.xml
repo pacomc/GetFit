@@ -79,7 +79,9 @@
                     android:id="@+id/icono_youtube"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="10"
+                    android:backgroundTint="#FFFFFF"
+                    android:clickable="true"
                     app:srcCompat="@drawable/youtube" />
             </LinearLayout>
 
@@ -94,6 +96,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:clickable="true"
                     app:srcCompat="@drawable/instagram" />
             </LinearLayout>
 
@@ -107,8 +111,9 @@
                     android:id="@+id/icono_twitter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:clickable="true"
                     app:srcCompat="@drawable/twitter" />
             </LinearLayout>
 
