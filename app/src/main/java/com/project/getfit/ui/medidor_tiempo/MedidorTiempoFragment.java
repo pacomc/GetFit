@@ -202,7 +202,7 @@ public class MedidorTiempoFragment extends Fragment {
                 public void onTick(long l) {
                     tiempoContadorActual = tiempoContadorActual + 1;
                     tiempoContadorTotal = tiempoContadorTotal + 1;
-                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+
 
                     segundoTotal = tiempoContadorTotal % 60;
                     minutoTotal = (tiempoContadorTotal / 60) % 60;
