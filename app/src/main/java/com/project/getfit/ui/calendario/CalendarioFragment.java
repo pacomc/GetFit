@@ -86,7 +86,6 @@ public class CalendarioFragment extends Fragment {
         SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
         Set<String> listaEventos = new HashSet<>();
         listaEventos = datos.getStringSet("listaEventos", new HashSet<>());
-        enviarRecordatorioPorCorreo();
 
         linearMostrarEvento = root.findViewById(R.id.linearMostrarEventos);
         linearAñadirEvento = root.findViewById(R.id.linearAñadirEventos);
@@ -211,6 +210,7 @@ public class CalendarioFragment extends Fragment {
         editar.clear(); // IMPORTANTE BORRAR EL SHARED YA QUE SINO HAY PROBLEMAS (SOLO GUARDABA EL PRIMERO)
         editar.putStringSet("listaEventos", listaEventos);
         editar.commit();
+        enviarRecordatorioPorCorreo(evento);
 
     }
 
@@ -253,28 +253,11 @@ public class CalendarioFragment extends Fragment {
         return fecha;
 
     }
-    public void guardarCorreosEnviados(String fecha) {
-        //Guardar correos enviados
-        SharedPreferences datosCorreo = getContext().getSharedPreferences("DatosCorreo", Context.MODE_PRIVATE);
-        Set<String> listaCorreosSet = datosCorreo.getStringSet("listaCorreos", new HashSet<>());
-        SharedPreferences.Editor editar = datosCorreo.edit();
-        listaCorreosSet.add(fecha);
-        editar.clear(); // IMPORTANTE BORRAR EL SHARED YA QUE SINO HAY PROBLEMAS (SOLO GUARDABA EL PRIMERO)
-        editar.putStringSet("listaCorreos", listaCorreosSet);
-        editar.commit();
-    }
 
-    public void enviarRecordatorioPorCorreo(){
-        String fecha = fechaDeHoy();
+    public void enviarRecordatorioPorCorreo(String evento){
 
-        SharedPreferences datos = getContext().getSharedPreferences("DatosCalendario", Context.MODE_PRIVATE);
-        SharedPreferences datosCorreo = getContext().getSharedPreferences("DatosCorreo", Context.MODE_PRIVATE);
         SharedPreferences datosPerfil = getContext().getSharedPreferences("DatosPerfil", Context.MODE_PRIVATE);
-        Set<String> listaEventosSet = datos.getStringSet("listaEventos", new HashSet<>());
-        Set<String> listaCorreosSet = datosCorreo.getStringSet("listaCorreos", new HashSet<>());
-
         String correo = datosPerfil.getString("correoPerfil", "");
-        ArrayList<String> listaEventos = new ArrayList<>();
 
         Boolean error = true;
         if((correo.contains(".com") || correo.contains(".es")) && correo.contains("@")
@@ -283,16 +266,9 @@ public class CalendarioFragment extends Fragment {
             error = false;
         }
 
-        if(!listaCorreosSet.contains(fecha) && !error) {
-            for (String eventoSinFiltrar: listaEventosSet) {
-                String fechaEvento = eventoSinFiltrar.split("&")[0].trim();
-                if(fecha.equals(fechaEvento)) {//Si es la fecha la mostramos
-                    listaEventos.add(eventoSinFiltrar);
-                    String[] evento = eventoSinFiltrar.split("&");
-                    new SendMail().execute(fecha, correo, evento[1], evento[2], evento[3]);
-                    guardarCorreosEnviados(fecha);
-                }
-            }
+        if(!error) {
+            String[] eventoParseado = evento.split("&");
+            new SendMail().execute(eventoParseado[0], correo, eventoParseado[1], eventoParseado[2], eventoParseado[3]);
         } else if(error){
             Toast.makeText(root.getContext(), "Ups! Creo que debes revisar tu configuración de correo.", Toast.LENGTH_LONG).show();
         }
@@ -349,14 +325,13 @@ public class CalendarioFragment extends Fragment {
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
 
+            session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(direccionCorreo, contraseña);
+                }
+            });
 
             try {
-                session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(direccionCorreo, contraseña);
-                    }
-                });
-
                 MimeMessage mm = new MimeMessage(session);
                 mm.setFrom(new InternetAddress(direccionCorreo));
                 mm.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
