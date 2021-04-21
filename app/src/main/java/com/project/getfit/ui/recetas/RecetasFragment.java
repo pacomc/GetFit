@@ -47,6 +47,9 @@ public class RecetasFragment extends Fragment {
 
     private final String API_KEY = "cc758b2be822d3e8f2eea92b195e957e";
     private final String API_ID = "b054b49b";
+    // API ESPAÑOL ->> https://test-es.edamam.com (CAIDA, ERROR 504)
+    // API INGLÉS ->> https://api.edamam.com
+    private final String URL_BASE = "https://api.edamam.com";
 
     private LinearLayout linearListaRecetas;
     private LinearLayout linearReceta;
@@ -76,9 +79,6 @@ public class RecetasFragment extends Fragment {
     private Button botonLibrePescado;
     private Button botonLibreSoja;
     private Button botonLibreMariscos;
-
-
-
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -125,6 +125,7 @@ public class RecetasFragment extends Fragment {
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event )
             {
+
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
                     if (linearListaRecetas.getVisibility() == View.GONE) {
@@ -138,11 +139,16 @@ public class RecetasFragment extends Fragment {
 
                 }
                 return false;
+
+
             }
         } );
 
 
         //Buscar receta:
+        // API ESPAÑOL ->> https://test-es.edamam.com (CAIDA, ERROR 504)
+        // API INGLÉS ->> https://api.edamam.com
+
 
         SearchView buscarReceta = root.findViewById(R.id.buscar_recetas);
         buscarReceta.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -154,7 +160,7 @@ public class RecetasFragment extends Fragment {
                 linearListViewRecetas.setVisibility(View.VISIBLE);
 
 
-                String url = "https://test-es.edamam.com/search?q=" + query;
+                String url = URL_BASE + "/search?q=" + query + "&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
 
@@ -169,11 +175,13 @@ public class RecetasFragment extends Fragment {
         });
 
         //Botones de busqueda:
+        // API ESPAÑOL ->> https://test-es.edamam.com (CAIDA, ERROR 504)
+        // API INGLÉS ->> https://api.edamam.com
 
         boton_100_200.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&calories=100-200";
+                String url = URL_BASE + "/search?q=&calories=100-200&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -184,7 +192,7 @@ public class RecetasFragment extends Fragment {
         boton_200_300.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&calories=200-300";
+                String url = URL_BASE + "/search?q=&calories=200-300&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -195,7 +203,7 @@ public class RecetasFragment extends Fragment {
         boton_300_500.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&calories=300-500";
+                String url = URL_BASE + "/search?q=&calories=300-500&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -206,7 +214,7 @@ public class RecetasFragment extends Fragment {
         botonVegana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=vegan";
+                String url = URL_BASE + "/search?q=&health=vegan&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -217,7 +225,7 @@ public class RecetasFragment extends Fragment {
         botonVegetariana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=vegetarian";
+                String url = URL_BASE + "/search?q=&health=vegetarian&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -228,7 +236,7 @@ public class RecetasFragment extends Fragment {
         botonLibreGrasas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=fat-free";
+                String url = URL_BASE + "/search?q=&health=fat-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -239,7 +247,7 @@ public class RecetasFragment extends Fragment {
         botonLibreGluten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=gluten-free";
+                String url = URL_BASE + "/search?q=&health=gluten-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -250,7 +258,7 @@ public class RecetasFragment extends Fragment {
         botonDietaPaleo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=paleo";
+                String url = URL_BASE + "/search?q=&health=paleo&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -261,7 +269,7 @@ public class RecetasFragment extends Fragment {
         botonLibreLacteos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=dairy-free";
+                String url = URL_BASE + "/search?q=&health=dairy-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -272,7 +280,7 @@ public class RecetasFragment extends Fragment {
         botonLibreTrigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=wheat-free";
+                String url = URL_BASE + "/search?q=&health=wheat-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -283,7 +291,7 @@ public class RecetasFragment extends Fragment {
         botonPocaAzucar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=low-sugar";
+                String url = URL_BASE + "/search?q=&health=low-sugar&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -294,7 +302,7 @@ public class RecetasFragment extends Fragment {
         botonLibreHuevos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=egg-free";
+                String url = URL_BASE + "/search?q=&health=egg-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -305,7 +313,7 @@ public class RecetasFragment extends Fragment {
         botonLibreCacahuete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=peanut-free";
+                String url = URL_BASE + "/search?q=&health=peanut-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -316,7 +324,7 @@ public class RecetasFragment extends Fragment {
         botonLibreNuez.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=tree-nut-free";
+                String url = URL_BASE + "/search?q=&health=tree-nut-fre&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -327,7 +335,7 @@ public class RecetasFragment extends Fragment {
         botonLibreSoja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=soy-free";
+                String url = URL_BASE + "/search?q=&health=soy-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -338,7 +346,7 @@ public class RecetasFragment extends Fragment {
         botonLibrePescado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=fish-free";
+                String url = URL_BASE + "/search?q=&health=fish-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -349,7 +357,7 @@ public class RecetasFragment extends Fragment {
         botonLibreMariscos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://test-es.edamam.com/search?q=&health=shellfish-free";
+                String url = URL_BASE + "/search?q=&health=shellfish-free&app_id="+ API_ID + "&app_key=" + API_KEY;
 
                 new RecetasRequest().execute(url);
                 linearScrollViewsRecetas.setVisibility(View.GONE);
@@ -366,6 +374,7 @@ public class RecetasFragment extends Fragment {
 
         protected String doInBackground(String... targetURL) {
 
+
             HttpURLConnection connection = null;
             try {
                 //Create connection
@@ -379,6 +388,7 @@ public class RecetasFragment extends Fragment {
                 connection.setRequestProperty("app_key",
                         API_KEY);
 
+
                 connection.setRequestProperty("Content-Language", "en-US");
 
                 connection.setUseCaches(false);
@@ -390,7 +400,7 @@ public class RecetasFragment extends Fragment {
                 wr.close();
 
                 //Get Response
-                InputStream is = connection.getInputStream();
+                InputStream is = connection.getInputStream(); // Esto da problemas
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
                 String line;
@@ -401,11 +411,12 @@ public class RecetasFragment extends Fragment {
                 }
 
                 rd.close();
+
                 return response.toString();
             }
             catch (Exception e) {
                 e.printStackTrace();
-                return null;
+                return "";
             }
             finally {
                 if (connection != null) {

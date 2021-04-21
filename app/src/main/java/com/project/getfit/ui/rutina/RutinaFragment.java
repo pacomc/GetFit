@@ -362,7 +362,7 @@ public class RutinaFragment extends Fragment {
             // Código válido para almacenar las rutinas en una base de datos creadas con Room
             AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "basedatos-rutinas")
                     .fallbackToDestructiveMigration()
-                    .build();;
+                    .build();
             RutinaDao rd = db.rutinaDao();
 
             rd.insertarRutina(rutina[0]);
