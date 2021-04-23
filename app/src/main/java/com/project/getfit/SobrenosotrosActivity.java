@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -23,6 +24,7 @@ public class SobrenosotrosActivity extends AppCompatActivity {
     private ImageView botonTwitter;
     private ImageView botonInstagram;
     private ImageView botonYoutube;
+    private Button textTwitter;
     String urlTwitter = "https://twitter.com/GetFitAppCM";
     String urlYoutube = "https://www.youtube.com/channel/UCVV02_UWJsfxz9VKZrgltrw";
     String urlInstagram = "https://www.instagram.com/getfitappcm/";
@@ -37,6 +39,8 @@ public class SobrenosotrosActivity extends AppCompatActivity {
         botonInstagram = findViewById(R.id.icono_instagram);
         botonTwitter = findViewById(R.id.icono_twitter);
         botonYoutube = findViewById(R.id.icono_youtube);
+
+        textTwitter = findViewById(R.id.text_twitter);
 
         botonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +75,20 @@ public class SobrenosotrosActivity extends AppCompatActivity {
             }
         });
 
+        textTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Debug", "Cargando tweets...");
+                //Buscamos a ver si hay algún fragmento en el contenedor
+                fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
+                // En caso de que no haya ningún fragmento, obtenemos los Tweets del Timeline de la API de twtitter y manejamos el Callback
+                TweetRepository.getInstance().getTimelineAsync(timelineListener); // => timelineListener
+
+
+            }
+        });
+
         // FIN
 
 
@@ -99,6 +117,7 @@ public class SobrenosotrosActivity extends AppCompatActivity {
 
         @Override
         public void onException(TwitterException te, TwitterMethod method) {
+            Log.e("Error", te.getErrorMessage());
             showError();
         }
 
@@ -106,6 +125,7 @@ public class SobrenosotrosActivity extends AppCompatActivity {
             Log.e("Error", "Error al imprimir un Tweet");
         }
     };
+
     private void showTimeline(ResponseList<Status> statuses) {
         // Creamos un array de Strings con el texto de los Status( Tweets )
         String[] tweets = new String[statuses.size()];

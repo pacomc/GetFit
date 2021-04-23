@@ -20,8 +20,8 @@ public class TweetRepository {
     private ConfigurationBuilder getConfiguration() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("EuOER6WmxCNxyzHNVB983yDdw")
-                .setOAuthConsumerSecret("F9JMQu5kSGole2ZqbDtFUvMVcUtsodyXE69oNhexm6P6A6zYMw")
+                .setOAuthConsumerKey("vszNeHqChwCfrBRQMqiuDOQyx")
+                .setOAuthConsumerSecret("nxIO6qIgTepSImMgJIVB3We36yPwo3zu6sHGEtSAf9Y50k981t")
                 .setOAuthAccessToken("1374677001945120768-h7lELdEi6RdhfQzt1uemDzdwXzB7VR")
                 .setOAuthAccessTokenSecret("zj2wG0wIS28p5uUFIPlHIPj6jFm6WdsSLuVBZVcW1jMG3");
 
